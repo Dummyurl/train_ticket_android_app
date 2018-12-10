@@ -28,7 +28,6 @@ That's  all !
 
 ### Notification
 
-{: .box-note}
 **Note:** If your server deployed in the Public cloud, your android does not need to use the same network! Conversely needs!
 
 

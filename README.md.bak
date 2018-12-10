@@ -26,10 +26,10 @@ microservice benchmark android app
 That's  all !
 
 
+### Notification
 
-{: .box-warning}
-**Notice:** If your server deployed in the Public cloud, your android does not need to use the same network! Conversely needs!
-
+{: .box-note}
+**Note:** If your server deployed in the Public cloud, your android does not need to use the same network! Conversely needs!
 
 
 ### Use Steps
