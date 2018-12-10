@@ -46,7 +46,7 @@ import ts.trainticket.OrdersActivity;
 import ts.trainticket.R;
 import ts.trainticket.SalesTimeActivity;
 import ts.trainticket.SettingsActivity;
-import ts.trainticket.SignInActivity;
+import ts.trainticket.SignUpActivity;
 import ts.trainticket.configUtils.Auth;
 import ts.trainticket.httpUtils.ResponseResult;
 import ts.trainticket.httpUtils.RxHttpUtils;
@@ -270,7 +270,7 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
                 startActivity(new Intent(getActivity(), MoreActivity.class));
                 break;
             case R.id.edit_account_msgId:
-                startActivity(new Intent(getActivity(), SignInActivity.class));
+                startActivity(new Intent(getActivity(), SignUpActivity.class));
                 break;
             case R.id.message_receive_id:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));

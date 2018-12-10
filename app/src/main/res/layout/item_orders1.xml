@@ -67,7 +67,7 @@
                 android:textColor="#f0ab4f"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:text="已取消" />
+                android:text="Canceled" />
         </LinearLayout>
 
         <LinearLayout
@@ -160,7 +160,7 @@
                 android:textColor="#a2a2a2"
                 android:textSize="10sp"
                 android:background="@drawable/textview_corner"
-                android:text="reorder" />
+                android:text="rebook" />
 
         </LinearLayout>
 

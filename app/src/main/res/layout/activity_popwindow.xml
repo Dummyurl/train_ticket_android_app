@@ -147,7 +147,7 @@
                             android:layout_weight="4"
                             android:background="@drawable/btn_yellow_corner"
                             android:padding="5dp"
-                            android:text="确定"
+                            android:text="Sure"
                             android:textColor="#fff" />
 
                         <View

@@ -9,24 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
-
-import java.net.URLEncoder;
 
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import ts.trainticket.LoginActivity;
 import ts.trainticket.MainActivity;
 import ts.trainticket.R;
-import ts.trainticket.SignInActivity;
+import ts.trainticket.SignUpActivity;
 import ts.trainticket.domain.Account;
 import ts.trainticket.domain.LoginInfo;
 import ts.trainticket.domain.LoginResult;
-import ts.trainticket.httpUtils.ResponseResult;
 import ts.trainticket.httpUtils.RxHttpUtils;
 import ts.trainticket.httpUtils.UrlProperties;
 import ts.trainticket.utils.ApplicationPreferences;
@@ -67,7 +62,7 @@ public class Login_Fragment extends BaseFragment implements View.OnClickListener
                 loginGetData();
                 break;
             case R.id.signin_acId:
-                startActivityForResult(new Intent(getActivity(), SignInActivity.class), SignInActivity.SIGN_UP_REQUEST_CODE);
+                startActivityForResult(new Intent(getActivity(), SignUpActivity.class), SignUpActivity.SIGN_UP_REQUEST_CODE);
                 break;
             default:
                 break;
@@ -130,14 +125,14 @@ public class Login_Fragment extends BaseFragment implements View.OnClickListener
                                             account.getEmail(), account.getId().toString(),
                                             "http://10.141.211.161:31380/assets/img/user01.png");
 
-                                    Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Login Success", Toast.LENGTH_SHORT).show();
 
                                     ApplicationPreferences.setOneInfo(getContext(), ApplicationPreferences.ACCOUNT_STATE, ApplicationPreferences.STATE_ONLINE);
 
                                     getActivity().setResult(MainActivity.SIGN_IN_RESULT);
                                     getActivity().finish();
                                 } else {
-                                    Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Login failed", Toast.LENGTH_SHORT).show();
                                 }
 //                                JSONObject jsonObj = JSON.parseObject(responseResult);
 //                                boolean status = Boolean.parseBoolean(jsonObj.getString("status"));
@@ -169,7 +164,7 @@ public class Login_Fragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (SignInActivity.SIGN_UP_REQUEST_CODE == requestCode && LoginActivity.SIGN_IN_RESULT_CODE == resultCode && null != data) {
+        if (SignUpActivity.SIGN_UP_REQUEST_CODE == requestCode && LoginActivity.SIGN_IN_RESULT_CODE == resultCode && null != data) {
             userName.setText(data.getStringExtra(LoginActivity.KEY_ACCOUNT_NAME));
             passWord.setText(data.getStringExtra(LoginActivity.KEY_ACCOUNT_PASSWORD));
         }

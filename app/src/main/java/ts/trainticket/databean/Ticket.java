@@ -61,7 +61,7 @@ public class Ticket {
             "Paid & Not Collected",
             "Collected",
             "Cancel & Rebook",
-            "Cancel",
+            "Canceled",
             "Refunded",
             "Used",
             "other"

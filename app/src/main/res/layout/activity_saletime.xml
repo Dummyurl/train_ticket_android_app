@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="温馨提示:" />
+            android:text="Reminder:" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,13 +29,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="今天是" />
+                android:text="Today is" />
 
             <TextView
                 android:id="@+id/sale_time_begin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018年3月11日"
+                android:text="3.11.2018."
                 android:textColor="@color/cpb_blue" />
 
         </LinearLayout>
@@ -48,23 +48,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.每日起售时间:" />
+                android:text="1.Daily sale time:" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="早6:00"
+                android:text="6:00a"
                 android:textColor="@color/cpb_blue" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=", 停售时间为:" />
+                android:text=", Stop selling time is:" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="凌晨00：59"
+                android:text="00:59p"
                 android:textColor="@color/cpb_blue" />
         </LinearLayout>
 
@@ -76,13 +76,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2.可购票的最远日期为:" />
+                android:text="2.atest date for purchasable tickets is:" />
 
             <TextView
                 android:id="@+id/sale_time_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2018年3月12日"
+                android:text="3.12.2018"
                 android:textColor="@color/cpb_blue" />
         </LinearLayout>
 
@@ -93,7 +93,7 @@
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="3.一张有效身份证同日同车次可以购买一张车票"/>
+                  android:text="3.A valid ID card can buy only a ticket for the same train trip on the same day."/>
         </LinearLayout>
 
         <LinearLayout
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.一个用户可以同时购买多张（含本数）车票"/>
+                android:text="4.A user can buy multiple tickets at the same time."/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5.购票、改签和退票，请不晚于开车前30分钟"/>
+                android:text="5.Ticket purchase, renewal and refund no later than 30 minutes before driving"/>
         </LinearLayout>
 
     </LinearLayout>

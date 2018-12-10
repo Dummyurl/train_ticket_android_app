@@ -6,15 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ts.trainticket.fragement.SignIn_Fragement;
+import ts.trainticket.fragement.SignUp_Fragement;
 import ts.trainticket.utils.ApplicationPreferences;
 
 /**
  * Created by liuZOZO on 2018/3/12.
  */
-public class SignInActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     public static final int SIGN_UP_REQUEST_CODE = 0;
-    private SignIn_Fragement signIn_fragement = null;
+    private SignUp_Fragement signIn_fragement = null;
     private Button buttonHead = null;
     private TextView headText = null;
 
@@ -22,6 +22,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        System.out.println("---------------========================-------------");
         initHeads();
         initFragment();
         showFragment();
@@ -35,14 +36,14 @@ public class SignInActivity extends AppCompatActivity {
         if(isOnline){
             String userName = ApplicationPreferences.getOneInfo(this, ApplicationPreferences.USER_NAME);
             if(userName != null || userName != "")
-                headText.setText("修改信息");
+                headText.setText("Modify information");
         }
         else
-            headText.setText("注册");
+            headText.setText("Sign Up");
     }
 
     private void initFragment(){
-        signIn_fragement = new SignIn_Fragement();
+        signIn_fragement = new SignUp_Fragement();
 //        String userName = ApplicationPreferences.getOneInfo(this, ApplicationPreferences.USER_NAME);
         boolean isOnline = ApplicationPreferences.isUserOnLine(this);
 

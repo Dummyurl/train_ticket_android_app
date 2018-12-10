@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonHead = (Button) findViewById(R.id.common_head_back_btn);
         buttonHead.setVisibility(View.GONE);
         headText = (TextView) findViewById(R.id.title_head_tv);
-        headText.setText("登录");
+        headText.setText("Sign In");
     }
 
     private void initFragment(){

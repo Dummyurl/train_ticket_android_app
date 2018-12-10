@@ -40,7 +40,7 @@ public class SalesTimeActivity extends AppCompatActivity {
         });
 
         title_head_tv = (TextView) findViewById(R.id.title_head_tv);
-        title_head_tv.setText("售票时间");
+        title_head_tv.setText("Sales Time");
     }
 
     private void initViews() {

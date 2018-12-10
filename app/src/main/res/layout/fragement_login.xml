@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
-                    android:text="账    号"
+                    android:text="Account"
                     android:textColor="#b3b3b3"
                     android:textSize="16dp" />
 
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="密    码"
+                    android:text="Password"
                     android:layout_marginLeft="15dp"
                     android:textColor="#b3b3b3"
                     android:textSize="16dp" />
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/btn_both_radius_withnocolor"
-                android:text="登    录"
+                android:text="Sign In"
                 android:textColor="#ffffff"
                 android:textSize="18dp" />
 
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/btn_both_radius_withnocolor"
-                android:text="注    册"
+                android:text="Sign Up"
                 android:textColor="#ffffff"
                 android:textSize="18dp" />
         </LinearLayout>

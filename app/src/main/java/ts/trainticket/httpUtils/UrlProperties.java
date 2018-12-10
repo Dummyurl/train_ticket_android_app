@@ -14,6 +14,7 @@ public class UrlProperties {
     // login
     // http://10.141.211.161:31380/login
     public final static String login = "/login";
+    public final static String register ="/register";
 
     public final static String findContacts = "/contacts/findContacts";
 

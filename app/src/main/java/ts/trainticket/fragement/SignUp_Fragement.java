@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.dd.CircularProgressButton;
 import com.google.gson.Gson;
 
 
@@ -28,7 +27,7 @@ import ts.trainticket.utils.ApplicationPreferences;
 /**
  * Created by liuZOZO on 2018/3/12.
  */
-public class SignIn_Fragement extends BaseFragment  {
+public class SignUp_Fragement extends BaseFragment  {
 
     private EditText userNameTv = null;
     private EditText userPwdTv = null;
@@ -39,7 +38,7 @@ public class SignIn_Fragement extends BaseFragment  {
     private Button userPwd_btn = null;
     private Button re_userPwd_btn = null;
 
-    private CircularProgressButton btnSignUp;
+    private Button btnSignUp;
 
     // 管理多个订阅者
     private CompositeSubscription compositeSubscription = new CompositeSubscription();
@@ -47,7 +46,7 @@ public class SignIn_Fragement extends BaseFragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragement_signin, container, false);
+        View view = inflater.inflate(R.layout.fragement_signup, container, false);
 
         initView(view);
         initData();
@@ -64,7 +63,7 @@ public class SignIn_Fragement extends BaseFragment  {
 
         userPwd_btn = (Button) view.findViewById(R.id.userPwd_btn_sid);
         re_userPwd_btn = (Button) view.findViewById(R.id.re_userPwd_btn_sid);
-        btnSignUp = (CircularProgressButton) view.findViewById(R.id.signin_btn_sid);
+        btnSignUp = (Button) view.findViewById(R.id.signin_btn_sid);
         btnSignUp.setOnClickListener(new SignInListener());
     }
     public  void initData(){
@@ -115,6 +114,8 @@ public class SignIn_Fragement extends BaseFragment  {
         }
         // 请求连接
         String listStationUri = UrlProperties.modifyUSerInfo + "/" + password + "/" + userPhone + "/" + icCard;
+
+
         subscription = RxHttpUtils.getDataByUrl(listStationUri, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -137,9 +138,9 @@ public class SignIn_Fragement extends BaseFragment  {
                             if(result.isStatus())
                                 Toast.makeText(getActivity(), result.getMsg(), Toast.LENGTH_SHORT).show();
                             else
-                                Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Modify failed", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Modify failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -183,11 +184,11 @@ public class SignIn_Fragement extends BaseFragment  {
                                 Intent intent = new Intent();
                                 intent.putExtra(LoginActivity.KEY_ACCOUNT_NAME, userNameTv.getText().toString());
                                 intent.putExtra(LoginActivity.KEY_ACCOUNT_PASSWORD, userPwdTv.getText().toString());
-                                Toast.makeText(getContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "register success", Toast.LENGTH_SHORT).show();
                                 getActivity().setResult(LoginActivity.SIGN_IN_RESULT_CODE, intent);
                                 getActivity().finish();
                             } else {
-                                Toast.makeText(getActivity(), "注册失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "register failed, This server Api not ready", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

@@ -180,7 +180,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
         if (accountName != null || accountName != "")
             presentAccountTv.setText(accountName);
         else
-            presentAccountTv.setText("未登录");
+            presentAccountTv.setText("Not Login");
     }
 
     // 从底下弹出选择乘客的窗口
@@ -350,13 +350,13 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                                         customDialog.dismiss();
                                     }
                                 } else {
-                                    Toast.makeText(getActivity(), "订单已提交失败，待支付-0_1", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "The order has been submitted unsuccessfully, pending payment-0_1", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
             } else {
                 AlertDialogPro.Builder builder = new AlertDialogPro.Builder(getContext());
-                builder.setMessage("请先添加乘客!").setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                builder.setMessage("Please add the passengers first!").setPositiveButton("I see", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -365,13 +365,13 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
             }
         } else {
             AlertDialogPro.Builder builder = new AlertDialogPro.Builder(getContext());
-            builder.setMessage("您有已经锁定的订单,请先取消!").setPositiveButton("去查看", new DialogInterface.OnClickListener() {
+            builder.setMessage("You have a locked order, please cancel it first!").setPositiveButton("go to see", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(getActivity(), OrdersActivity.class);
                     startActivity(intent);
                 }
-            }).setNegativeButton("取消", null).show();
+            }).setNegativeButton("Cancel", null).show();
         }
     }
 
@@ -465,7 +465,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                         selectedContacts.add(tempContactsList.get(i));
                     } else {
                         AlertDialogPro.Builder builder = new AlertDialogPro.Builder(getContext());
-                        builder.setMessage("您已经选择过该乘客!").setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                        builder.setMessage("You have chosen the passenger!").setPositiveButton("I See", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
