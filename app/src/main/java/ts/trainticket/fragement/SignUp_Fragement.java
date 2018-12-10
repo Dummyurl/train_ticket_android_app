@@ -86,7 +86,7 @@ public class SignUp_Fragement extends BaseFragment  {
         IcCardTv.setFocusable(false);
         IcCardTv.setFocusableInTouchMode(false);
 
-        btnSignUp.setText("修改");
+        btnSignUp.setText("Change");
     }
     private class SignInListener implements View.OnClickListener{
 
@@ -94,7 +94,7 @@ public class SignUp_Fragement extends BaseFragment  {
         public void onClick(View v) {
             lockClick();
             // 准备数据
-            if("修改".equals(btnSignUp.getText().toString())){
+            if("Change".equals(btnSignUp.getText().toString())){
                 modifyUserInfo();
             }else {
                 signInToServer();
