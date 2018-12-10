@@ -119,7 +119,6 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
         String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
 
 
-
         subscription = RxHttpUtils.postWithHeader(ordersUrl, loginId, token, requestBody, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {

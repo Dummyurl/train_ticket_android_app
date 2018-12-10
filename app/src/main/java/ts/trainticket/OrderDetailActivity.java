@@ -33,7 +33,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void initHead() {
         headText = (TextView) findViewById(R.id.title_head_tv);
-        headText.setText("OrderDetail");
+        headText.setText("Order Detail");
 
         head_back_btn = (Button) findViewById(R.id.common_head_back_btn);
         head_back_btn.setOnClickListener(new View.OnClickListener() {

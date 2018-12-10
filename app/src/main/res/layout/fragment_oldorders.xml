@@ -257,7 +257,7 @@
                         android:id="@+id/odd_name_sid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="刘德卫"
+                        android:text="liudewei"
                         android:textSize="18sp" />
 
                     <TextView
@@ -265,7 +265,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="成人票"
+                        android:text="Adult ticket"
                         android:textColor="#b7b7b7"
                         android:textSize="14sp" />
 
@@ -278,7 +278,7 @@
                         android:id="@+id/odd_seatType_oid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="商务座" />
+                        android:text="1st" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -289,7 +289,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="二代身份证"
+                        android:text="ID"
                         android:textColor="#b7b7b7"
                         android:textSize="14sp" />
 
@@ -346,7 +346,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/btn_yellow_corner"
-            android:text="去支付"
+            android:text="To Pay"
             android:textColor="@drawable/text_color_selector" />
     </LinearLayout>
 </LinearLayout>

@@ -46,7 +46,7 @@ public class SettingsActivity  extends AppCompatActivity implements View.OnClick
         });
 
         title_head_tv = (TextView) findViewById(R.id.title_head_tv);
-        title_head_tv.setText("系统设置");
+        title_head_tv.setText("System Settings");
 
         messageBtn = (ImageView) findViewById(R.id.message_on_off);
         messageBtn.setOnClickListener(this);
@@ -96,12 +96,12 @@ public class SettingsActivity  extends AppCompatActivity implements View.OnClick
 
     private void updateButton() {
         if (serviceIsRunning()) {
-            tip_msgid.setText("开始接收消息");
+            tip_msgid.setText("Start receiving messages");
             messageBtn.setBackgroundResource(R.drawable.switch_on);
             messageBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    tip_msgid.setText("停止接收消息");
+                    tip_msgid.setText("Stop receiving messages");
                     messageBtn.setBackgroundResource(R.drawable.switch_off);
                     stopBlackIceService();
                     updateButton();
@@ -109,12 +109,12 @@ public class SettingsActivity  extends AppCompatActivity implements View.OnClick
             });
 
         } else {
-            tip_msgid.setText("停止接收消息");
+            tip_msgid.setText("Stop receiving messages");
             messageBtn.setBackgroundResource(R.drawable.switch_off);
             messageBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    tip_msgid.setText("开始接收消息");
+                    tip_msgid.setText("Start receiving messages");
                     messageBtn.setBackgroundResource(R.drawable.switch_on);
                     startBlackIceService();
                     updateButton();

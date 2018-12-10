@@ -254,14 +254,14 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
             case R.id.logout_mid:
                 //退出登录
                 AlertDialogPro.Builder builder = new AlertDialogPro.Builder(getContext());
-                builder.setMessage("确定要退出登录吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder.setMessage("Are you sure you want to log out?").setPositiveButton("Sure", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ApplicationPreferences.clearLoginInfo(getContext());
                         showLoginPanel();
                         showMenuOrNot(false);
                     }
-                }).setNegativeButton("取消", null).show();
+                }).setNegativeButton("Cancel", null).show();
                 break;
             case R.id.about_mid:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
@@ -293,9 +293,9 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
      */
     protected void showChoosePicDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("设置头像");
-        String[] items = {"选择本地照片", "拍照"};
-        builder.setNegativeButton("取消", null);
+        builder.setTitle("Setting head sculpture");
+        String[] items = {"Select local photos", "Photograph"};
+        builder.setNegativeButton("Cancel", null);
         builder.setItems(items, new DialogInterface.OnClickListener() {
 
             @Override
@@ -454,7 +454,7 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
                     uploadHeadPic(userNameTV.getText().toString(),key);
                    // Toast.makeText(getContext(), "头像上传成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "头像上传失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Upload pictures failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }, null);
@@ -491,9 +491,9 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
                                 if(result.isStatus())
                                     Toast.makeText(getActivity(), result.getMsg(), Toast.LENGTH_SHORT).show();
                                 else
-                                    Toast.makeText(getActivity(), "上传图片失败", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Upload pictures failed", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), "上传图片失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Upload pictures failed", Toast.LENGTH_SHORT).show();
                             }
 
                         }

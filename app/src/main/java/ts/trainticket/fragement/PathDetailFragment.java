@@ -655,7 +655,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
             public void run() {
                 try {
                     Thread.sleep(3000);
-                    //mDatas.add(0, new TicketRes_Item("软卧",12,358));
+
                     System.out.println(path.getPathName() + "--" + path.getPathDate() + "--" + path.getStartNumber() + "--" + path.getArriveNumber());
                     getOneTicketFromServre(path.getPathName(), path.getPathDate(), path.getStartNumber() + "", path.getArriveNumber() + "");
                     mInterHandler.sendEmptyMessage(REFRESH_COMPLETE);

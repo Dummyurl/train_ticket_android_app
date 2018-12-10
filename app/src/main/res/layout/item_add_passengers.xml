@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#a9a9a9"
                     android:textSize="13sp"
-                    android:text="二代身份证"/>
+                    android:text="ID"/>
                 <TextView
                     android:id="@+id/add_pesger_idcard"
                     android:layout_width="wrap_content"

@@ -24,7 +24,7 @@ public class AboutActivity extends AppCompatActivity {
 
         head_back_btn  = (Button) findViewById(R.id.common_head_back_btn);
         title_head_tv = (TextView) findViewById(R.id.title_head_tv);
-        title_head_tv.setText("about us");
+        title_head_tv.setText("About Us");
         head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

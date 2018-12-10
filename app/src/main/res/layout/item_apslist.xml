@@ -33,7 +33,7 @@
                     android:id="@+id/name_aps_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="刘德卫" />
+                    android:text="ldw" />
 
                 <TextView
                     android:id="@+id/type_aps_id"
@@ -52,7 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="二代身份证"
+                    android:text="ID"
                     android:textColor="#cfcfcf"
                     android:textSize="12sp" />
 

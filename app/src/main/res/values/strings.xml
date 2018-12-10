@@ -51,7 +51,7 @@
     <!--ticket info page-->
     <string name="add_adult">Add Adult</string>
     <string name="add_children">Add Children</string>
-    <string name="contact">Contact:</string>
+    <string name="contact">Contact</string>
     <string name="use_current_account">use current account to buy ticket</string>
     <string name="submit_order">Submit Order</string>
     <string name="notice">Please read before buying.</string>
@@ -75,7 +75,13 @@
     <string name="passenger_type">Passenger type</string>
     <string name="passenger_type_desc">Adult ticket</string>
     <string name="add_passengers">Add Passenger</string>
+
+
+    <!--order detail Page-->
+    <string name="site_lock_tip1">Seat Locking Successfully, Please pay withs</string>
+
     <!--发车表-->
+
 
 
     <string name="menu_refresh">刷新</string>

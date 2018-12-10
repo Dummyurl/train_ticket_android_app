@@ -48,7 +48,7 @@
                     android:id="@+id/show_top_tips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="订单状态"
+                    android:text="order status"
                     android:textSize="18dp" />
 
                 <TextView
@@ -68,21 +68,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="坐席锁定成功,请在"
+                        android:text="@string/site_lock_tip1"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/odt_time_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="..."
+                        android:text="23:01"
                         android:textColor="#b37e3b"
                         android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="内完成支付"
+                        android:text=""
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

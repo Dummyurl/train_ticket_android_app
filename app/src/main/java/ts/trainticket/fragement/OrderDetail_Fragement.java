@@ -89,7 +89,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             R.drawable.hb_yiquxiao_icon,
     };
     // 待支付0 -> 取消订单   状态1（待出发） ->  退票
-    private String[] cancelBtnTips = new String[]{"Cancel", "Refound", "waiting", "退票", "已取消,重新预订", "已退款,重新预订", "重新预订", "重新预订"};
+    private String[] cancelBtnTips = new String[]{"Cancel", "Refound", "waiting", "To refund", "Cancelled ,to re-book", "Refund, to re-book", "To re-book", "To re-book"};
     private String[] tipBottomBtnText = new String[]{"Pay", "Paid", "Paid", "Paid", "Canceled", "Refounded", "Completed", "unkonwn"};
     public static final double[] PASSENGER_TYPES_RATIOS = {1, 0.7, 0.5, 0.5};
 
@@ -350,29 +350,29 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
                 payOrder(preOrderResult.getId(), preOrderResult.getTrainNumber());
 
                 break;
-            //     private String[] cancelBtnTips = new String[]{"取消订单", "退票", "等待出发", "退票","已取消,重新预订", "已退票,重新预订", "重新预订","重新预订"};
+            //    private String[] cancelBtnTips = new String[]{"取消订单", "退票", "等待出发", "退票","已取消,重新预订", "已退票,重新预订", "重新预订","重新预订"};
             //    private String[] tipText = new String[]{"待支付", "待出发", "已验票", "已重新预订", "已取消", "已退款", "已完成", "其他类型"};
 
             case "1":
-                Toast.makeText(getContext(), "您已购票,请勿重复操作", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You have purchased tickets, please do not repeat the operation.", Toast.LENGTH_SHORT).show();
                 break;
             case "2":
-                Toast.makeText(getContext(), "您已验票,请勿重复操作", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You have checked the tickets. Do not repeat the operation.", Toast.LENGTH_SHORT).show();
                 break;
             case "3":
-                Toast.makeText(getContext(), "您已重新预订,请勿重复操作", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You have reserved, please do not repeat the operation.", Toast.LENGTH_SHORT).show();
                 break;
             case "4":
-                Toast.makeText(getContext(), "您已取消,请点击重新预订", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You have cancelled, please click to reserve", Toast.LENGTH_SHORT).show();
                 break;
             case "5":
-                Toast.makeText(getContext(), "您已退款,请点击重新预订", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You have cancelled, please click to reserve", Toast.LENGTH_SHORT).show();
                 break;
             case "6":
-                Toast.makeText(getContext(), "您已完成,请点击重新预订", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "You have finished, please click Reservation", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                Toast.makeText(getContext(), "未知的点击操作错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Unknown click operation error", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -389,7 +389,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             case "0":
                 // 退票
                 AlertDialogPro.Builder builder2 = new AlertDialogPro.Builder(getContext());
-                builder2.setMessage("您确定要取消订单吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder2.setMessage("Are you sure you want to cancel the order?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -399,12 +399,12 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 //                        presentState = "4";
 //                        showState(Integer.parseInt(presentState), takeTime);
                     }
-                }).setNegativeButton("取消", null).show();
+                }).setNegativeButton("Cancel", null).show();
                 break;
             case "1":
                 // 退票
                 AlertDialogPro.Builder builder3 = new AlertDialogPro.Builder(getContext());
-                builder3.setMessage("您确定要退票吗？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                builder3.setMessage("Are you sure you want a refund?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 退票
@@ -412,7 +412,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 //                        presentState = "5";
 //                        showState(Integer.parseInt(presentState), takeTime);
                     }
-                }).setNegativeButton("取消", null).show();
+                }).setNegativeButton("Cancel", null).show();
                 break;
             case "2":
             case "3":
@@ -461,9 +461,9 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
                         unlockClick();
                         System.out.println(responseResult + "----==-099");
                         if ("true".equals(responseResult)) {
-                            Toast.makeText(getActivity(), "操作成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Request data failed", Toast.LENGTH_SHORT).show();
                         }
                         dialog.dismiss();
                         presentState = "1";
@@ -511,12 +511,12 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
                             Gson gson = new Gson();
                             CancelOrderResult cancelOrderResult = gson.fromJson(responseResult, CancelOrderResult.class);
                             if (cancelOrderResult.isStatus()) {
-                                Toast.makeText(getActivity(), "操作成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getActivity(), "操作失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), "请求数据失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Request data failed", Toast.LENGTH_SHORT).show();
                         }
                         presentState = "5";
                         showState(Integer.parseInt(presentState), takeTime);

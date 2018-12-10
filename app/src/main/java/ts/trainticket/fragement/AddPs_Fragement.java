@@ -179,8 +179,8 @@ public class AddPs_Fragement extends BaseFragment {
         final RadioGroup groupBroadCast = (RadioGroup) vd.findViewById(R.id.group_asid);
         final RadioButton rb1 = (RadioButton) vd.findViewById(R.id.rb1_asid);
         final RadioButton rb2 = (RadioButton) vd.findViewById(R.id.rb2_asid);
-        final RadioButton rb3 = (RadioButton) vd.findViewById(R.id.rb3_asid);
-        final RadioButton rb4 = (RadioButton) vd.findViewById(R.id.rb4_asid);
+//        final RadioButton rb3 = (RadioButton) vd.findViewById(R.id.rb3_asid);
+//        final RadioButton rb4 = (RadioButton) vd.findViewById(R.id.rb4_asid);
         alertDialog = new AlertDialog.Builder(getActivity())
                 .setView(vd)
                 .create();
@@ -200,14 +200,10 @@ public class AddPs_Fragement extends BaseFragment {
 
     public String getUserTypeNum(String type) {
         System.out.println(type + "-=009089");
-        if ("成人票".equals(type)) {
+        if ("ID Card".equals(type)) {
             return "0";
-        } else if ("学生票".equals(type)) {
+        } else if ("Passport".equals(type)) {
             return "1";
-        } else if ("儿童票".equals(type)) {
-            return "2";
-        } else if ("残军票".equals(type)) {
-            return "3";
         } else {
             return "4";
         }
