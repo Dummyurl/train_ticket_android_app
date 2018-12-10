@@ -43,34 +43,39 @@ That's  all !
    
 - after login, you will see the below  page
 
-   ![Account](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-11-03-15-44-30-130_ts.trainticket.png)
+  <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-11-03-15-44-30-130_ts.trainticket.png" width="350" hegiht="620" align=center />
+   
 
 - See Contacts
   
-  ![See Contacts](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-26-19-828_ts.trainticket.png)
+   <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-26-19-828_ts.trainticket.png" width="350" hegiht="620" align=center />
+     
   
 - See orders
   
-  ![See orders](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-30-12-386_ts.trainticket.png)
+    <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-30-12-386_ts.trainticket.png" width="350" hegiht="620" align=center />
  
 - Buy ticket
-  ![Buy ticket](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-31-09-747_ts.trainticket.png)
+
+    <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-31-09-747_ts.trainticket.png" width="350" hegiht="620" align=center />
 
 - Travel Path
 
-  ![Travel Path](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-31-52-848_ts.trainticket.png)
+   <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-31-52-848_ts.trainticket.png" width="350" hegiht="620" align=center />
   
 - Path Info
   
-  ![Path Info](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-15-53-52-877_ts.trainticket.png)
+     <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-15-53-52-877_ts.trainticket.png" width="350" hegiht="620" align=center />
 
 - Passenger Select
 
-  ![Passenger Select](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-32-19-692_ts.trainticket.png)
+ <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-32-19-692_ts.trainticket.png" width="350" hegiht="620" align=center />
+
+  ![Passenger Select]()
   
 - Order Detail
 
-  ![Order Detail](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-32-54-828_ts.trainticket.png)
-  
+ <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-32-54-828_ts.trainticket.png" width="350" hegiht="620" align=center />
+
 
 - Any Other Question?
