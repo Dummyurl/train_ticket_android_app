@@ -33,12 +33,13 @@ That's  all !
   if your successfully build it, Than Congratulation!
 
 - before login, go to account page
-
-   ![account](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-11-03-15-44-02-296_ts.trainticket.png)
+   
+   <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-11-03-15-44-02-296_ts.trainticket.png" width="350" hegiht="620" align=center />
    
 - login, you can use username `fdse_microservices@163.com` && password `DefaultPassword`
 
-   ![login](https://github.com/liucloudhub/liucloudhub.github.io/blob/master/img/android/Screenshot_2018-12-10-19-56-56-992_ts.trainticket.png?raw=true)
+  <img src="https://github.com/liucloudhub/liucloudhub.github.io/blob/master/img/android/Screenshot_2018-12-10-19-56-56-992_ts.trainticket.png" width="350" hegiht="620" align=center />
+   
    
 - after login, you will see the below  page
 
