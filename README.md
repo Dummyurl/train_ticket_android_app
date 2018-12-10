@@ -69,7 +69,7 @@ That's  all !
   
 - Order Detail
 
-  ![Order Detail](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-32-54-828_ts.trainticket.png12-10/61378167.jpg)
+  ![Order Detail](https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-32-54-828_ts.trainticket.png)
   
 
 - Any Other Question?
