@@ -20,7 +20,7 @@ public class RxDownloadUtils {
             @Override
             public void call(Subscriber<? super ResponseResult> subscriber) {
                 if (null == url) {
-                    subscriber.onError(new Throwable("好像没有连接上网络啊"));
+                    subscriber.onError(new Throwable("likely not connect to Network!"));
                     return;
                 }
                 try {
@@ -31,7 +31,7 @@ public class RxDownloadUtils {
                 } catch (Exception e) {
                     e.printStackTrace();
                     // 抛出异常
-                    subscriber.onError(new Throwable("好像连接不上服务器"));
+                    subscriber.onError(new Throwable("likely not connect to Server!"));
                 }
             }
         }).subscribeOn(Schedulers.io());

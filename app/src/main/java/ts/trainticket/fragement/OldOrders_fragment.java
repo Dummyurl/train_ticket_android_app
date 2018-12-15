@@ -163,7 +163,6 @@ public class OldOrders_fragment extends BaseFragment {
                         if (responseResult != null && !responseResult.equals("")) {
                             Gson gson = new Gson();
                             COrdersPageResponse cOrders = gson.fromJson(responseResult, COrdersPageResponse.class);
-                            System.out.println(cOrders.getcOrderses().get(0).getTicketPrice() + "=0000000");
                             showData(cOrders.getcOrderses().get(0));
                             //  Toast.makeText(getActivity(), cOrders.getcOrderses().get(0).getPathName() + "==-=", Toast.LENGTH_SHORT).show();
                         } else {

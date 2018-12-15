@@ -160,7 +160,6 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
         if (isLogin == true) {
             // /每次都从数据库里拼接url,以求得到的是最新的
                 String headPicSrc = ApplicationPreferences.getOneInfo(getContext(), "headPicSrc");
-                System.out.println("headPicSrc" + headPicSrc);
                 if (headPicSrc != null && headPicSrc != "") {
                     handler = new Handler();
                     new HttpThread(domainKey+"/"+ headPicSrc, pic_persionImg, handler).start();
@@ -202,7 +201,6 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
         showUserInfoPanel();
         showUserInfo();
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(resultCode + "--------" + requestCode);
         if (requestCode != -1) { // 如果返回码是可以用的
             switch (requestCode) {
                 case TAKE_PICTURE:
@@ -395,7 +393,6 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
             dirFile.mkdirs();
         }
         path = path + "myicon.jpg";
-        System.out.println(path);
         ApplicationPreferences.setOneInfo(getContext(), "localPic", path);
         File myIconFile = new File(path);
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myIconFile));
@@ -430,17 +427,13 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String key = "icon_" + sdf.format(new Date());
       //  String key = "icon_headpic";
-        System.out.println(key + "-0000000000099999");
         uploadManager.put(picPath, key, Auth.create(AccessKey, SecretKey).uploadToken("imook-img"), new UpCompletionHandler() {
             @Override
             public void complete(String key, ResponseInfo info, JSONObject res) {
                 // info.error中包含了错误信息，可打印调试
                 // 上传成功后将key值上传到自己的服务器
-                System.out.println(info.isOK() + "-01211999" + info.error);
                 if (info.isOK()) {
-                    System.out.println("token===" + Auth.create(AccessKey, SecretKey).uploadToken("photo"));
                     String headpicPath = "http://p6jsga0vv.bkt.clouddn.com/" + key;
-                    System.out.println("complete: " + headpicPath);
                     ApplicationPreferences.setOneInfo(getContext(), "headPicSrc", key);
 
 //                    String headPicSrc = ApplicationPreferences.getOneInfo(getContext(), "headPicSrc");
@@ -450,7 +443,6 @@ public class AccountFragement extends BaseFragment implements View.OnClickListen
                         handler = new Handler();
                         new HttpThread(headpicPath, pic_persionImg, handler).start();
                     }
-                    System.out.println("-=-==-"+userNameTV.getText().toString());
                     uploadHeadPic(userNameTV.getText().toString(),key);
                    // Toast.makeText(getContext(), "头像上传成功", Toast.LENGTH_SHORT).show();
                 } else {

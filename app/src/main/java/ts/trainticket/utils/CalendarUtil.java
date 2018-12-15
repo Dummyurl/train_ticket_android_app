@@ -47,10 +47,8 @@ public class CalendarUtil {
             Date dt1 = df.parse(DATE1);
             Date dt2 = df.parse(DATE2);
             if (dt1.getTime() > dt2.getTime()) {
-                System.out.println("dt1 在dt2前");
                 return true;
             } else if (dt1.getTime() < dt2.getTime()) {
-                System.out.println("dt1在dt2后");
                 return false;
             }
         } catch (Exception exception) {
@@ -214,7 +212,6 @@ public class CalendarUtil {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(number);
-        System.out.println(number + " = " + formatter.format(calendar.getTime()));
         return formatter.format(calendar.getTime());
     }
 

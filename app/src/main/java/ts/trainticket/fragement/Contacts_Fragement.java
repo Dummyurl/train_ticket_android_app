@@ -52,7 +52,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragement_contacts, container, false);
-
         initViews(view);
         return view;
     }
@@ -112,7 +111,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
 
                     @Override
                     public void onNext(String responseResult) {
-                        System.out.println(responseResult +"==-088");
                         unlockClick();
                         if (responseResult != null && !responseResult.equals("")) {
                             Gson gson = new Gson();
@@ -122,7 +120,7 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                             else
                                 Toast.makeText(getActivity(), "delete contacts failed!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getActivity(), "没有常用联系人", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "no contacts info", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -152,7 +150,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                     public void onNext(String responseResult) {
                         unlockClick();
                         if (responseResult != null && !responseResult.equals("")) {
-                            System.out.println(responseResult + "==---00000");
 
                             List<Contacts> contactsList = new ArrayList<>();
                             JSONArray jsonArray = JSON.parseArray(responseResult);
@@ -298,7 +295,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // 一般会从网络获取数据
                 getDataFromServer();
                 swiper.setRefreshing(false);// 结束后停止刷新
             }

@@ -74,7 +74,6 @@ public class SettingsActivity  extends AppCompatActivity implements View.OnClick
         switch (v.getId()){
             case R.id.message_on_off:
                 String  tag = ApplicationPreferences.getOneInfo(this,"messageOnOff");
-                System.out.println(tag+"-0000000000");
                 if(tag != null && tag != "" && "false".equals(tag)) {
                     messageBtn.setBackgroundResource(R.drawable.switch_on);
                     ApplicationPreferences.setOneInfo(this,"messageOnOff","true");

@@ -141,7 +141,6 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
                             Type listType = new TypeToken<List<OrderList>>() {
                             }.getType();
                             orderLists = gson.fromJson(responseResult, listType);
-                            System.out.println(orderLists.size() + "0-9323290");
 
                             JSONArray jsonArray = JSON.parseArray(responseResult);
                             Iterator it = jsonArray.iterator();
@@ -164,17 +163,13 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
             orderList.addAll(ordersList1);
 //        if (tagNum == 2)
 //            otherOrderList.addAll(ordersList1);
-        System.out.println(allOrderList.size() + "=--99" + tagNum);
         if(tagNum == 1) {
             allOrderList.addAll(orderList);
           //  allOrderList.addAll(otherOrderList);
-            System.out.println(allOrderList.size() + "=--9999999999999999999");
             List<OrderList> temps = new ArrayList<>();
             for (OrderList order : allOrderList) {
                 // 1  pad  待完成
-                System.out.println(order.getStatus() + "=-pad=-=-");
                 if ("1".equals(order.getStatus()+"")) {
-                    System.out.println(order.getStatus() + "=-temps=-=-");
                     temps.add(order);
                 }
             }

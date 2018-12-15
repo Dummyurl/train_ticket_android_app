@@ -127,7 +127,7 @@
             android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:layout_gravity="center"
-            android:text="没有找到对应路线" />
+            android:text="@string/no_trip_line" />
 
         <!--下面是下拉刷新和contact_path的的container-->
         <android.support.v4.widget.SwipeRefreshLayout

@@ -225,7 +225,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
     }
 
     public void getStopStation(String url, final int callTag) {
-        System.out.println(callTag + "======34"+ url);
         // 查询G123 经过那些站
         if (callTag == 1) {
             QueryInfo queryInfo = new QueryInfo(startStation.getText().toString(),endStation.getText().toString(), btnDate.getText().toString());
@@ -236,7 +235,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
 
             String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
             String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
-            System.out.println("094343===" + new Gson().toJson(queryInfo));
             subscription = RxHttpUtils.postWithHeader(url, loginId, token, requestBody, getContext())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<String>() {
@@ -253,12 +251,9 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                         @Override
                         public void onNext(String responseResult) {
                             unlockClick();
-                            System.out.println(responseResult + "=32=930430");
                             if (responseResult != null && !responseResult.equals("")) {
                                 Gson gson = new Gson();
-                                System.out.println(responseResult + "=32220");
                                 travelAdvanceResult = gson.fromJson(responseResult, TravelAdvanceResult.class);
-                                System.out.println(responseResult + "=3222220");
                                 showTimeTable();
                             } else {
                                 Toast.makeText(getActivity(), "request data error", Toast.LENGTH_SHORT).show();
@@ -283,7 +278,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                         @Override
                         public void onNext(String responseResult) {
                             unlockClick();
-                            System.out.println(responseResult + "==930430");
                             if (responseResult != null && !responseResult.equals("")) {
                                 Gson gson = new Gson();
                                 if (callTag == 0) {
@@ -294,7 +288,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                                     Type listType = new TypeToken<List<Station>>() {
                                     }.getType();
                                     queryStationList = gson.fromJson(responseResult, listType);
-                                    System.out.println(queryStationList.size() + "====-size");
                                     showTimeTable();
                                 }
                             } else {
@@ -309,25 +302,21 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
     //展示详细信息
     public void showTimeTable() {
         callTimeTag++;
-        System.out.println(callTimeTag + "-900932");
         if (callTimeTag != 0 && callTimeTag%2 == 0) {
             // queryRoutes
             // queryStationList
             String sStation = startStation.getText().toString().toLowerCase().replaceAll(" ", "");
             String eStation = endStation.getText().toString().toLowerCase().replaceAll(" ", "");
 
-            System.out.println(sStation + "---23-" + eStation);
 
             pathTimeTableList = new ArrayList<>();
 
             List<TravelAdvanceResultUnit> tau = travelAdvanceResult.getTravelAdvanceResultUnits();
             for (int i = 0; i < tau.size(); i++) {
-                System.out.println(timeTable_pathName.getText().toString() + "---09" + tau.get(i).getTripId());
 
                 if (timeTable_pathName.getText().toString().equals(tau.get(i).getTripId())) { // 找到对应的路线G236
 
                     ArrayList<String> stopStations = tau.get(i).getStopStations();
-                    System.out.println(stopStations.size() + "---=-==0");
                     int stopAtStationsNum = stopStations.size();
 
                     ArrayList<Route> routesList = queryRoutes.getRoutes(); // 查找经过的车站的距离
@@ -339,10 +328,8 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                             distances = routesList.get(k).getDistances();
                         }
                     }
-                    System.out.println("distance--" + distances.size());
 
                     List<Object> stationStayTime = ApplicationPreferences.getStayTimeStation(getContext());
-                    System.out.println(stationStayTime.size() + "===-032-2-303-032-30-32");
                     Map<String, String> stationStayTimes = new HashMap<>();
                     for (int u = 0; u < stationStayTime.size(); u++) {
                         String stationTime = stationStayTime.get(u).toString();
@@ -351,19 +338,15 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                         }
                     }
 
-                    System.out.println("-----4343----");
                     for (int j = 0; j < stopAtStationsNum; j++) {
-                        System.out.println("-00-934---");
                         PathTimeTable tempPathTimeTable = new PathTimeTable();
                         tempPathTimeTable.setStationName(stopStations.get(j));  // station
-                        System.out.println(stopStations.get(j) + "--==0---" + distances.get(j));
                         tempPathTimeTable.setDistance(distances.get(j) + "");
                         tempPathTimeTable.setStayTime(stationStayTimes.get(stopStations.get(j).replaceAll(" ", "").toLowerCase()));
                         pathTimeTableList.add(tempPathTimeTable);
                     }
                 }
             }
-            System.out.println(pathTimeTableList.size() + "---909");
             if (pathTimeTableList.size() > 0) {
                 animationDrawable.stop();
                 animationIV.setVisibility(View.GONE);
@@ -410,14 +393,12 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                             Gson gson = new Gson();
                             TicketPageResponse oneTicket = gson.fromJson(responseResult, TicketPageResponse.class);
                             if (oneTicket != null) {
-                                System.out.println(oneTicket.getMsg() + "-09-0-0-" + oneTicket.getTicketList().size());
                                 List<Ticket> tempTicket = oneTicket.getTicketList();
 
                                 List<TicketRes_Item> tempItem = new ArrayList<TicketRes_Item>();
 
                                 for (int k = 0; k < mDatas.size(); k++) {
                                     for (int kl = 0; kl < tempTicket.size(); kl++) {
-                                        System.out.println(mDatas.get(k).getSeatType() + "0-0-" + Ticket.EASY_SEAT_TYPES[tempTicket.get(kl).getSeatType()]);
 
                                         if (mDatas.get(k).getSeatType().equals(Ticket.EASY_SEAT_TYPES[tempTicket.get(kl).getSeatType()])) {
                                             mDatas.get(k).setLeftTickets(tempTicket.get(kl).getLeftTickets());
@@ -426,7 +407,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                                 }
                                 showItemTicket(mDatas);
                             } else {
-                                System.out.println("-=============");
                             }
                         } else {
                             Toast.makeText(getActivity(), "request data error", Toast.LENGTH_SHORT).show();
@@ -577,7 +557,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                 public void onClick(View v) {
 
                     boolean isLogin = ApplicationPreferences.isUserOnLine(getContext());
-                    System.out.println(isLogin + "----=======900000000");
                     Intent intent = null;
                     if (isLogin) {
                         intent = new Intent(getActivity(), TicketReserveActivity.class);
@@ -586,7 +565,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                         intent.putExtra("seatType", list.get(position).getSeatType());
                         intent.putExtra("seatPrice", "¥" + (int) (list.get(position).getSeatPrice()));
                     } else {
-                        Toast.makeText(getContext(), "您没有登录，请先登录", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "you need login first！", Toast.LENGTH_SHORT).show();
                         intent = new Intent(getActivity(), LoginActivity.class);
                     }
                     startActivity(intent);
@@ -656,7 +635,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                 try {
                     Thread.sleep(3000);
 
-                    System.out.println(path.getPathName() + "--" + path.getPathDate() + "--" + path.getStartNumber() + "--" + path.getArriveNumber());
                     getOneTicketFromServre(path.getPathName(), path.getPathDate(), path.getStartNumber() + "", path.getArriveNumber() + "");
                     mInterHandler.sendEmptyMessage(REFRESH_COMPLETE);
                 } catch (InterruptedException e) {

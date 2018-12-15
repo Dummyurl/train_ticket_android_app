@@ -111,7 +111,6 @@ public class Orders_fragement1 extends BaseFragment implements SwipeRefreshLayou
         // , UrlProperties.clientIstioIp + UrlProperties.otherOrderQuery
         String[] ordersUrl = new String[]{UrlProperties.clientIstioIp + UrlProperties.orderQuery};
         for (int i = 0; i < ordersUrl.length; i++) {
-            System.out.println("==============0000--0-");
             getOrderDataFromServer(ordersUrl[i]);
         }
     }
@@ -145,14 +144,12 @@ public class Orders_fragement1 extends BaseFragment implements SwipeRefreshLayou
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
-                        System.out.println(responseResult + "=09889");
                         if (responseResult != null && !responseResult.equals("")) {
                             Gson gson = new Gson();
                             List<OrderList> orderLists = new ArrayList<OrderList>();
                             Type listType = new TypeToken<List<OrderList>>() {
                             }.getType();
                             orderLists = gson.fromJson(responseResult, listType);
-                            System.out.println(orderLists.size() + "0-9323290");
 
                             JSONArray jsonArray = JSON.parseArray(responseResult);
                             Iterator it = jsonArray.iterator();
@@ -178,7 +175,6 @@ public class Orders_fragement1 extends BaseFragment implements SwipeRefreshLayou
         if (tagNum == 1) {
             allOrderList.addAll(orderList);
             //allOrderList.addAll(otherOrderList);
-            System.out.println(allOrderList.size() + "=--9999999999999999999");
 
             if (allOrderList.size() == 0) {
                 showStates();

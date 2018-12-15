@@ -226,7 +226,6 @@ public class ReserveFragment extends BaseFragment {
                                 JSONObject cityObj = (JSONObject) it.next();
                                 allCities.add(i, cityObj.getString("name"));
                                 allStationTimes.add(i,cityObj.getString("id") + "_"+ cityObj.getString("stayTime"));
-                                System.out.println(allCities.size() + "=-=-=" +allStationTimes.size());
                                 ApplicationPreferences.setAllCities(getActivity(), allCities);
                                 ApplicationPreferences.setStayTimeStation(getActivity(),allStationTimes);
                                 i++;
@@ -614,7 +613,6 @@ public class ReserveFragment extends BaseFragment {
                             initTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                             initTime.set(Calendar.MINUTE, minute);
                             initTime.set(Calendar.SECOND, second);
-                            System.out.println("90934080594");
                             changeShowTime(id);
                         }
                     },

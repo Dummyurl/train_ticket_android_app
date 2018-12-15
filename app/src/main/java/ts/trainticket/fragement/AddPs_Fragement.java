@@ -120,7 +120,6 @@ public class AddPs_Fragement extends BaseFragment {
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
-                        System.out.println(responseResult + "====--0");
                         if (responseResult != null && !responseResult.equals("")) {
                             Gson gson = new Gson();
                             AddContactsResult addContactsResult = gson.fromJson(responseResult, AddContactsResult.class);
@@ -199,7 +198,6 @@ public class AddPs_Fragement extends BaseFragment {
     }
 
     public String getUserTypeNum(String type) {
-        System.out.println(type + "-=009089");
         if ("ID Card".equals(type)) {
             return "0";
         } else if ("Passport".equals(type)) {

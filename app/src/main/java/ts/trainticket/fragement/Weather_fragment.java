@@ -157,7 +157,6 @@ public class Weather_fragment extends BaseFragment {
         date=calendar.getTime(); //这个时间就是日期往后推一天的结果
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
-        System.out.println(dateString);
         return dateString;
     }
 

@@ -144,7 +144,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         orders_Result = getArguments().getString("ordersResult");  // 从老页面传过来的
         int temp_tag = 0;
 
-        System.out.println(reserve_result + "-93028" + orders_Result);
         Gson gson = new Gson();
         if (reserve_result != null && reserve_result != "") {
             JSONObject orderPreObj = JSON.parseObject(reserve_result);
@@ -169,14 +168,12 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
             Gson gson2 = new Gson();
             preOrderResult = gson2.fromJson(orders_Result, PreserveOrderResult.class);
-            System.out.println(preOrderResult.toString() + "-09089897");
             showOrderResult(preOrderResult);
         }
         // dialog.dismiss();
     }
 
     public void showOrderResult(PreserveOrderResult preserveOrderResult) {
-        System.out.println(preOrderResult + "---00000233");
         order_detailLayout.setVisibility(View.VISIBLE);
 
         String tempidcard = "";
@@ -203,7 +200,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         seatNumber.setText("sNum:" + preOrderResult.getSeatNumber());
 
         // 下面俩用来控制按钮状态
-        System.out.println(preOrderResult.getStatus() + "==0-9088080");
         presentState = preOrderResult.getStatus() + "";
         takeTime = CalendarUtil.getHMS(preOrderResult.getTravelTime());
         // 显示状态
@@ -234,7 +230,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             show_tips2Tv.setVisibility(View.VISIBLE);
             show_tag_picImg.setVisibility(View.VISIBLE);
         }
-        System.out.println(takeTime + "=------===" + takeDate);
         if (CalendarUtil.compareTimeDate(takeTime) && CalendarUtil.compare_date(takeDate) && status == 1)
             cancel_order.setText("已发车");
         else
@@ -344,7 +339,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
     // 待支付0  状态1（待出发）  2（已取消 超时）  3（退改签） 4 已完成
     public void gotoPay(String satus) {
-        System.out.println(satus + "===--009" + contacts.size());
         switch (satus) {
             case "0":
                 payOrder(preOrderResult.getId(), preOrderResult.getTrainNumber());
@@ -384,7 +378,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
         //     private String[] cancelBtnTips = new String[]{"取消订单", "退票", "等待出发", "退票","已取消,重新预订", "已退票,重新预订", "重新预订","重新预订"};
         //    private String[] tipText = new String[]{"待支付", "待出发", "已验票", "已重新预订", "已取消", "已退款", "已完成", "其他类型"};
-        System.out.println(status + "-----status");
         switch (status) {
             case "0":
                 // 退票
@@ -459,7 +452,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
-                        System.out.println(responseResult + "----==-099");
                         if ("true".equals(responseResult)) {
                             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                         } else {
@@ -477,7 +469,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         // 请求连接
         final CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);
 
-        System.out.println(new Gson().toJson(cancelOrderInfo) + "=00-9090");
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(cancelOrderInfo));
 
@@ -504,7 +495,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
-                        System.out.println(responseResult + "----=23=-099");
                         dialog.dismiss();
                         if (responseResult != null && responseResult != "") {
                             // {"status":true,"message":"Success."}

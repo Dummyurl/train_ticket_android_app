@@ -27,7 +27,6 @@ public class RxHttpUtils {
                     return;
                 }
                 try {
-                    System.out.println(jsonstr +"--==--=-");
                     String temp = HttpUtils.postData(url,jsonstr);
                     subscriber.onNext(temp);
                     subscriber.onCompleted();
@@ -51,7 +50,6 @@ public class RxHttpUtils {
                     return;
                 }
                 try {
-                    System.out.println(jsonstr +"--==--=-");
                     String temp = HttpUtils.postData(url,jsonstr);
                     subscriber.onNext(temp);
                     subscriber.onCompleted();
@@ -100,7 +98,6 @@ public class RxHttpUtils {
                     return;
                 }
                 try {
-                    System.out.println(jsonstr +"--==--=-");
                     String temp = HttpUtils.postDataWithHeader(url,loginId, loginToken, jsonstr);
                     subscriber.onNext(temp);
                     subscriber.onCompleted();

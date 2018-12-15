@@ -96,8 +96,7 @@ public class FilterPathPopWindowActivity extends Activity implements View.OnClic
         ArrayList<Station> list2 = new ArrayList<Station>();
         Type listType = new TypeToken<List<Station>>() {}.getType();
 
-        System.out.println(list1.size()+"--dff3232d---"+  list1);
-        System.out.println(list2.size()+"--dffd23232--" + list2);
+
 
         list1 = gson.fromJson(startCity, listType);
         list2 = gson.fromJson(arriveCity, listType);
@@ -133,7 +132,7 @@ public class FilterPathPopWindowActivity extends Activity implements View.OnClic
         temp.add(station2);
         Station station3 = new Station("合肥南", "合肥 ", "高铁,动车停靠");
         temp.add(station3);
-        System.out.print(temp.size() + "=-784444448888888");
+
         return temp;
     }
 
@@ -147,7 +146,7 @@ public class FilterPathPopWindowActivity extends Activity implements View.OnClic
         temp.add(station3);
         Station station4 = new Station("上海西", "上海 ", "高铁,动车,普通列车停靠");
         temp.add(station4);
-        System.out.print(temp.size() + "=-788888888");
+
         return temp;
     }
 
@@ -178,7 +177,7 @@ public class FilterPathPopWindowActivity extends Activity implements View.OnClic
         public void onBindViewHolder(final StationHolder holder, final int i) {
             holder.setIsRecyclable(false);
             holder.stationTv.setText(list.get(i).getStationName());
-            System.out.print("=-7888888222288" + list.get(i).getStationDesc());
+
             holder.descTv.setText(list.get(i).getStationDesc());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -232,7 +231,6 @@ public class FilterPathPopWindowActivity extends Activity implements View.OnClic
         public void onBindViewHolder(final StationHolder2 holder, final int i) {
             holder.setIsRecyclable(false);
             holder.stationTv.setText(list.get(i).getStationName());
-            System.out.print("=-7888888222288" + list.get(i).getStationDesc());
             holder.descTv.setText(list.get(i).getStationDesc());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

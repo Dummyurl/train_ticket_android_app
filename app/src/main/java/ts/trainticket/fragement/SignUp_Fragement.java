@@ -68,7 +68,6 @@ public class SignUp_Fragement extends BaseFragment  {
     }
     public  void initData(){
         String seatType = getArguments().getString("is_modify");
-        System.out.println(seatType+ "=-=088776565");
         if("true".equals(seatType)){
             setModifyState();
         }

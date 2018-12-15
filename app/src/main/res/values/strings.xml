@@ -30,6 +30,7 @@
     <string name="total_time_fid">travel time</string>
     <string name="arrive_time_fid">arrive time</string>
     <string name="select_fid">select</string>
+    <string name="no_trip_line">no that trip line</string>
 
 
     <string name="btn_yesterday">day before</string>
@@ -75,6 +76,7 @@
     <string name="passenger_type">Passenger type</string>
     <string name="passenger_type_desc">Adult ticket</string>
     <string name="add_passengers">Add Passenger</string>
+    <string name="no_cantact">no cantact info</string>
 
 
     <!--order detail Page-->
@@ -88,6 +90,13 @@
     <string name="edit_id_card">ID card</string>
     <string name="edit_phone_number">Telephone number</string>
     <!--发车表-->
+
+
+    <!--order list page-->
+    <string name="no_order_info">no order inforamtion</string>
+    <string name="pull_to_refresh">pull to refresh</string>
+
+
 
 
 

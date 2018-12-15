@@ -28,7 +28,6 @@ public class HttpUtils {
 
         Request request = new Request.Builder().addHeader("Cookie","YsbCaptcha=B5D850BB397A4725B1C985955B2738F0").url(url_post).post(requestBody).build();
         Response response = okHttpClient.newCall(request).execute();
-        System.out.println(response + "---99887777");
         if(response.isSuccessful()){
             return response.body().string();
         }else{
@@ -49,7 +48,6 @@ public class HttpUtils {
                 .post(requestBody)
                 .build();
         Response response = okHttpClient.newCall(request).execute();
-        System.out.println(response + "---99887777");
         if(response.isSuccessful()){
             return response.body().string();
         }else{
@@ -61,7 +59,6 @@ public class HttpUtils {
 
     public static String sendPostRequest(String url, String jsonStr) 
 		{
-        System.out.println(url + "---" + jsonStr);
         HttpURLConnection httpURLConnection = null;
         OutputStream out = null; // 写
         //InputStream in = null;  // 读
@@ -85,7 +82,6 @@ public class HttpUtils {
             out.flush(); // 清空缓存区,发送数据
             out.close();
             responseCode = httpURLConnection.getResponseCode();
-            System.out.println(responseCode + "-=-=-=");
             // 获取请求的资源
             BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "UTF-8"));
             result = br.readLine();
@@ -102,7 +98,6 @@ public class HttpUtils {
         URL url = null;
         HttpURLConnection connection = null;
         try {
-            System.out.println(uri+"======11");
             url = new URL(uri);
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(12000);
@@ -139,7 +134,6 @@ public class HttpUtils {
         HttpURLConnection connection = null;
         String cookie = "jenkins-timestamper-offset=-28800000; loginId="+ loginId+"; JSESSIONID=7E2A0BE075AF166D9FAAF91D0FBB537D; loginToken="+loginToken +"; YsbCaptcha=E2DDD2D58ACD4E40BDD874BBBEF1F5AD";
         try {
-            System.out.println(uri+"======11");
             url = new URL(uri);
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(12000);

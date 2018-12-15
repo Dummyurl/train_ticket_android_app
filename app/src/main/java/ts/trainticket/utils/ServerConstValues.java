@@ -98,7 +98,6 @@ public class ServerConstValues {
 
     public static final int getSeatType(String seatType) {
         seatType = seatType.trim();
-        System.out.println(seatType+"--==-");
         if ("no site".equals(seatType))
             return 0;
         if ("hard seat".equals(seatType))

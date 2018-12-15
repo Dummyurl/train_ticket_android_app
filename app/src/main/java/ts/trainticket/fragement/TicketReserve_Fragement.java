@@ -259,7 +259,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
 
     public String getNowTime() {
         Date d = new Date();
-        System.out.println(d);
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateNowStr = sdf.format(d);
@@ -269,7 +268,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
     // 提交订单按钮
     private void initSubmit(View view) {
         by_submit = (TextView) view.findViewById(R.id.by_submit1);
-        System.out.println("0-ewe-9555555555==");
         by_submit.setOnClickListener(this);
     }
 
@@ -308,7 +306,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
 
                 OrderTicketsInfo orderTicketsInfo = new OrderTicketsInfo(idcard, pathName, seatType, buyDate, startStation, endStation, assurance, foodType);
 
-                System.out.println(new Gson().toJson(orderTicketsInfo) + "==----0099");
                 MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
                 RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(orderTicketsInfo));
 
@@ -317,7 +314,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
 
                 // 请求连接
                 String preserveUrl = UrlProperties.clientIstioIp;
-                System.out.println(pathName + "=-0-9-9-");
                 if (pathName.contains("G") || pathName.contains("D")) {
                     preserveUrl += UrlProperties.gdPreserve;
                 } else {
@@ -339,10 +335,8 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                             @Override
                             public void onNext(String responseResult) {
                                 unlockClick();
-                                System.out.println(responseResult + "==0-9080");
                                 if (responseResult != null && !responseResult.equals("")) {
                                     JSONObject jsonObject = JSON.parseObject(responseResult);
-                                    System.out.println(responseResult + "==0-902180" + jsonObject.getString("message"));
                                     if ("Success".equals(jsonObject.getString("message"))) {
                                         Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
                                         intent.putExtra("reserve_result", responseResult);
@@ -458,7 +452,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                         passenger_list.add(map);
                         pasengerCheckBox[i] = 0;
 
-                        System.out.println(ticketPrice * PASSENGER_TYPES_RATIOS[tempContactsList.get(i).getConatctType()] + "==-=-90909");
                         // sumMoney = sumMoney + (ticketPrice * PASSENGER_TYPES_RATIOS[tempContactsList.get(i).getConatctType()]);
                         sumMoney = sumMoney + (ticketPrice);
 
@@ -480,9 +473,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
     }
 
     private void showPesger() {
-        System.out.println(passenger_list.size() + "=-09909");
         listView.setAdapter(new AddPsgerAdapter(getContext(), passenger_list));
-        System.out.println(passenger_list.size() + "=-233232");
     }
 
     // 查询此账下的联系人
@@ -510,7 +501,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                     public void onNext(String responseResult) {
                         unlockClick();
                         if (responseResult != null && !responseResult.equals("")) {
-                            System.out.println(responseResult + "==---00000");
 
                             List<Contacts> contactsList = new ArrayList<>();
                             JSONArray jsonArray = JSON.parseArray(responseResult);
@@ -598,7 +588,6 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
 
                     @Override
                     public void onClick(View v) {
-                        System.out.println(passenger_list.size() + "0-90832323");
                         selectedContacts.remove(position);
                         passenger_list.remove(position);
                         int ticketPrice = Integer.parseInt(res_go_value.getText().toString().substring(1, res_go_value.getText().toString().length()));

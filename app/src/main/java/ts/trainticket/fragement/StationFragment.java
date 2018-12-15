@@ -187,7 +187,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
     public void getTimeTableFromServer(String stationName) {
         recyclerView.setAdapter(null);
-        System.out.println("stationName-----" +stationName);
         // 准备数据
         try {
             stationName = URLEncoder.encode(stationName, "UTF-8");
@@ -204,7 +203,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
         String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
 
-        System.out.println("FDf----=323323322=" + new Gson().toJson(queryInfo));
 
         String listCityUri = UrlProperties.clientIstioIp + UrlProperties.getTravelAll ;
         subscription = RxHttpUtils.getDataByUrl(listCityUri, getContext())
@@ -222,12 +220,10 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
                     @Override
                     public void onNext(String responseResult) {
-                        System.out.println(responseResult + "===--0-9");
 
                         if (responseResult != null && !responseResult.equals("")) {
                             JSONArray jsonArray = JSON.parseArray(responseResult);
                             List<ContactPathStation> temp = new ArrayList<>();
-                            System.out.println(jsonArray.size() +"-=====---------");
                             Iterator it = jsonArray.iterator();
                             while (it.hasNext()) {
                                 ContactPathStation cps = new ContactPathStation();
@@ -253,7 +249,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
                                 if(startPlace.equals(selectedPlace.replaceAll(" ","").toLowerCase()) || endPlace.equals(selectedPlace.replaceAll(" ","").toLowerCase()))
                                    temp.add(cps);
                             }
-                            System.out.println(temp.size() + "-------=-===================");
                             setTimeTable(temp);
                         } else {
                             Toast.makeText(getActivity(), "request failed", Toast.LENGTH_SHORT).show();

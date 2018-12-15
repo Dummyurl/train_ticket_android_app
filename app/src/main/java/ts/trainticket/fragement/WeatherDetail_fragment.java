@@ -187,7 +187,7 @@ public class WeatherDetail_fragment extends BaseFragment implements SwipeRefresh
                             animationIV.setVisibility(View.GONE);
                             reserve_tipsTv2.setVisibility(View.VISIBLE);
                             reserve_tipsImg2.setVisibility(View.VISIBLE);
-                            Toast.makeText(getActivity(), "未知错误", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Unknown Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

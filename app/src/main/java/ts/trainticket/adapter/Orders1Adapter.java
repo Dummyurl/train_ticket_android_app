@@ -42,7 +42,6 @@ public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1V
 
     @Override
     public void onBindViewHolder(Orders1ViewHolder cpholder, int i) {
-        System.out.println(ordersList.get(i).getFrom() +  "323434");
         cpholder.beginCityTv.setText(ordersList.get(i).getFrom());
         cpholder.endCityTv.setText(ordersList.get(i).getTo());
 
@@ -81,7 +80,6 @@ public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1V
                 //   Intent intent = new Intent(context, OldOrdersDetailActivity.class);
                 Intent intent = new Intent(context, OrderDetailActivity.class);
                 intent.putExtra("ordersResult", new Gson().toJson(ordersList.get(position)));
-                System.out.println(ordersList.get(position).getId() + "-=0-9898776");
                 //  Toast.makeText(context,ordersList.get(position).getOrderId(), Toast.LENGTH_LONG).show();
                 context.startActivity(intent);
             }

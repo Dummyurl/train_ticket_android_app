@@ -131,7 +131,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
         start_time = getArguments().getString("start_time");
         arrive_time = getArguments().getString("arrive_time");
 
-        System.out.println(start_time + "---===---" + arrive_time);
         seat_type = getArguments().getString("seat_type");
         car_typegd = getArguments().getString("car_typegd");
         car_typez = getArguments().getString("car_typez");
@@ -162,7 +161,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
         if (arr[1].length() == 1)
             arr[1] = "0" + arr[1];
         datdString = arr[0] + "-" + arr[1] + "-" + arr[2];
-        System.out.println(datdString + "-=-0");
         btn_tstart_date.setText(datdString);
         return datdString;
     }
@@ -282,7 +280,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                     Collections.sort(cppath.getContactPathList(), new Comparator<ContactPath>() {
                         @Override
                         public int compare(ContactPath oL, ContactPath oR) {
-                            System.out.println(compareTime(oL.getStartTime(), oR.getStartTime()) + "-----=====-23");
                             return compareTime(oL.getStartTime(), oR.getStartTime());
                         }
                     });
@@ -319,10 +316,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 //                    startActivityForResult(intent, TravelPathActivity.FILTE_RPATH_REQUEST_CODE);
                 }
                 try {
-                    for(int i = 0 ; i< cppath.getContactPathList().size(); i++){
-                        System.out.println(cppath.getContactPathList().get(i).getStartTime() + "00000----");
-                    }
-                    System.out.println(cppath.getContactPathList().size() + "--=-=-=0=90988");
                     showNewContactPath(cppath.getContactPathList()); // 展示数据
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -340,7 +333,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
     }
 
     public void initStation(List<Station> tempList, int tag) {
-        System.out.println(tempList.size() + "-=0=---" + tag);
         if (tag == 1) {
             tempList1 = tempList;
         } else {
@@ -415,18 +407,14 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
     }
 
     public void getDataFromServer(String getPathUrl, String start_city, String end_city, String pathStartDate) {
-        System.out.println(pathStartDate + "0-009899" + start_city + "--==" + end_city);
         // 准备数据
         // 请求连接
         QueryInfo queryInfo = new QueryInfo(start_city, end_city, pathStartDate );
-        System.out.println(queryInfo.toString() + "---0000");
-        System.out.println(new Gson().toJson(queryInfo).toString() + "=00009");
 
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(queryInfo));
 
 
-        System.out.println("--------------0099999" + new Gson().toJson(queryInfo));
         subscription = RxHttpUtils.getDataPost(getPathUrl, requestBody, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -443,9 +431,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
-                        System.out.println(responseResult + "====43===========");
                         if (responseResult != null && !responseResult.equals("")) {
-                            System.out.println("==eweew==----00");
 
                             ArrayList<TripResponse> tripResponseArrayList = new ArrayList<>();
 
@@ -464,7 +450,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 
                                 tripResponseArrayList.add(tp);
                             }
-                            System.out.println(tripResponseArrayList.size() + "==-0-");
 
                             // 转换数据
                             List<ContactPath> contactPathList = new ArrayList<>();
@@ -488,7 +473,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                                 cp.setPrices(new double[]{0, 0, 0, 0, 0, 0, Double.parseDouble(tripResponseArrayList.get(i).getPriceForEconomyClass()), Double.parseDouble(tripResponseArrayList.get(i).getPriceForConfortClass()), 0, 0});
                                 contactPathList.add(cp);
                             }
-                            System.out.println(contactPathList.size() + "==---00");
 
                             try {
                                 showContactPath(contactPathList);
@@ -520,7 +504,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             recyclerView.setVisibility(View.GONE);
             animationDrawable.stop();
             animationIV.setVisibility(View.GONE);
-            reserve_tips.setText("没有找到对应路线！");
+            reserve_tips.setText("no that trip line！");
         }
     }
 
@@ -536,13 +520,10 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             travel1List.addAll(contactPaths);
         if (tagNum == 2)
             travel2List.addAll(contactPaths);
-        System.out.println(tagNum + "---- " + travel1List.size() + "-----32" + travel2List.size());
         if (tagNum == 2) {
             allPathList.addAll(travel1List);
             allPathList.addAll(travel2List);
             cppath = new ContactPathPageResponse(true,"Success",allPathList);
-            System.out.println(tagDay + "---===we21eee---" + arrive_time);
-            System.out.println(getNow() + "-=--=-=" + pathStartDate + "=-=-998898" + allPathList.size());
 
             // 根据首页条件过滤数据
             allPathList = filterPathList(allPathList);
@@ -584,7 +565,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             t = "T";
             k = "K";
         }
-        System.out.println(start_time + "---===weeee---" + arrive_time);
         String pathName = "";
         for (int i = 0; i < contactPaths.size(); i++) {
             pathName = contactPaths.get(i).getPathName();
@@ -617,9 +597,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 
         Calendar end = Calendar.getInstance();
         end.setTime(endTime);
-        System.out.println(nowTime1 + "--00--" + startTime1 + "000--" + endTime1);
         if (date.after(begin) && date.before(end)) {
-            System.out.println("090ddf");
             return true;
         } else {
             return false;
@@ -640,7 +618,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         String dateNow = formatter.format(currentTime);
-        System.out.println(dateNow + "===" + startTime);
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         try {
@@ -650,7 +627,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             e.printStackTrace();
         }
         int result = c1.compareTo(c2);
-        System.out.println(result + "result");
         return result;
     }
 
@@ -690,15 +666,10 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 
             String[] seatMap = arrangeSeatsNum(list.get(i).getSeats());
 
-            System.out.println(list.get(i).getSeats().length + "==list.get(i).getSeats()==");
-            System.out.println(seatMap.length + "===ss==");
-            System.out.println(seatMap[0] + "===ssss==");
-            System.out.println(seatMap[1] + "===3ssss==");
             String[] seatIndex = new String[10];
             String[] seatValues = new String[10];
 
             for (int jj = 0; jj < seatMap.length; jj++) {
-                System.out.println(seatMap[jj].split("=") + "--00999--");
                 String[] array = seatMap[jj].split("=");
                 seatIndex[jj] = array[0];
                 seatValues[jj] = array[1];
@@ -710,7 +681,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             for (int k = 0; k < 4; k++) {
                 if (Integer.parseInt(seatValues[k]) < 100) {
                     cpholder.seatValue[k].setTextColor(Color.RED);
-                    System.out.println(k + "===" + Integer.parseInt(seatValues[k]));
                 }
                 if (!seatValues[k].equals("-1")) {
                     cpholder.seatType[k].setText(Ticket.EASY_SEAT_TYPES[Integer.parseInt(seatIndex[k])] + ":");
@@ -791,8 +761,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             // // TODO: 2018/3/30
             //[{"cityName":"合肥 ","stationDesc":"普通列车停靠","stationName":"合肥北城"},{"cityName":"合肥 ","stationDesc":"高铁,动车停靠","stationName":"合肥南"}]=======
             // [{"cityName":"上海 ","stationDesc":"普通列车停靠","stationName":"上海南"},{"cityName":"上海 ","stationDesc":"高铁,动车停靠","stationName":"上海虹桥"}]
-            System.out.println("");
-            System.out.println(data.getStringExtra("startCity") + "====3434445454===" + data.getStringExtra("arriveCity"));
+
 
             String result1 = "";
             Gson gson = new Gson();
@@ -803,24 +772,19 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             list1 = gson.fromJson(data.getStringExtra("startCity"), listType);
             list2 = gson.fromJson(data.getStringExtra("arriveCity"), listType);
 
-            System.out.println(list1.size() + "-02-00000");
-            System.out.println(list2.size() + "-02-23fr4300000");
+
 
             List<ContactPath> item_contactPaths = new ArrayList<>();
             for (int i = 0; i < contactPathTemp.size(); i++) {
-                System.out.println("7666666");
                 boolean startTag = false, endTag = false;
                 for (int s = 0; s < list1.size(); s++) {
-                    System.out.println(contactPathTemp.get(i).getStartStation() + "---666666666---" + list1.get(s).getStationName());
                     if (contactPathTemp.get(i).getStartStation().equals(list1.get(s).getStationName())) {
-                        System.out.println(contactPathTemp.get(i).getStartStation() + "---=0" + list1.get(s).getStationName());
                         startTag = true;
                     }
                 }
 
                 for (int e = 0; e < list2.size(); e++) {
                     if (contactPathTemp.get(i).getArriveStation().equals(list2.get(e).getStationName())) {
-                        System.out.println(contactPathTemp.get(i).getArriveStation() + "-ww--=0" + list2.get(e).getStationName());
                         endTag = true;
                     }
                 }
@@ -832,7 +796,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                     item_contactPaths.add(contactPathTemp.get(i));
                 }
             }
-            System.out.println(item_contactPaths.size() + "-=0-0-0");
             if (item_contactPaths.size() != 0)
                 showState(true);
             try {

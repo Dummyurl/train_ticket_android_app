@@ -77,7 +77,6 @@ public class Login_Fragment extends BaseFragment implements View.OnClickListener
         String users = "fdse_microservices@163.com";
         String password = "DefaultPassword";
 
-        System.out.println(users + "==23===" + password);
 //        try {
 //            users = URLEncoder.encode(users, "UTF-8");
 //            password = URLEncoder.encode(password, "UTF-8");
@@ -90,7 +89,6 @@ public class Login_Fragment extends BaseFragment implements View.OnClickListener
             String getUserUri = UrlProperties.clientIstioIp + UrlProperties.login;
             final LoginInfo loginInfo = new LoginInfo("fdse_microservices@163.com", "DefaultPassword", "abcd");
 
-            System.out.println(new Gson().toJson(loginInfo).toString() + "=0loginInfo");
 
             MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
             RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(loginInfo));
@@ -116,7 +114,6 @@ public class Login_Fragment extends BaseFragment implements View.OnClickListener
                                 Gson gson = new Gson();
 
                                 LoginResult loginResult = gson.fromJson(responseResult, LoginResult.class);
-                                System.out.println(loginResult.toString() + "====---00");
                                 if (loginResult.getStatus()) {
                                     Account account = loginResult.getAccount();
                                     // todo password is always null -> token

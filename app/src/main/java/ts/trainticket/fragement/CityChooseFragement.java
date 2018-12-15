@@ -156,7 +156,6 @@ public class CityChooseFragement extends BaseFragment {
 
         @Override
         public void onBindViewHolder(MemoryCitysHolder holder, int position) {
-            System.out.println(memoryCities.get(position).toString() + "===----0000");
             holder.memoryBtn.setText(memoryCities.get(position).toString());
         }
 
