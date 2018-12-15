@@ -36,7 +36,7 @@ That's  all !
 
 - Before login, go to account page
    
-    <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-11-03-15-44-02-296_ts.trainticket.png" width="350" hegiht="620" align=center />
+    <img src="https://raw.githubusercontent.com/liucloudhub/liucloudhub.github.io/master/img/android/Screenshot_2018-12-10-19-56-51-353_ts.trainticket.png" width="350" hegiht="620" align=center />
    
 - Login, you can use username `fdse_microservices@163.com` && password `DefaultPassword`
 
