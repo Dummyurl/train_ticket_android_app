@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import ts.trainticket.fragement.Contacts_Fragement;
 
-/**
- * Created by liuZOZO on 2018/3/11.
- * 常用联系人
- */
 public class ContactsActivity extends AppCompatActivity{
 
     private Contacts_Fragement contacts_fragement = null;
@@ -52,7 +48,6 @@ public class ContactsActivity extends AppCompatActivity{
         common_head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
                 finish();
             }
         });

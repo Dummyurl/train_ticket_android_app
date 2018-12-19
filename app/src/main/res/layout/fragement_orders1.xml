@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--下面显示查询出来的路线信息-->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_orders1_table"
         android:layout_width="match_parent"

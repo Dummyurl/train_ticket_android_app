@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,9 +40,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import ts.trainticket.CityChooseActivity;
 import ts.trainticket.MainActivity;
 import ts.trainticket.R;
-import ts.trainticket.databean.ContactPSPageResponse;
-import ts.trainticket.databean.ContactPathStation;
-import ts.trainticket.databean.Trip;
+import ts.trainticket.domain.ContactPSPageResponse;
+import ts.trainticket.domain.ContactPathStation;
+import ts.trainticket.domain.Trip;
 import ts.trainticket.domain.QueryInfo;
 import ts.trainticket.httpUtils.RxHttpUtils;
 import ts.trainticket.httpUtils.UrlProperties;
@@ -56,7 +55,7 @@ import ts.trainticket.utils.CalendarUtil;
  */
 public class StationFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private SwipeRefreshLayout swiper = null; // 下拉刷新控件
+    private SwipeRefreshLayout swiper = null;
     private Button common_head_back_btn;
 
     private TextView headText;
@@ -72,7 +71,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
     // right three widget
     private Button startTimeFirst_btn;
     private Button arriveTimeFirst_btn;
-    private EditText searchCity_et;
 
     //  show train line table
     RecyclerView recyclerView = null;
@@ -121,7 +119,7 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
         startTimeFirst_btn = (Button) view.findViewById(R.id.startTimeFirst_btn);
         arriveTimeFirst_btn = (Button) view.findViewById(R.id.arriveTimeFirst_btn);
-        searchCity_et = (EditText) view.findViewById(R.id.searchCity_et);
+
     }
 
     private void initCityBtn(View view) {
@@ -140,17 +138,14 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        // 刷新
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // 一般会从网络获取数据
-                swiper.setRefreshing(false);// 结束后停止刷新
+                swiper.setRefreshing(false);
             }
-        }, 2300);
+        }, 500);
     }
 
-    // 城市按按钮监听器
     private class CityChooseListener implements View.OnClickListener {
         int city;
 
@@ -160,14 +155,11 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
         @Override
         public void onClick(View v) {
-            // 跳转到新页面选择城市
             Intent cityIntent = new Intent(getActivity(), CityChooseActivity.class);
             startActivityForResult(cityIntent, CityChooseActivity.CITY_CHOOSE_REQUEST_CODE);
         }
     }
 
-    // 从选择城市页面返回的城市名字
-    // 根据城市名字得到车站名字
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -187,7 +179,7 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
     public void getTimeTableFromServer(String stationName) {
         recyclerView.setAdapter(null);
-        // 准备数据
+
         try {
             stationName = URLEncoder.encode(stationName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -195,7 +187,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         }
 
         QueryInfo queryInfo = new QueryInfo( "Nan Jing","Shang Hai", "2018-10-30" );
-       // QueryInfo queryInfo = new QueryInfo("2018-10-26", "Shang Hai", "Nan Jing");
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(queryInfo));
 
@@ -205,7 +196,7 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
 
         String listCityUri = UrlProperties.clientIstioIp + UrlProperties.getTravelAll ;
-        subscription = RxHttpUtils.getDataByUrl(listCityUri, getContext())
+        subscription = RxHttpUtils.getWithOutHeader(listCityUri, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
@@ -257,7 +248,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
                 });
     }
 
-    // 展示路线时刻表TravelAdvanceResult
     private void setTimeTable(List<ContactPathStation> temp) {
         filterPath = new ContactPSPageResponse(true,"good",1,1,1,1,temp);
         st_search_tips.setVisibility(View.GONE);
@@ -266,7 +256,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         animationDrawable.stop();
         animationIV.setVisibility(View.GONE);
 
-        // 通过adapter展示数据
         if(temp.size() >0) {
             ContactPathAdapter myAdapter = new ContactPathAdapter(temp);
             myAdapter.setHasStableIds(true);
@@ -279,15 +268,12 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         }
     }
 
-
-
-    //  过滤
     private class TimeTableFilterListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
             recyclerView.stopScroll();
-            if (startTimeFirst_btn.getId() == v.getId()) {  // 最早发站时刻表
+            if (startTimeFirst_btn.getId() == v.getId()) {
 
                 if (filterPath != null) {
                     Collections.sort(filterPath.getCntactPathStation(), new Comparator<ContactPathStation>() {
@@ -296,12 +282,12 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
                             return compareTime(oL.getStartTime(), oR.getStartTime());
                         }
                     });
-                    // 通过adapter展示数据
+
                     setTimeTable2(filterPath);
                 } else {
                     Toast.makeText(getActivity(), "likely not get any data!", Toast.LENGTH_SHORT).show();
                 }
-            } else if (arriveTimeFirst_btn.getId() == v.getId()) { // 最早到达时刻表
+            } else if (arriveTimeFirst_btn.getId() == v.getId()) {
                 if (filterPath != null) {
                     Collections.sort(filterPath.getCntactPathStation(), new Comparator<ContactPathStation>() {
                         @Override
@@ -309,7 +295,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
                             return compareTime(oL.getArriveTime(), oR.getArriveTime());
                         }
                     });
-                    // 通过adapter展示数据
                     setTimeTable2(filterPath);
                 } else {
                     Toast.makeText(getActivity(), "likely not get any data!", Toast.LENGTH_SHORT).show();
@@ -321,7 +306,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
     private void setTimeTable2(ContactPSPageResponse path) {
         st_search_tips.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        // 通过adapter展示数据
         ContactPathAdapter myAdapter = new ContactPathAdapter(path.getCntactPathStation());
         myAdapter.setHasStableIds(true);
         recyclerView.setAdapter(myAdapter);
@@ -333,7 +317,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         return CalendarUtil.compareDate(ll, rr);
     }
 
-    // 每个item 对应一个adapter , 一个adapter 对应一个viewholder
     class ContactPathAdapter extends RecyclerView.Adapter<ContactPathAdapter.ContactPathViewHolder> {
 
         private List<ContactPathStation> list;
@@ -387,7 +370,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
             return list.size();
         }
 
-        // 对应item 里面的每一个元素
         class ContactPathViewHolder extends RecyclerView.ViewHolder {
             private TextView pathName;
             private TextView stationName;

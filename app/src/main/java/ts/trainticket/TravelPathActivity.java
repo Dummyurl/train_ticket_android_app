@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import ts.trainticket.fragement.TravelPath_Fragment;
 
-/**
- * Created by liuZOZO on 2018/1/20.
- */
+
 public class TravelPathActivity extends AppCompatActivity {
 
     private Button common_head_back_btn = null;
@@ -20,7 +18,6 @@ public class TravelPathActivity extends AppCompatActivity {
 
     private TravelPath_Fragment contactPathFragment;
     private LinearLayout back_btnLyt= null;
-    public static final int  FILTE_RPATH_REQUEST_CODE = 0;
     public static final int PATH_CHOOSE_RESULT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +32,7 @@ public class TravelPathActivity extends AppCompatActivity {
     private void initFragment() {
         contactPathFragment = new TravelPath_Fragment();
 
-        // 初始化数据
+        //
         Bundle bundle = new Bundle();
         bundle.putString("start_city", getIntent().getStringExtra("start_city"));
         bundle.putString("end_city", getIntent().getStringExtra("end_city"));
@@ -43,7 +40,7 @@ public class TravelPathActivity extends AppCompatActivity {
 
         bundle.putString("start_time",getIntent().getStringExtra("start_time"));
         bundle.putString("arrive_time",getIntent().getStringExtra("arrive_time"));
-        bundle.putString("seat_type",getIntent().getStringExtra("seat_type"));
+
         bundle.putString("car_typegd",getIntent().getStringExtra("car_typegd"));
         bundle.putString("car_typez",getIntent().getStringExtra("car_typez"));
         bundle.putString("car_typet",getIntent().getStringExtra("car_typet"));
@@ -62,7 +59,6 @@ public class TravelPathActivity extends AppCompatActivity {
         back_btnLyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
                 Intent cityIntent = new Intent(getApplication(), MainActivity.class);
                 startActivity(cityIntent);
             }

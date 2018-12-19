@@ -9,10 +9,6 @@ import android.widget.Button;
 import ts.trainticket.fragement.TicketReserve_Fragement;
 
 
-/**
- * Created by liuZOZO on 2018/1/22.
- * 车票预订
- */
 public class TicketReserveActivity extends AppCompatActivity {
 
     private TicketReserve_Fragement goReserve_fragement;
@@ -32,7 +28,7 @@ public class TicketReserveActivity extends AppCompatActivity {
         head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
+
                 Intent cityIntent = new Intent(getApplication(), BuyTicketActivity.class);
                 startActivity(cityIntent);
             }
@@ -40,7 +36,7 @@ public class TicketReserveActivity extends AppCompatActivity {
     }
     private void initFragment(){
         goReserve_fragement = new TicketReserve_Fragement();
-        // 初始化数据
+
         Bundle bundle = new Bundle();
         bundle.putString("ticket_detail",getIntent().getStringExtra("ticket_detail"));
         bundle.putString("seatType",getIntent().getStringExtra("seatType"));

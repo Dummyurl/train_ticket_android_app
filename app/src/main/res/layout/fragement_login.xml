@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/username_layout"
+                android:id="@+id/eamil_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -41,12 +41,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
-                    android:text="Account"
+                    android:text="@string/user_eamil"
                     android:textColor="#b3b3b3"
                     android:textSize="16dp" />
 
                 <EditText
-                    android:id="@+id/userName_acId"
+                    android:id="@+id/eamil_SignIn_Id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -90,13 +90,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Password"
+                    android:text="@string/user_password"
                     android:layout_marginLeft="15dp"
                     android:textColor="#b3b3b3"
                     android:textSize="16dp" />
 
                 <EditText
-                    android:id="@+id/password_psId"
+                    android:id="@+id/password_signIn_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

@@ -16,22 +16,22 @@
             android:id="@+id/show_to_payPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="#fff"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="#fff"
+            android:orientation="horizontal"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:orientation="horizontal">
-            <!--当taskcode 不为0的时候显示-->
+            android:paddingBottom="5dp">
+
             <ImageView
                 android:id="@+id/show_tag_pic"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:visibility="gone" />
 
-            <!--当task_code为0的时候才显示-->
+
             <ts.trainticket.Meituan.RightMarkView
                 android:id="@+id/activity_right_mark_rmv"
                 android:layout_width="50dp"
@@ -71,13 +71,6 @@
                         android:text="@string/site_lock_tip1"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/odt_time_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="23:01"
-                        android:textColor="#b37e3b"
-                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -86,9 +79,8 @@
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout> <!--顶部待支付结束-->
+        </LinearLayout>
 
-        <!--下面是订单信息-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -116,10 +108,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="waiting..."
-                    android:textSize="16sp" />
-            </LinearLayout> <!--订单信息结束-->
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-            <!--画虚线-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -134,14 +125,14 @@
                 android:background="#f2faff"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="12dp">
+                android:paddingTop="12dp"
+                android:paddingRight="15dp">
 
                 <TextView
                     android:id="@+id/odt_beginDate_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2月14日 星期三" />
+                    android:text="2-14  thursday" />
 
                 <View
                     android:layout_width="0dp"
@@ -152,7 +143,7 @@
                     android:id="@+id/odt_endDate_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2月14日 星期三" />
+                    android:text="2-14  thursday" />
             </LinearLayout>
 
             <LinearLayout
@@ -160,10 +151,10 @@
                 android:layout_height="wrap_content"
                 android:background="#f4fafe"
                 android:orientation="horizontal"
-                android:paddingBottom="10dp"
                 android:paddingLeft="12dp"
-                android:paddingRight="12dp">
-                <!--第一个-->
+                android:paddingRight="12dp"
+                android:paddingBottom="10dp">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,8 +172,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="12sp"
-                        android:text="-" />
+                        android:text="-"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <View
@@ -190,7 +181,6 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <!--第二个-->
                 <LinearLayout
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
@@ -238,7 +228,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1" />
-                <!--第三个-->
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -257,12 +247,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="10sp"
-                        android:text="-" />
+                        android:text="-"
+                        android:textSize="10sp" />
                 </LinearLayout>
-            </LinearLayout> <!--时刻表结束-->
+            </LinearLayout>
 
-            <!--listView 添加乘客的部分-->
             <ListView
                 android:id="@+id/selected_psg_list"
                 android:layout_width="fill_parent"
@@ -276,8 +265,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="12dp"
             android:background="#fff"
             android:gravity="center"
             android:text="Cancel Order"

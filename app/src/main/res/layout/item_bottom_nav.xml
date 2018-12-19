@@ -15,7 +15,7 @@
         android:id="@+id/nav_text_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="消息"
+        android:text="message"
         android:paddingBottom="8dp"
         android:textSize="13dp"
         android:textColor="@drawable/change_color_text"/>

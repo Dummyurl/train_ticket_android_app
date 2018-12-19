@@ -11,14 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by liuZOZO on 2018/1/13.
- */
+
 public class JsonUtil {
 
-    /**
-     * 从存入的Json String获取List<Object>
-     */
     public static List<Object> getListFromJsonString(String json) {
         List<Object> list = new ArrayList<>();
 
@@ -39,9 +34,6 @@ public class JsonUtil {
     }
 
 
-    /**
-     * 从Json String中获取一个Object，利用反射赋值属性
-     */
     public static <T> T getObjectFromJson(String json, Class<T> t) {
         if (TextUtils.isEmpty(json)) {
             return null;
@@ -65,13 +57,6 @@ public class JsonUtil {
     }
 
 
-    /**
-     * 通过 key 与 value 获得发送给服务器的Json
-     *
-     * @param keys   Json keys
-     * @param values Json send values
-     * @return JsonObject
-     */
     public static JSONObject getSendJson(List keys, List values) {
         JSONObject sendJson = new JSONObject();
 

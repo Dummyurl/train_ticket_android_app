@@ -33,37 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <!--地图定位站点-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#fff"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/hb_weizhi_icon" />
-
-            <TextView
-                android:id="@+id/position_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Shang Hai"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" (Shang Hai,Shang Hai Hong Qiao)"
-                android:textSize="12sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,18 +51,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="resent search" />
+                    android:textSize="18sp"
+                    android:text="@string/resent_search" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="2dp"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#4889DB"
-                    android:text="clear history" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -113,7 +79,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!--热门城市-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,8 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="hot station:"
-                android:textSize="20sp" />
+                android:text="@string/hot_city"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:id="@+id/hot_city_panel"

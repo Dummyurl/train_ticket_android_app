@@ -14,21 +14,18 @@ public class BaseFragment extends Fragment{
     protected Subscription subscription = null;
     protected List<View>views = new ArrayList<View>();
 
-    // 锁住点击事件
     protected void lockClick() {
         for(View view:views) {
             view.setClickable(false);
         }
     }
 
-    // 打开点击事件
     protected void unlockClick() {
         for(View view: views) {
             view.setClickable(true);
         }
     }
 
-    // 将数个点击按钮加入到点击管理事件
     protected void addToBtnController(View... views) {
         Collections.addAll(this.views, views);
     }

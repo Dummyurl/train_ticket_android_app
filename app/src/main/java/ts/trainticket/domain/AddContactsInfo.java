@@ -1,6 +1,5 @@
 package ts.trainticket.domain;
 
-import java.util.UUID;
 
 public class AddContactsInfo {
 

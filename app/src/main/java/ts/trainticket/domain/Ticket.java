@@ -1,61 +1,20 @@
-package ts.trainticket.databean;
+package ts.trainticket.domain;
 
-/**
- * Created by liuZOZO on 2018/1/30.
- */
+
 public class Ticket {
 
     public static final String[] EASY_SEAT_TYPES = {
-            "no seat",
-            "hard seat",
-            "soft seat",
-            "hard sleeper",
-            "Soft sleeper",
-            "high-grade soft sleeper",
             "2rd-class",
             "1st-class",
-            "special-class",
-            "business"
     };
 
-//    public static final String[]  EASY_SEAT_TYPES = {
-//            "无座",
-//            "硬座",
-//            "软座",
-//            "硬卧",
-//            "软卧",
-//            "高软",
-//            "二等",
-//            "一等",
-//            "特等",
-//            "商务"
-//    };
 
     public static final String[] FULL_SEAT_TYPES = {
-            "no site",
-            "hard seat",
-            "soft seat",
-            "hard sleeper",
-            "Soft sleeper",
-            "high-grade soft sleeper",
             "second-class seat",
             "first-class seat",
-            "special-class seat",
-            "business seat"
+
     };
 
-    //    public static final String[]  FULL_SEAT_TYPES = {
-//            "无座",
-//            "硬座",
-//            "软座",
-//            "硬卧",
-//            "软卧",
-//            "高级软卧",
-//            "二等座",
-//            "一等座",
-//            "特等座",
-//            "商务座"
-//    };
     public static final String[] ORDER_STATE = {
             "Not Paid",
             "Paid & Not Collected",
@@ -67,19 +26,12 @@ public class Ticket {
             "other"
     };
 
-//    public static final String[] ORDER_STATE = {
-//            "待支付",
-//            "待完成",
-//            "已取消",
-//            "改退签",
-//            "已完成"
-//    };
 
-    private String pathName; //路线名
-    private String pathStartDate; // 路线出发日期
-    private int stationNumber; // 第几停靠站
-    private int seatType; // 座位类型
-    private int leftTickets; // 剩余票数
+    private String pathName;
+    private String pathStartDate;
+    private int stationNumber;
+    private int seatType;
+    private int leftTickets;
 
     public Ticket() {
     }

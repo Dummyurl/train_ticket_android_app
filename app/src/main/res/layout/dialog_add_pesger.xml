@@ -82,7 +82,6 @@
         android:padding="5px"
         android:src="@drawable/pic_loading" />
 
-    <!--下面显示查询出来的路线信息-->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_aps_table"
         android:layout_width="match_parent"

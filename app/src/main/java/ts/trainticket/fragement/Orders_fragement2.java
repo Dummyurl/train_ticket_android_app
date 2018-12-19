@@ -16,14 +16,12 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,30 +30,24 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import ts.trainticket.R;
 import ts.trainticket.adapter.Orders1Adapter;
-import ts.trainticket.databean.Orders;
-import ts.trainticket.databean.OrdersPageResponse;
+
 import ts.trainticket.domain.OrderList;
 import ts.trainticket.domain.OrderQueryInfo;
 import ts.trainticket.httpUtils.RxHttpUtils;
 import ts.trainticket.httpUtils.UrlProperties;
 import ts.trainticket.utils.ApplicationPreferences;
-import ts.trainticket.utils.CalendarUtil;
 
-/**
- * Created by liuZOZO on 2018/3/13.
- */
+
 public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private SwipeRefreshLayout swiper = null; // 下拉刷新控件
-    private RecyclerView recyclerView = null; // 常用联系人列表
+    private SwipeRefreshLayout swiper = null;
+    private RecyclerView recyclerView = null;
 
     private ImageView animationIV;
     private AnimationDrawable animationDrawable;
     private ImageView reserve_tipsImg2 = null;
     private TextView reserve_tipsTv2 = null;
 
-
-    // 请求两次 orderlist 显示
     private int tagNum = 0;
     private List<OrderList> orderList;
     private List<OrderList> otherOrderList;
@@ -100,7 +92,6 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
         otherOrderList = new ArrayList<>();
         allOrderList = new ArrayList<>();
 
-        // ,UrlProperties.clientIstioIp + UrlProperties.otherOrderQuery
         String [] ordersUrl = new String[]{UrlProperties.clientIstioIp + UrlProperties.orderQuery};
         for(int i =0; i<ordersUrl.length; i++){
             getOrderDataFromServer(ordersUrl[i]);
@@ -108,15 +99,14 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
     }
 
     public void getOrderDataFromServer( String ordersUrl) {
-        // 基于请求头的header 和 tokin  id 进行查询
         OrderQueryInfo orderQueryInfo = new OrderQueryInfo(null, null, null, null, 0, false, false, false);
 
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(orderQueryInfo));
 
 
-        String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
-        String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
+        String loginId = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_ID);
+        String token = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_TOKEN);
 
 
         subscription = RxHttpUtils.postWithHeader(ordersUrl, loginId, token, requestBody, getContext())
@@ -148,27 +138,19 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
                             showTable(orderLists);
                         } else {
                             showStates();
-                           // Toast.makeText(getActivity(), "没有订单信息", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-
-    // 展示路线时刻表
     private void showTable(List<OrderList> ordersList1) {
         tagNum++;
-        // orderList  和 orderOtherList
         if(tagNum == 1)
             orderList.addAll(ordersList1);
-//        if (tagNum == 2)
-//            otherOrderList.addAll(ordersList1);
         if(tagNum == 1) {
             allOrderList.addAll(orderList);
-          //  allOrderList.addAll(otherOrderList);
             List<OrderList> temps = new ArrayList<>();
             for (OrderList order : allOrderList) {
-                // 1  pad  待完成
                 if ("1".equals(order.getStatus()+"")) {
                     temps.add(order);
                 }
@@ -194,14 +176,12 @@ public class Orders_fragement2 extends BaseFragment implements SwipeRefreshLayou
     }
     @Override
     public void onRefresh() {
-        // 刷新
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // 一般会从网络获取数
                 getOrderListFromServer();
-                swiper.setRefreshing(false);// 结束后停止刷新
+                swiper.setRefreshing(false);
             }
-        }, 3000);
+        }, 500);
     }
 }

@@ -9,10 +9,7 @@ import android.widget.TextView;
 
 import ts.trainticket.fragement.PathDetailFragment;
 
-/**
- * Created by liuZOZO on 2018/1/21.
- * 车次详情
- */
+
 public class BuyTicketActivity extends AppCompatActivity {
 
     private PathDetailFragment buyTicketFragment;
@@ -41,7 +38,6 @@ public class BuyTicketActivity extends AppCompatActivity {
         head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
                 Intent cityIntent = new Intent(getApplication(), TravelPathActivity.class);
                 startActivityForResult(cityIntent, CityChooseActivity.CITY_CHOOSE_REQUEST_CODE);
             }

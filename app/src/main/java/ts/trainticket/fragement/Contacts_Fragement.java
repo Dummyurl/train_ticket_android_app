@@ -21,7 +21,6 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,20 +28,19 @@ import java.util.List;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import ts.trainticket.R;
-import ts.trainticket.databean.Contacts;
-import ts.trainticket.databean.ContactsPageResponse;
+import ts.trainticket.domain.Contacts;
+import ts.trainticket.domain.DeleteContactsInfo;
+import ts.trainticket.domain.DeleteContactsResult;
 import ts.trainticket.httpUtils.RxHttpUtils;
 import ts.trainticket.httpUtils.UrlProperties;
 import ts.trainticket.utils.ApplicationPreferences;
 import ts.trainticket.utils.ServerConstValues;
 
-/**
- * Created by liuZOZO on 2018/3/11.
- */
+
 public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private SwipeRefreshLayout swiper = null; // 下拉刷新控件
-    private RecyclerView recyclerView = null; // 常用联系人列表
+    private SwipeRefreshLayout swiper = null;
+    private RecyclerView recyclerView = null;
     private ImageView animationIV_addp = null;
     private AnimationDrawable animationDrawable;
     private ImageView contacts_tipsImg = null;
@@ -59,7 +57,7 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
     @Override
     public void onStart() {
         super.onStart();
-        getDataFromServer();
+        getContactsFromServer();
     }
 
     private void initViews(View view) {
@@ -85,18 +83,18 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
         contacts_tipsTv = (TextView) view.findViewById(R.id.contacts_tips);
     }
 
-    // 删除常用联系人
-    public void contactsByIdcard(String idCard) {
-        // 请求连接
-        String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
+
+    public void deleteContactByIdcard(String idCard) {
+        String token = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_TOKEN);
 
         DeleteContactsInfo deleteContactsInfo = new DeleteContactsInfo(idCard, token);
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(deleteContactsInfo));
 
         String listStationUri = UrlProperties.clientIstioIp + UrlProperties.deleteContacts;
+        System.out.println(new Gson().toJson(deleteContactsInfo) + "------=--=0-0");
 
-        subscription = RxHttpUtils.getDataPost(listStationUri, requestBody, getContext())
+        subscription = RxHttpUtils.postWithOutHeader(listStationUri, requestBody, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
@@ -112,11 +110,12 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
+                        System.out.println(responseResult + "-=--==-=0-");
                         if (responseResult != null && !responseResult.equals("")) {
                             Gson gson = new Gson();
                             DeleteContactsResult deleteContactsResult = gson.fromJson(responseResult, DeleteContactsResult.class);
                             if(deleteContactsResult.isStatus())
-                                getDataFromServer();
+                                getContactsFromServer();
                             else
                                 Toast.makeText(getActivity(), "delete contacts failed!", Toast.LENGTH_SHORT).show();
                         } else {
@@ -126,12 +125,12 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                 });
     }
 
-    public void getDataFromServer() {
+    public void getContactsFromServer() {
 
         String listStationUri = UrlProperties.clientIstioIp + UrlProperties.findContacts;
 
-        String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
-        String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
+        String loginId = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_ID);
+        String token = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_TOKEN);
 
         subscription = RxHttpUtils.getWithHeader(listStationUri, loginId, token, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -157,16 +156,13 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
 
                             while (it.hasNext()) {
                                 JSONObject consObj = (JSONObject) it.next();
-                                Contacts contacts1 = new Contacts(consObj.getString("accountId"), consObj.getString("name"), consObj.getString("id"),
-                                        consObj.getString("phoneNumber"), consObj.getInteger("documentType"));
+
+                                Contacts contacts1 = new Contacts(consObj.getString("id"),
+                                        consObj.getString("accountId"), consObj.getString("name"),
+                                        consObj.getString("documentType"), consObj.getString("documentNumber"),
+                                        consObj.getString("phoneNumber") );
                                 contactsList.add(contacts1);
                             }
-//                            private String userName;// 账户名  必须对应accout 表下的 userName ，隶属关系
-//                            private String contactRealName; // 常用联系人真实姓名
-//                            private String contactRealIcard;// 常用联系人真实身份证号
-//                            private String contactPhone;// 常用联系人手机号
-//                            private Integer conatctType;// 常用联系人类型
-//                            private String orderId;
 
                             if (contactsList.size() > 0) {
                                 recyclerView.setVisibility(View.VISIBLE);
@@ -178,14 +174,13 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                             }
                         } else {
                             changeState(false);
-                            // Toast.makeText(getActivity(), "查询常用联系人失败", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
     }
 
-    // 展示常用联系人
+    // show common contacts
     private void showTable(List<Contacts> contactses) {
         ContactsAdapter myAdapter = new ContactsAdapter(contactses);
         myAdapter.setHasStableIds(true);
@@ -206,7 +201,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
         }
     }
 
-    // 每个item 对应一个adapter , 一个adapter 对应一个viewholder
     class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder> {
 
         private List<Contacts> list;
@@ -223,43 +217,18 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
 
         @Override
         public void onBindViewHolder(ContactsViewHolder cpholder, int i) {
-            cpholder.contactsName.setText(list.get(i).getContactRealName());
-            cpholder.contactsType.setText(ServerConstValues.EASY_PASSENGER_TYPES[list.get(i).getConatctType()]);
-
-
-            char[] idcards = list.get(i).getContactRealIcard().toCharArray();
-            String tempidcard = "";
-            for (int j = 0; j < idcards.length; j++) {
-                if (j > 6 && j < 13)
-                    tempidcard = tempidcard + "*";
-                else if (j > 12 && j < 23) {
-
-                } else {
-                    tempidcard = tempidcard + idcards[j] + "";
-                }
-            }
-            cpholder.sidCard.setText(tempidcard);
-
+            cpholder.contactsName.setText(list.get(i).getName());
+            cpholder.contactsType.setText(ServerConstValues.EASY_PASSENGER_TYPES[Integer.parseInt(list.get(i).getDocumentType())]);
+            cpholder.sidCard.setText(list.get(i).getDocumentNumber());
 
             final int pop = i;
             cpholder.add_del_passe.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    contactsByIdcard(list.get(pop).getContactRealIcard());
+                    deleteContactByIdcard(list.get(pop).getId());
                 }
             });
-            final int position = i;
-            cpholder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 点击每一个路线进行跳转
-//                    Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
-//                    Gson gson = new Gson();
-//                    intent.putExtra("item_contact_path",gson.toJson(list.get(position)));
-//                    Toast.makeText(getActivity(), gson.toJson(list.get(position)), Toast.LENGTH_LONG).show();
-//                    startActivity(intent);
-                }
-            });
+
         }
 
         @Override
@@ -272,7 +241,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
             return list.size();
         }
 
-        // 对应item 里面的每一个元素
         class ContactsViewHolder extends RecyclerView.ViewHolder {
             private TextView contactsName;
             private TextView contactsType;
@@ -291,13 +259,13 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
-        // 刷新
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getDataFromServer();
-                swiper.setRefreshing(false);// 结束后停止刷新
+                getContactsFromServer();
+                swiper.setRefreshing(false);
             }
-        }, 3000);
+        }, 500);
     }
 }

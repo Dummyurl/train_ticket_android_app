@@ -8,9 +8,7 @@ import android.widget.TextView;
 
 import ts.trainticket.fragement.Login_Fragment;
 
-/**
- * Created by liuZOZO on 2018/3/11.
- */
+
 public class LoginActivity extends AppCompatActivity {
 
     public static final int SIGN_IN_REQUEST_CODE = 0;

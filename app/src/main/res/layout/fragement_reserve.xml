@@ -118,7 +118,7 @@
 
             </LinearLayout>
 
-            <!--出发日期时间-->
+            <!--date picker-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!--时间结束分割线-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -224,62 +224,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/seat_type_tag" />
-
-                    <Button
-                        android:id="@+id/btn_seats_type"
-                        style="@style/NormalButton"
-                        android:textAllCaps="false"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#eaeaea"
-                        android:paddingBottom="8dp"
-                        android:paddingTop="8dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:scaleX="0.90"
-                        android:scaleY="0.90"
-                        android:text="@string/student" />
-                </LinearLayout>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

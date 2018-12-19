@@ -83,13 +83,13 @@
                     android:id="@+id/searchCity_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="search"
                     android:maxLines="1"
+                    android:enabled="false"
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!--放查询出来的车站-->
+
         <LinearLayout
             android:id="@+id/st_stationList"
             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
             android:padding="5px"
             android:src="@drawable/pic_loading" />
 
-        <!--下面显示查询出来的路线信息-->
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh_time_table"
             android:layout_width="match_parent"

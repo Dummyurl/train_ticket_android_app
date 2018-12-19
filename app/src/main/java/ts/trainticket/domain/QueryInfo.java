@@ -1,7 +1,5 @@
 package ts.trainticket.domain;
 
-import java.util.Date;
-
 
 public class QueryInfo {
     private String tripId;

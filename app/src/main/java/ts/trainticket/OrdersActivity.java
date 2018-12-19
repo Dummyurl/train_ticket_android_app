@@ -23,13 +23,9 @@ import ts.trainticket.fragement.Orders_fragement2;
 import ts.trainticket.fragement.Orders_fragement3;
 import ts.trainticket.fragement.Orders_fragement4;
 
-/**
- * Created by liuZOZO on 2018/3/12.
- */
+
 public class OrdersActivity extends AppCompatActivity {
 
-    private Button buttonHead = null;
-    private TextView headText = null;
 
     List<BaseFragment> fragmentList = null;
     private Orders_fragement1 of1 = null;
@@ -150,9 +146,7 @@ public class OrdersActivity extends AppCompatActivity {
         tv3.setTextColor(Color.parseColor("#ffffff"));
         tv4.setTextColor(Color.parseColor("#ffffff"));
     }
-    /**
-     * 标题点击事件的监听接口实现类
-     */
+
     private class TabOnClickListener implements View.OnClickListener{
 
         @Override

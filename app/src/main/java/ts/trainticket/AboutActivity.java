@@ -6,12 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Created by liuZOZO on 2018/3/29.
- */
 public class AboutActivity extends AppCompatActivity {
 
-    public static final String SERVICE_CLASSNAME = "ts.trainticket.messagepush.MQTTService";
 
     // head
     private Button head_back_btn = null;
@@ -28,7 +24,6 @@ public class AboutActivity extends AppCompatActivity {
         head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
                 finish();
             }
         });

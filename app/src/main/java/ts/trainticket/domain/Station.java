@@ -2,51 +2,40 @@ package ts.trainticket.domain;
 
 
 public class Station {
-
-    private String id;
-
-
-    private String name;
-
-    private int stayTime;
+    private String stationName;
+    private String cityName;
+    private String stationDesc;
 
     public Station() {
-        //Default Constructor
     }
 
-    public Station(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public Station(String stationName, String cityName, String stationDesc) {
+        this.stationName = stationName;
+        this.cityName = cityName;
+        this.stationDesc = stationDesc;
     }
 
-
-    public Station(String id, String name, int stayTime) {
-        this.id = id;
-        this.name = name;
-        this.stayTime = stayTime;
+    public String getStationDesc() {
+        return stationDesc;
     }
 
-    public String getId() {
-        return id;
+    public void setStationDesc(String stationDesc) {
+        this.stationDesc = stationDesc;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getStationName() {
+        return stationName;
     }
 
-    public String getName() {
-        return name;
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCityName() {
+        return cityName;
     }
 
-    public int getStayTime() {
-        return stayTime;
-    }
-
-    public void setStayTime(int stayTime) {
-        this.stayTime = stayTime;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 }

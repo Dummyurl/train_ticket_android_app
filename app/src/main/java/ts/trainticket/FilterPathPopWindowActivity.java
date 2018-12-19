@@ -21,11 +21,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import ts.trainticket.databean.Station;
+import ts.trainticket.domain.Station;
 
-/**
- * Created by liuZOZO on 2018/3/26.
- */
+
 public class FilterPathPopWindowActivity extends Activity implements View.OnClickListener {
 
     String startCity = "";

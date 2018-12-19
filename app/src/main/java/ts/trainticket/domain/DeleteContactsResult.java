@@ -1,4 +1,4 @@
-package ts.trainticket.fragement;
+package ts.trainticket.domain;
 
 
 public class DeleteContactsResult {

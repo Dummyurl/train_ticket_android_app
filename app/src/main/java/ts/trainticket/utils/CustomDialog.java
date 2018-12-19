@@ -1,4 +1,4 @@
-package ts.trainticket.bean;
+package ts.trainticket.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,9 +8,7 @@ import android.view.WindowManager;
 import ts.trainticket.R;
 
 
-/**
- * Created by liuZOZO on 2018/4/10.
- */
+
 public class CustomDialog extends ProgressDialog
 {
     public CustomDialog(Context context)
@@ -33,7 +31,6 @@ public class CustomDialog extends ProgressDialog
 
     private void init(Context context)
     {
-        //设置不可取消，点击其他区域不能取消，实际中可以抽出去封装供外包设置
         setCancelable(false);
         setCanceledOnTouchOutside(false);
 

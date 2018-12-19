@@ -11,9 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * Created by liuZOZO on 2018/3/11.
- */
+
 public class SalesTimeActivity extends AppCompatActivity {
 
     private Button common_head_back_btn = null;

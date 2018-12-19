@@ -40,8 +40,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/title_map_location_icon" />
+
     </LinearLayout>
-    <!--头部结束-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,15 +59,10 @@
                 android:orientation="horizontal"
                 android:padding="15dp">
 
-                <ImageView
-                    android:id="@+id/pic_persion"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/man_pic" />
 
-                <!--登录面板-->
+
                 <LinearLayout
-                    android:id="@+id/loginPanel_iid"
+                    android:id="@+id/loginPanel_layout_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -81,7 +76,6 @@
                         android:textColor="#fff" />
                 </LinearLayout>
 
-                <!--登录后展示的面板-->
                 <LinearLayout
                     android:id="@+id/userInfo_panel_iid"
                     android:layout_width="wrap_content"
@@ -96,13 +90,13 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/userName_aid"
+                            android:id="@+id/account_name_id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#fff" />
 
                         <TextView
-                            android:id="@+id/userPhone_aid"
+                            android:id="@+id/account_eamil_id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#fff" />
@@ -117,8 +111,7 @@
                         android:src="@drawable/reply_title_normal" />
                 </LinearLayout>
             </LinearLayout>
-            <!--上边绿色部分结束-->
-            <!--下边的条目-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,7 +120,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/contacts_mid"
+                    android:id="@+id/contacts_layout_id"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -157,7 +150,7 @@
                     android:background="#f5f5f5" />
 
                 <LinearLayout
-                    android:id="@+id/orders_mid"
+                    android:id="@+id/orders_layout_id"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -186,30 +179,13 @@
                     android:layout_height="2dp"
                     android:background="#f5f5f5" />
 
-                <LinearLayout
-                    android:id="@+id/times_mid"
+
+
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="18dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="8dp">
+                    android:layout_height="20dp"
+                    android:background="#f5f5f5" />
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/time_pic" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Notices" />
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -217,37 +193,7 @@
                     android:background="#f5f5f5" />
 
                 <LinearLayout
-                    android:id="@+id/play_mid"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="18dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="8dp">
-
-                    <ImageView
-                        android:layout_width="27dp"
-                        android:layout_height="27dp"
-                        android:src="@drawable/hb_taocan_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Common problem" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:background="#f5f5f5" />
-
-                <LinearLayout
-                    android:id="@+id/about_mid"
+                    android:id="@+id/about_layout_id"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -277,7 +223,7 @@
                     android:background="#f5f5f5" />
 
                 <LinearLayout
-                    android:id="@+id/logout_mid"
+                    android:id="@+id/logout_layout_id"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="?android:attr/selectableItemBackground"

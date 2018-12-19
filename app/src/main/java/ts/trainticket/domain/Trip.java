@@ -1,4 +1,4 @@
-package ts.trainticket.databean;
+package ts.trainticket.domain;
 
 
 import java.util.Date;

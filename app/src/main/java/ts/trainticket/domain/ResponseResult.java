@@ -1,4 +1,4 @@
-package ts.trainticket.httpUtils;
+package ts.trainticket.domain;
 
 public class ResponseResult {
     private boolean status;

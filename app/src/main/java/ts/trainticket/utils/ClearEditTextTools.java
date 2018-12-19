@@ -6,9 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-/**
- * Created by liuZOZO on 2018/1/23.
- */
+
 public class ClearEditTextTools {
     public static void addclearListener(final EditText e1, final ImageView m1){
         e1.addTextChangedListener(new TextWatcher() {

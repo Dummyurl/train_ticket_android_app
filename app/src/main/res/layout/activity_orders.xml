@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center_vertical"
         android:background="#2a8dcf"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <Button
@@ -24,18 +24,18 @@
             android:id="@+id/title_head_tv2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="OrderList"
-            android:layout_marginEnd="10dp"
+            android:text="@string/order_list"
             android:textColor="#fff"
             android:textSize="20sp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="#4889DB"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#4889DB">
 
         <LinearLayout
             android:id="@+id/tab_layout"
@@ -49,7 +49,7 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="All"
+                android:text="@string/all_orders"
                 android:textColor="#fed137" />
 
             <TextView
@@ -58,7 +58,7 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Not Collect"
+                android:text="@string/not_collect"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -67,15 +67,16 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Not Paid"
+                android:text="@string/not_paid"
                 android:textColor="#ffffff" />
+
             <TextView
                 android:id="@+id/tab_o4"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Cancel"
+                android:text="@string/cancel_list"
                 android:textColor="#ffffff" />
         </LinearLayout>
 
@@ -83,13 +84,13 @@
             android:id="@+id/tab_line"
             android:layout_width="60dp"
             android:layout_height="2dp"
-            android:background="#fed137"
-            android:layout_below="@id/tab_layout"/>
+            android:layout_below="@id/tab_layout"
+            android:background="#fed137" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

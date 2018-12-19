@@ -1,10 +1,8 @@
-package ts.trainticket.databean;
+package ts.trainticket.domain;
 
 import java.util.List;
 
-/**
- * Created by liuZOZO on 2018/1/18.
- */
+
 public class ContactPSPageResponse {
     private boolean status;
     private String msg;

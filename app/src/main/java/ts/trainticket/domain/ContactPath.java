@@ -1,8 +1,6 @@
-package ts.trainticket.databean;
+package ts.trainticket.domain;
 
-/**
- * Created by liuZOZO on 2018/1/20.
- */
+
 public class ContactPath {
     private String pathName;
 
@@ -17,8 +15,8 @@ public class ContactPath {
     private String arriveStation;
     private int arriveNumber;
     private String arriveTime;
-    private int[] seats = new int[10];
-    private double[] prices = new double[10];
+    private int[] seats = new int[2];
+    private double[] prices = new double[2];
     public ContactPath() {
     }
 

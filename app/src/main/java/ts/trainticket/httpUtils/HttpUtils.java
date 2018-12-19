@@ -22,11 +22,10 @@ import ts.trainticket.utils.ApplicationPreferences;
 public class HttpUtils {
 
 
-    //RequestBody requestBody = requestBodyBuilder.add("key","vsds").build();
-    public static String postData(String url_post, RequestBody requestBody ) throws IOException {
+    public static String postDataWithOutHeader(String url_post, RequestBody requestBody ) throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
-
-        Request request = new Request.Builder().addHeader("Cookie","YsbCaptcha=B5D850BB397A4725B1C985955B2738F0").url(url_post).post(requestBody).build();
+        // addHeader("Cookie","YsbCaptcha=B5D850BB397A4725B1C985955B2738F0")
+        Request request = new Request.Builder().url(url_post).post(requestBody).build();
         Response response = okHttpClient.newCall(request).execute();
         if(response.isSuccessful()){
             return response.body().string();
@@ -40,7 +39,8 @@ public class HttpUtils {
     public static String postDataWithHeader(String url_post, String loginId, String loginToken, RequestBody requestBody ) throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
 
-        String cookie = "jenkins-timestamper-offset=-28800000; loginId="+ loginId+"; JSESSIONID=7E2A0BE075AF166D9FAAF91D0FBB537D; loginToken="+loginToken +"; YsbCaptcha=E2DDD2D58ACD4E40BDD874BBBEF1F5AD";
+        //  "jenkins-timestamper-offset=-28800000; loginId="+ loginId+"; JSESSIONID=7E2A0BE075AF166D9FAAF91D0FBB537D; loginToken="+loginToken +"; YsbCaptcha=E2DDD2D58ACD4E40BDD874BBBEF1F5AD";
+        String cookie = "loginId="+ loginId+"; loginToken="+loginToken +";";
 
         Request request = new Request.Builder()
                 .addHeader("Cookie",cookie)
@@ -57,41 +57,8 @@ public class HttpUtils {
 
 
 
-    public static String sendPostRequest(String url, String jsonStr) 
-		{
-        HttpURLConnection httpURLConnection = null;
-        OutputStream out = null; // 写
-        //InputStream in = null;  // 读
-        int responseCode = 0; // 远程主机响应的http状态吗
-        String result = "";
-        try {
-            URL sendUrl = new URL(url);
-            httpURLConnection = (HttpURLConnection) sendUrl.openConnection();
-            // post 方法请求
-            httpURLConnection.setRequestMethod("POST");
-            // 设置头部信息, content-type 一定要设置
-            httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            // 指示应用程序将数据写入url连接, 其值默认为false
-            httpURLConnection.setDoInput(true);
-            httpURLConnection.setUseCaches(false);// post 请求不能使用缓存
-            httpURLConnection.setConnectTimeout(15000); //连接超时
-            httpURLConnection.setReadTimeout(15000); //读取超时
-            // 传入参数
-            out = httpURLConnection.getOutputStream();
-            out.write(jsonStr.getBytes());
-            out.flush(); // 清空缓存区,发送数据
-            out.close();
-            responseCode = httpURLConnection.getResponseCode();
-            // 获取请求的资源
-            BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "UTF-8"));
-            result = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
-    public static String sendGetRequest(String uri) {
+    public static String sendGetRequestWithOutHeader(String uri) {
         String info = null;
         String allInfo = "";
         InputStream tempInput = null;
@@ -126,13 +93,14 @@ public class HttpUtils {
         return allInfo;
     }
 
-    public static String getContacts(String uri, String loginId, String loginToken) {
+    public static String sendGetRequestWithHeader(String uri, String loginId, String loginToken) {
         String info = null;
         String allInfo = "";
         InputStream tempInput = null;
         URL url = null;
         HttpURLConnection connection = null;
-        String cookie = "jenkins-timestamper-offset=-28800000; loginId="+ loginId+"; JSESSIONID=7E2A0BE075AF166D9FAAF91D0FBB537D; loginToken="+loginToken +"; YsbCaptcha=E2DDD2D58ACD4E40BDD874BBBEF1F5AD";
+        // "jenkins-timestamper-offset=-28800000; loginId="+ loginId+"; JSESSIONID=7E2A0BE075AF166D9FAAF91D0FBB537D; loginToken="+loginToken +"; YsbCaptcha=E2DDD2D58ACD4E40BDD874BBBEF1F5AD";
+        String cookie = "loginId="+ loginId+";  loginToken="+loginToken +"; ";
         try {
             url = new URL(uri);
             connection = (HttpURLConnection) url.openConnection();
@@ -162,6 +130,5 @@ public class HttpUtils {
         }
         return allInfo;
     }
-
 
 }

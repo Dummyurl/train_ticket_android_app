@@ -1,27 +1,40 @@
 package ts.trainticket.domain;
 
 public class RegisterInfo {
-    private String password;
-
-    private int gender;
-
-    private String name;
-
-    private int documentType;
 
     private String documentNum;
-
+    private int documentType;
     private String email;
-
+    private int gender;
+    private String name;
+    private String password;
     private String verificationCode;
 
     public RegisterInfo() {
+
+    }
+
+    public RegisterInfo(String email, String password) {
+        this.email = email;
+        this.password = password;
+
         gender = Gender.OTHER.getCode();
-        name = "None";
+        name = "Default Name";
         password = "defaultPassword";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
         email = "352323";
+    }
+
+
+    public RegisterInfo(String documentNum, int documentType, String email, int gender, String name, String password, String verificationCode) {
+        this.documentNum = documentNum;
+        this.documentType = documentType;
+        this.email = email;
+        this.gender = gender;
+        this.name = name;
+        this.password = password;
+        this.verificationCode = verificationCode;
     }
 
     public String getPassword() {

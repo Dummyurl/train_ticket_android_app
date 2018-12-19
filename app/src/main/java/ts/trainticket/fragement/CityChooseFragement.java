@@ -25,14 +25,11 @@ import ts.trainticket.MainActivity;
 import ts.trainticket.R;
 import ts.trainticket.utils.ApplicationPreferences;
 
-/**
- * Created by liuZOZO on 2018/1/14.
- */
+
 public class CityChooseFragement extends BaseFragment {
 
     public static final String CITY_CHOOSED = "choosed_city";
     //searchView
-  //  private String[] cities = {"合肥","合肥南","合肥西站","合肥北站"};
     private String[] cities;
     List<Object> allCities = null;
     private SearchView city_searchView = null;
@@ -64,7 +61,6 @@ public class CityChooseFragement extends BaseFragment {
         initSearchViews(view);
     }
 
-    // 从sp里面查询的数据
     private void initCities(){
         allCities = ApplicationPreferences.getAllCities(getActivity());
         String []temps = new String[allCities.size()];
@@ -98,16 +94,13 @@ public class CityChooseFragement extends BaseFragment {
                 getActivity().finish();
             }
         });
-        // 设置搜索文本框监听
+
         city_searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            // 当点击搜索按钮时,触发该方法
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
-            // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
                 ListAdapter adapter = city_listView.getAdapter();
@@ -145,7 +138,6 @@ public class CityChooseFragement extends BaseFragment {
 
     }
 
-    // 最近搜索城市
     private class MemoryViewAdapter extends RecyclerView.Adapter<MemoryViewAdapter.MemoryCitysHolder> {
         @Override
         public MemoryCitysHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -171,7 +163,6 @@ public class CityChooseFragement extends BaseFragment {
             public MemoryCitysHolder(View itemView) {
                 super(itemView);
                 memoryBtn = (Button) itemView.findViewById(R.id.btn_memory_city);
-                // 加入控制链
                 addToBtnController(memoryBtn);
                 memoryBtn.setOnClickListener(new View.OnClickListener() {
 

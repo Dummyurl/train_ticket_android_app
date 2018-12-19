@@ -9,9 +9,7 @@ import android.widget.TextView;
 import ts.trainticket.fragement.SignUp_Fragement;
 import ts.trainticket.utils.ApplicationPreferences;
 
-/**
- * Created by liuZOZO on 2018/3/12.
- */
+
 public class SignUpActivity extends AppCompatActivity {
     public static final int SIGN_UP_REQUEST_CODE = 0;
     private SignUp_Fragement signIn_fragement = null;
@@ -44,10 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void initFragment(){
         signIn_fragement = new SignUp_Fragement();
-//        String userName = ApplicationPreferences.getOneInfo(this, ApplicationPreferences.USER_NAME);
         boolean isOnline = ApplicationPreferences.isUserOnLine(this);
 
-            // 初始化数据
             Bundle bundle = new Bundle();
             if(isOnline)
                 bundle.putString("is_modify", "true");

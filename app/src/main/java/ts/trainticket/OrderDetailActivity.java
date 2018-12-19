@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import ts.trainticket.fragement.OrderDetail_Fragement;
 
-/**
- * Created by liuZOZO on 2018/1/26.
- */
+
 public class OrderDetailActivity extends AppCompatActivity {
 
     private TextView headText = null;
@@ -54,7 +52,6 @@ public class OrderDetailActivity extends AppCompatActivity {
                 startActivity(ordesIntent);
             }
         });
-
 
     }
 

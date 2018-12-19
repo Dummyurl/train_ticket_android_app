@@ -63,8 +63,6 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <!--出发车站的-->
-                    <!--下面是下拉刷新和天气详情-->
                     <android.support.v4.widget.SwipeRefreshLayout
                         android:id="@+id/refresh_startStation_id"
                         android:layout_width="match_parent"
@@ -88,7 +86,6 @@
                         </LinearLayout>
                     </android.support.v4.widget.SwipeRefreshLayout>
 
-                    <!--指定到达站-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -120,8 +117,6 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <!--出发车站的-->
-                    <!--下面是下拉刷新和天气详情-->
                     <android.support.v4.widget.SwipeRefreshLayout
                         android:id="@+id/refresh_endStation_id"
                         android:layout_width="match_parent"

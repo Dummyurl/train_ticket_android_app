@@ -1,120 +1,65 @@
 package ts.trainticket.fragement;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Gravity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.RequestBody;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
 import ts.trainticket.LoginActivity;
 import ts.trainticket.Meituan.MeiTuanListView;
 import ts.trainticket.R;
 import ts.trainticket.TicketReserveActivity;
-import ts.trainticket.databean.ContactPath;
-import ts.trainticket.databean.PathStation;
-import ts.trainticket.databean.Ticket;
-import ts.trainticket.databean.TicketPageResponse;
-import ts.trainticket.databean.TimeTable;
-import ts.trainticket.databean.TimeTableResponse;
-import ts.trainticket.domain.GetRoutesListlResult;
-import ts.trainticket.domain.PathTimeTable;
-import ts.trainticket.domain.QueryInfo;
-import ts.trainticket.domain.Route;
-import ts.trainticket.domain.Station;
-import ts.trainticket.domain.TravelAdvanceResult;
-import ts.trainticket.domain.TravelAdvanceResultUnit;
-import ts.trainticket.httpUtils.RxHttpUtils;
-import ts.trainticket.httpUtils.UrlProperties;
+import ts.trainticket.domain.ContactPath;
+import ts.trainticket.domain.Ticket;
+
 import ts.trainticket.utils.ApplicationPreferences;
 import ts.trainticket.utils.CalendarUtil;
 
-/**
- * Created by liuZOZO on 2018/1/21.
- * 车次详情
- */
+
 public class PathDetailFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener {
 
-    // 日期选择按钮
+
     private Button btnDate = null;
     private Calendar startDate = null;
 
     private MeiTuanListView mListView;
     private MeituanAdapter mAdapter;
     private final static int REFRESH_COMPLETE = 0;
-    List<TicketRes_Item> mDatas;
-    private ListView timeTableListView2 = null;
+    private List<TicketRes_Item> mDatas;
 
-    private LinearLayout time_table_detail = null;
-    private List<TimeTable> timeTableList = null;
-
-    private ImageView animationIV;
-    private AnimationDrawable animationDrawable;
-
-    /**
-     * mInterHandler是一个私有静态内部类继承自Handler，内部持有MainActivity的弱引用，
-     * 避免内存泄露
-     */
     private InterHandler mInterHandler = new InterHandler(this);
 
-    private View inflate;
-    private TextView test;
-    private Dialog dialog = null;
+    private TextView by_pathName = null;
 
-    TextView by_pathName = null;
-    TextView timeTable_pathName = null;
+    private TextView startStation = null;
+    private TextView startTime = null;
 
-    TextView startStation = null;
-    TextView startTime = null;
+    private TextView endStation = null;
+    private TextView endTime = null;
+    private ContactPath path = null;
 
-    TextView endStation = null;
-    TextView endTime = null;
-    ContactPath path = null;
-
-
-    // 查询所有的停靠站和距离
-    int callTimeTag = 0;
-    GetRoutesListlResult queryRoutes = null;
-    List<Station> queryStationList = null;
-    List<PathTimeTable> pathTimeTableList = null;
-    TravelAdvanceResult travelAdvanceResult = new TravelAdvanceResult();
 
     private static class InterHandler extends Handler {
         private WeakReference<PathDetailFragment> mActivity;
@@ -156,14 +101,11 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
         btnDate = (Button) view.findViewById(R.id.btn_byticket_date);
         btnDate.setOnClickListener(new DateChooseListener());
         addToBtnController(btnDate);
-        // 初始化界面显示的出发日期
+
         if (null == startDate) {
             startDate = Calendar.getInstance();
         }
         changeShowDate();
-
-        time_table_detail = (LinearLayout) view.findViewById(R.id.time_table_detail);
-        time_table_detail.setOnClickListener(new ShowTimeTableDetail());
 
         startStation = (TextView) view.findViewById(R.id.by_startStation);
         startTime = (TextView) view.findViewById(R.id.by_startTime);
@@ -185,7 +127,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
         endTime.setText(path.getArriveTime().substring(0, 5));
         List<TicketRes_Item> tempDatas = new ArrayList<>();
         mDatas = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             tempDatas.add(new TicketRes_Item(Ticket.EASY_SEAT_TYPES[i], path.getPrices()[i], path.getSeats()[i]));
         }
         Collections.sort(tempDatas, new SortByTicketsNum());
@@ -207,307 +149,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
         mListView.setOnMeiTuanRefreshListener(this);
     }
 
-    // time table
-    class ShowTimeTableDetail implements View.OnClickListener {
 
-        @Override
-        public void onClick(View v) {
-            initDialogTimeTable();
-            //展示数据queryAllRoute
-            String[] url = new String[]{UrlProperties.clientIstioIp + UrlProperties.queryAllRoute,
-                    UrlProperties.clientIstioIp + UrlProperties.getStopAtStation};
-            for (int i = 0; i < url.length; i++)
-                getStopStation(url[i], i);
-
-            //  getTableLineFromServre(by_pathName.getText().toString());
-            timeTable_pathName.setText(by_pathName.getText().toString());
-        }
-    }
-
-    public void getStopStation(String url, final int callTag) {
-        // 查询G123 经过那些站
-        if (callTag == 1) {
-            QueryInfo queryInfo = new QueryInfo(startStation.getText().toString(),endStation.getText().toString(), btnDate.getText().toString());
-
-            MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
-            RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(queryInfo));
-
-
-            String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
-            String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
-            subscription = RxHttpUtils.postWithHeader(url, loginId, token, requestBody, getContext())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<String>() {
-                        @Override
-                        public void onCompleted() {
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            unlockClick();
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onNext(String responseResult) {
-                            unlockClick();
-                            if (responseResult != null && !responseResult.equals("")) {
-                                Gson gson = new Gson();
-                                travelAdvanceResult = gson.fromJson(responseResult, TravelAdvanceResult.class);
-                                showTimeTable();
-                            } else {
-                                Toast.makeText(getActivity(), "request data error", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-        } else {
-            subscription = RxHttpUtils.getDataByUrl(url, getContext())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<String>() {
-                        @Override
-                        public void onCompleted() {
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            unlockClick();
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onNext(String responseResult) {
-                            unlockClick();
-                            if (responseResult != null && !responseResult.equals("")) {
-                                Gson gson = new Gson();
-                                if (callTag == 0) {
-                                    queryRoutes = gson.fromJson(responseResult, GetRoutesListlResult.class);
-                                    showTimeTable();
-                                } else {
-                                    queryStationList = new ArrayList<Station>();
-                                    Type listType = new TypeToken<List<Station>>() {
-                                    }.getType();
-                                    queryStationList = gson.fromJson(responseResult, listType);
-                                    showTimeTable();
-                                }
-                            } else {
-                                Toast.makeText(getActivity(), "request data error", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
-    }
-
-
-    //展示详细信息
-    public void showTimeTable() {
-        callTimeTag++;
-        if (callTimeTag != 0 && callTimeTag%2 == 0) {
-            // queryRoutes
-            // queryStationList
-            String sStation = startStation.getText().toString().toLowerCase().replaceAll(" ", "");
-            String eStation = endStation.getText().toString().toLowerCase().replaceAll(" ", "");
-
-
-            pathTimeTableList = new ArrayList<>();
-
-            List<TravelAdvanceResultUnit> tau = travelAdvanceResult.getTravelAdvanceResultUnits();
-            for (int i = 0; i < tau.size(); i++) {
-
-                if (timeTable_pathName.getText().toString().equals(tau.get(i).getTripId())) { // 找到对应的路线G236
-
-                    ArrayList<String> stopStations = tau.get(i).getStopStations();
-                    int stopAtStationsNum = stopStations.size();
-
-                    ArrayList<Route> routesList = queryRoutes.getRoutes(); // 查找经过的车站的距离
-                    ArrayList<Integer> distances = new ArrayList<>();
-                    for (int k = 0; k < routesList.size(); k++) {
-                        if (routesList.get(k).getStations().size() == stopAtStationsNum
-                                && routesList.get(k).getStartStationId().equals(sStation.replaceAll(" ", "").toLowerCase())
-                                && routesList.get(k).getTerminalStationId().equals(eStation.replaceAll(" ", "").toLowerCase())) {
-                            distances = routesList.get(k).getDistances();
-                        }
-                    }
-
-                    List<Object> stationStayTime = ApplicationPreferences.getStayTimeStation(getContext());
-                    Map<String, String> stationStayTimes = new HashMap<>();
-                    for (int u = 0; u < stationStayTime.size(); u++) {
-                        String stationTime = stationStayTime.get(u).toString();
-                        if (!stationStayTimes.containsKey(stationTime.split("_")[0])) {
-                            stationStayTimes.put(stationTime.split("_")[0], stationTime.split("_")[1]);
-                        }
-                    }
-
-                    for (int j = 0; j < stopAtStationsNum; j++) {
-                        PathTimeTable tempPathTimeTable = new PathTimeTable();
-                        tempPathTimeTable.setStationName(stopStations.get(j));  // station
-                        tempPathTimeTable.setDistance(distances.get(j) + "");
-                        tempPathTimeTable.setStayTime(stationStayTimes.get(stopStations.get(j).replaceAll(" ", "").toLowerCase()));
-                        pathTimeTableList.add(tempPathTimeTable);
-                    }
-                }
-            }
-            if (pathTimeTableList.size() > 0) {
-                animationDrawable.stop();
-                animationIV.setVisibility(View.GONE);
-
-                TimeTableAdapter ttb = new TimeTableAdapter(pathTimeTableList);
-                timeTableListView2.setAdapter(ttb);
-            } else {
-                animationDrawable.stop();
-            }
-            callTimeTag = 0;
-        }
-    }
-
-
-    public void getOneTicketFromServre(String pathName, String startTime, String startNum, String endNum) {
-        // 准备数据
-        try {
-            pathName = URLEncoder.encode(pathName, "UTF-8");
-            startTime = URLEncoder.encode(startTime, "UTF-8");
-            startNum = URLEncoder.encode(startNum, "UTF-8");
-            endNum = URLEncoder.encode(endNum, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        // 请求连接
-        String listStationUri = UrlProperties.getOnePathTicket + "/" + pathName + "/" + startTime + "/" + startNum + "/" + endNum;
-        subscription = RxHttpUtils.getDataByUrl(listStationUri, getContext())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        unlockClick();
-                        // Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNext(String responseResult) {
-                        unlockClick();
-                        if (responseResult != null && !responseResult.equals("")) {
-                            Gson gson = new Gson();
-                            TicketPageResponse oneTicket = gson.fromJson(responseResult, TicketPageResponse.class);
-                            if (oneTicket != null) {
-                                List<Ticket> tempTicket = oneTicket.getTicketList();
-
-                                List<TicketRes_Item> tempItem = new ArrayList<TicketRes_Item>();
-
-                                for (int k = 0; k < mDatas.size(); k++) {
-                                    for (int kl = 0; kl < tempTicket.size(); kl++) {
-
-                                        if (mDatas.get(k).getSeatType().equals(Ticket.EASY_SEAT_TYPES[tempTicket.get(kl).getSeatType()])) {
-                                            mDatas.get(k).setLeftTickets(tempTicket.get(kl).getLeftTickets());
-                                        }
-                                    }
-                                }
-                                showItemTicket(mDatas);
-                            } else {
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "request data error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void initDialogTimeTable() {
-        dialog = new Dialog(getContext(), R.style.ActionSheetDialogStyle);
-        // 填充对话框的布局
-        inflate = LayoutInflater.from(getContext()).inflate(R.layout.time_table_detail, null);
-
-        animationIV = (ImageView) inflate.findViewById(R.id.animationIV_ttd);
-        animationIV.setImageResource(R.drawable.pic_loading);
-        animationDrawable = (AnimationDrawable) animationIV.getDrawable();
-        animationDrawable.start();
-
-        timeTableListView2 = (ListView) inflate.findViewById(R.id.timeTableList2);
-        timeTable_pathName = (TextView) inflate.findViewById(R.id.timeTable_pathName);
-
-        // 初始化控件
-        dialog.setContentView(inflate);
-        // 获取当前Activity所在窗口
-        Window dialogWindow = dialog.getWindow();
-        // 设置dialog 从窗底部弹出
-        dialogWindow.setGravity(Gravity.CENTER);
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialogWindow.setAttributes(lp);
-        dialog.show();
-    }
-
-    class TimeTableAdapter extends BaseAdapter {
-        private List<PathTimeTable> list;
-
-        public TimeTableAdapter(List<PathTimeTable> list) {
-            this.list = list;
-        }
-
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            TimeTableViewHolder ttVH = null;
-            if (view == null) {
-                ttVH = new TimeTableViewHolder();
-                inflate = LayoutInflater.from(getContext()).inflate(R.layout.time_table_detail, null);
-                view = LayoutInflater.from(inflate.getContext()).inflate(R.layout.item_time_table, null);
-                if (view != null) {
-                    ttVH.pathstationNum = (TextView) view.findViewById(R.id.timeTable_num);
-                    ttVH.stationName = (TextView) view.findViewById(R.id.timeTable_station);
-                    ttVH.arriveTime = (TextView) view.findViewById(R.id.timeTable_arriveTime);
-//                    ttVH.startTime = (TextView) view.findViewById(R.id.timeTable_startTime);
-                    ttVH.totalTime = (TextView) view.findViewById(R.id.timeTable_stopTime);
-                    view.setTag(ttVH);
-                }
-            } else {
-                ttVH = (TimeTableViewHolder) view.getTag();
-            }
-            ttVH.pathstationNum.setText(position + "");
-            ttVH.stationName.setText(list.get(position).getStationName());
-            ttVH.arriveTime.setText(list.get(position).getDistance());
-            ttVH.totalTime.setText(list.get(position).getStayTime());
-
-
-            //    ttVH.totalTime.setText(list.get(position).getTotalTime());
-            if (position == 0 || position == list.size() - 1) {
-                ttVH.pathstationNum.setTextColor(Color.parseColor("#EE7621"));
-                ttVH.stationName.setTextColor(Color.parseColor("#EE7621"));
-                ttVH.arriveTime.setTextColor(Color.parseColor("#EE7621"));
-                ttVH.totalTime.setTextColor(Color.parseColor("#EE7621"));
-            } else {
-                ttVH.pathstationNum.setTextColor(Color.parseColor("#000000"));
-                ttVH.stationName.setTextColor(Color.parseColor("#000000"));
-                ttVH.arriveTime.setTextColor(Color.parseColor("#000000"));
-                ttVH.totalTime.setTextColor(Color.parseColor("#000000"));
-            }
-            return view;
-        }
-
-        class TimeTableViewHolder {
-            private TextView pathstationNum;
-            private TextView stationName;
-            private TextView arriveTime;
-            private TextView totalTime;
-        }
-    }
 
     class MeituanAdapter extends BaseAdapter {
 
@@ -565,7 +207,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                         intent.putExtra("seatType", list.get(position).getSeatType());
                         intent.putExtra("seatPrice", "¥" + (int) (list.get(position).getSeatPrice()));
                     } else {
-                        Toast.makeText(getContext(), "you need login first！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "you need to login first！", Toast.LENGTH_SHORT).show();
                         intent = new Intent(getActivity(), LoginActivity.class);
                     }
                     startActivity(intent);
@@ -633,9 +275,9 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000);
-
-                    getOneTicketFromServre(path.getPathName(), path.getPathDate(), path.getStartNumber() + "", path.getArriveNumber() + "");
+                    Thread.sleep(500);
+                    // todo
+                    // no api: this place should request data from server
                     mInterHandler.sendEmptyMessage(REFRESH_COMPLETE);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -652,7 +294,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
             lockClick();
             Calendar now = CalendarUtil.getToday();
 
-            // 初始化日期选择器
             DatePickerDialog datePicker = DatePickerDialog.newInstance(
                     new DatePickerDialog.OnDateSetListener() {
 
@@ -666,12 +307,9 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                     startDate.get(Calendar.MONTH),
                     startDate.get(Calendar.DAY_OF_MONTH)
             );
-            // 最远买票日期
             Calendar lastDay = CalendarUtil.getLastDay();
-            // 设置最小日期与最大日期
             datePicker.setMinDate(now);
             datePicker.setMaxDate(lastDay);
-            // 关闭解锁
             datePicker.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
                 @Override
@@ -679,7 +317,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                     unlockClick();
                 }
             });
-            datePicker.show(getActivity().getFragmentManager(), "" + btnDate.getId());
+            datePicker.show(getActivity().getFragmentManager(), "DatePicker");
         }
     }
 
@@ -688,7 +326,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
         SimpleDateFormat tempFromat = new SimpleDateFormat("yyyy年MM月dd日");
         // String dateStr = SimpleDateFormat.getDateInstance().format(startDate.getTime());
         String dateStr = tempFromat.format(startDate.getTime());
-        if (dateStr.charAt(0) == '0') // 去掉第一个0
+        if (dateStr.charAt(0) == '0')
             btnDate.setText(dateStr.replaceFirst("0", ""));
         else
             btnDate.setText(dateStr);

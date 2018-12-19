@@ -1,8 +1,6 @@
-package ts.trainticket.databean;
+package ts.trainticket.domain;
 
-/**
- * Created by liuZOZO on 2018/3/18.
- */
+
 public class COrders {
 
     private String orderId;

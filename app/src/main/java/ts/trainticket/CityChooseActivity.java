@@ -9,13 +9,9 @@ import android.widget.TextView;
 
 import ts.trainticket.fragement.CityChooseFragement;
 
-/**
- * Created by liuZOZO on 2018/1/13.
- */
+
 public class CityChooseActivity extends AppCompatActivity {
     public static final int CITY_CHOOSE_REQUEST_CODE = 1;
-    public static final int CITY_CHOOSE_STATION = 2;
-    public static final String ACTIVITY_TITLE = "城市选择";
 
     private CityChooseFragement cityChooseFragement;
 
@@ -45,7 +41,6 @@ public class CityChooseActivity extends AppCompatActivity {
         head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
                 Intent cityIntent = new Intent(getApplication(), MainActivity.class);
                 startActivityForResult(cityIntent, CityChooseActivity.CITY_CHOOSE_REQUEST_CODE);
             }

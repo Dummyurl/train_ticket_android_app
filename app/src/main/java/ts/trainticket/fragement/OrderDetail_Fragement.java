@@ -23,47 +23,31 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import ts.trainticket.MainActivity;
 import ts.trainticket.Meituan.RightMarkView;
 import ts.trainticket.R;
-import ts.trainticket.bean.CustomDialog;
-import ts.trainticket.databean.COrders;
-import ts.trainticket.databean.COrdersPageResponse;
-import ts.trainticket.databean.Contacts;
+import ts.trainticket.utils.CustomDialog;
+import ts.trainticket.domain.Contacts;
 import ts.trainticket.domain.CancelOrderInfo;
 import ts.trainticket.domain.CancelOrderResult;
-import ts.trainticket.domain.Order;
-import ts.trainticket.domain.OrderList;
-import ts.trainticket.domain.OrderTicketsResult;
 import ts.trainticket.domain.PaymentInfo;
 import ts.trainticket.domain.PreserveOrderResult;
-import ts.trainticket.httpUtils.ResponseResult;
 import ts.trainticket.httpUtils.RxHttpUtils;
 import ts.trainticket.httpUtils.UrlProperties;
 import ts.trainticket.utils.ApplicationPreferences;
 import ts.trainticket.utils.CalendarUtil;
 import ts.trainticket.utils.ServerConstValues;
 
-/**
- * Created by liuZOZO on 2018/1/27.
- * 订单详情页
- */
+
 public class OrderDetail_Fragement extends BaseFragment implements View.OnClickListener {
 
-    //    一组状态
     private ImageView show_tag_picImg = null;
     private TextView show_top_tipsTv = null;
     private TextView show_tips2Tv = null;
@@ -75,7 +59,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
     private LinearLayout order_detailLayout = null;
 
-    // 待支付0  状态1（待出发）  2（已取消 超时）  3（退改签） 4 已完成
+    // 0   1    2    3    4
     private String[] tipText = new String[]{"Not Paid", "Paid & Not Collected", "Collected", "Cancel & Rebook", "Cancel", "Refunded", "Used", "Other"};
 
     private int[] imagesTip = new int[]{
@@ -88,12 +72,11 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             R.drawable.cb_checked,
             R.drawable.hb_yiquxiao_icon,
     };
-    // 待支付0 -> 取消订单   状态1（待出发） ->  退票
-    private String[] cancelBtnTips = new String[]{"Cancel", "Refound", "waiting", "To refund", "Cancelled ,to re-book", "Refund, to re-book", "To re-book", "To re-book"};
-    private String[] tipBottomBtnText = new String[]{"Pay", "Paid", "Paid", "Paid", "Canceled", "Refounded", "Completed", "unkonwn"};
-    public static final double[] PASSENGER_TYPES_RATIOS = {1, 0.7, 0.5, 0.5};
 
-    private TextView countTime = null;
+    private String[] cancelBtnTips = new String[]{"Cancel", "Refound", "waiting", "To refund", "Cancelled ,To Re-book", "Refund, To Re-book", "To Re-book", "To Re-book"};
+    private String[] tipBottomBtnText = new String[]{"Pay", "Paid", "Paid", "Paid", "Canceled", "Refounded", "Completed", "unkonwn"};
+
+
     private TextView beginDate = null;
     private TextView endDate = null;
 
@@ -112,7 +95,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
     private TextView total_Money;
 
     private String seatTypeValue;
-    private double seatPrice = 0;
+
 
     LinearLayout show_toPayPanel = null;
 
@@ -125,7 +108,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
     String takeTime = "";
     String takeDate = "";
 
-    // 预定后返回的订单信息
     PreserveOrderResult preOrderResult = null;
 
     @Override
@@ -140,15 +122,13 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
     public void showData() {
 
-        reserve_result = getArguments().getString("reserve_result"); //  新预定的
-        orders_Result = getArguments().getString("ordersResult");  // 从老页面传过来的
-        int temp_tag = 0;
+        reserve_result = getArguments().getString("reserve_result");
+        orders_Result = getArguments().getString("ordersResult");
 
         Gson gson = new Gson();
         if (reserve_result != null && reserve_result != "") {
             JSONObject orderPreObj = JSON.parseObject(reserve_result);
             if ("Success".equals(orderPreObj.getString("message"))) {
-                // 把订单信息的界面显示出来
                 JSONObject orderObj = orderPreObj.getJSONObject("order");
                 preOrderResult = gson.fromJson(orderObj.toString(), PreserveOrderResult.class);
                 showOrderResult(preOrderResult);
@@ -170,120 +150,73 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             preOrderResult = gson2.fromJson(orders_Result, PreserveOrderResult.class);
             showOrderResult(preOrderResult);
         }
-        // dialog.dismiss();
     }
 
     public void showOrderResult(PreserveOrderResult preserveOrderResult) {
         order_detailLayout.setVisibility(View.VISIBLE);
 
-        String tempidcard = "";
-        char[] idcards = preserveOrderResult.getAccountId().toCharArray();
-        for (int j = 0; j < idcards.length; j++) {
-            if (j > 12 && j < 23)
-                tempidcard = tempidcard + "";
-            else
-                tempidcard = tempidcard + idcards[j] + "";
-        }
-        add_accountTv.setText(tempidcard);
+        add_accountTv.setText(preserveOrderResult.getAccountId());
 
         beginDate.setText(CalendarUtil.dateToWeek(CalendarUtil.getDate(preOrderResult.getTravelDate())));
-        // 放出发时间
+
         endDate.setText(CalendarUtil.getHM(preOrderResult.getTravelTime()));
         pathName.setText(preOrderResult.getTrainNumber() + "");
 
-        // beginTime.setText(orderObj.getString("from"));
         beginPlace.setText(preOrderResult.getFrom());
-        coachNumber.setText("coachNum:" + preOrderResult.getCoachNumber());
-        // endTime.setText(orderObj.getString("to"));
+        coachNumber.setText("Coach Num:" + preOrderResult.getCoachNumber());
 
         endPlace.setText(preOrderResult.getTo());
-        seatNumber.setText("sNum:" + preOrderResult.getSeatNumber());
+        seatNumber.setText("Site Num:" + preOrderResult.getSeatNumber());
 
-        // 下面俩用来控制按钮状态
+
         presentState = preOrderResult.getStatus() + "";
         takeTime = CalendarUtil.getHMS(preOrderResult.getTravelTime());
-        // 显示状态
+
         showState(preOrderResult.getStatus(), takeTime);
-        setLeftTime(CalendarUtil.getDate(preOrderResult.getBoughtDate()));  // 倒计时
 
         seatTypeValue = preOrderResult.getSeatClass() + "";
         contacts = new ArrayList<>();
-        // 显示passenger
-        Contacts contact = new Contacts(preOrderResult.getContactsName(), preOrderResult.getContactsName(), preOrderResult.getContactsDocumentNumber(),
-                "1", 1, preOrderResult.getId(), preOrderResult.getPrice());
+
+
+        Contacts contact = new Contacts();
+        contact.setId(preOrderResult.getAccountId());
+        contact.setDocumentNumber(preOrderResult.getContactsDocumentNumber());
+        contact.setDocumentType(preOrderResult.getDocumentType() + "");
+        contact.setName(preOrderResult.getContactsName());
+        contact.setPrice(preOrderResult.getPrice());
+        contact.setOrderId(preOrderResult.getId());
         contacts.add(contact);
-        // 计算总金额
         total_Money.setText("¥" + preOrderResult.getPrice());
         showPesger(contacts);
     }
 
-    // 状态不为0 的时候,调用该方法,显示状态
     private void showState(int status, String takeTime) {
         show_tag_picImg.setBackgroundResource(imagesTip[status]);
         show_top_tipsTv.setText(tipText[status]);
 
         if (status != 0) {
-            // 非待支付状态  画图消失,倒计时消失
+
             count_time_layout.setVisibility(View.GONE);
             markView.setVisibility(View.GONE);
-            // 倒计时处显示提示, 画图处显示提示图片
+
             show_tips2Tv.setVisibility(View.VISIBLE);
             show_tag_picImg.setVisibility(View.VISIBLE);
         }
         if (CalendarUtil.compareTimeDate(takeTime) && CalendarUtil.compare_date(takeDate) && status == 1)
-            cancel_order.setText("已发车");
+            cancel_order.setText("dispatched");
         else
             cancel_order.setText(cancelBtnTips[status]);
 
-        // 支付按钮的状态
         pay_btn.setText(tipBottomBtnText[status]);
     }
 
     private void initCircleView(View view) {
         markView = (RightMarkView) view.findViewById(R.id.activity_right_mark_rmv);
-        // 设置开始和结束两种颜色
         markView.setColor(Color.parseColor("#FF4081"), Color.YELLOW);
-        // 设置画笔粗细
         markView.setStrokeWidth(8f);
         markView.start();
     }
 
-    private void setLeftTime(final String buyTimeStr) {
-        Calendar now = Calendar.getInstance();
-        Calendar buyTime = CalendarUtil.getCalendarByDateTime(buyTimeStr);
-        buyTime.add(Calendar.MINUTE, 30);
-        final long leftTime = (buyTime.getTimeInMillis() - now.getTimeInMillis()) / 1000;
-        Observable.interval(0, 1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Long>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        long showLeft = leftTime - aLong;
-                        if (showLeft > 0) {
-                            String showLeftTime = "";
-                            if (showLeft % 60 < 10)
-                                showLeftTime = (showLeft / 60) + ":0" + (showLeft % 60);
-                            else
-                                showLeftTime = (showLeft / 60) + ":" + (showLeft % 60);
-                            countTime.setText(showLeftTime);
-                        } else {
-                            //  pageStateController.changeToWait();
-                            //   getIndentDetailFromServer();
-                            this.unsubscribe();
-                        }
-                    }
-                });
-    }
 
     private void initView(View view) {
         show_tag_picImg = (ImageView) view.findViewById(R.id.show_tag_pic);
@@ -301,7 +234,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         order_detailLayout = (LinearLayout) view.findViewById(R.id.order_detail_id);
 
         selected_psg_list = (ListView) view.findViewById(R.id.selected_psg_list);
-        countTime = (TextView) view.findViewById(R.id.odt_time_id);
+
 
         beginDate = (TextView) view.findViewById(R.id.odt_beginDate_id);
         endDate = (TextView) view.findViewById(R.id.odt_endDate_id);
@@ -337,16 +270,12 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         }
     }
 
-    // 待支付0  状态1（待出发）  2（已取消 超时）  3（退改签） 4 已完成
+    // unpaid 0   1   2 cancel   3  4  complate
     public void gotoPay(String satus) {
         switch (satus) {
             case "0":
                 payOrder(preOrderResult.getId(), preOrderResult.getTrainNumber());
-
                 break;
-            //    private String[] cancelBtnTips = new String[]{"取消订单", "退票", "等待出发", "退票","已取消,重新预订", "已退票,重新预订", "重新预订","重新预订"};
-            //    private String[] tipText = new String[]{"待支付", "待出发", "已验票", "已重新预订", "已取消", "已退款", "已完成", "其他类型"};
-
             case "1":
                 Toast.makeText(getContext(), "You have purchased tickets, please do not repeat the operation.", Toast.LENGTH_SHORT).show();
                 break;
@@ -371,39 +300,25 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         }
     }
 
-    // 待支付0  状态1（待出发）  2（已取消 超时）  3（退改签） 4 已完成
-    // 待支付0 -> 取消订单   状态1（待出发） ->  退票
-    // 取消订单", "退票", "已超时,重新预订", "已退票,重新预订", "重新预订"};
-    public void orderOrNot(String status) {
 
-        //     private String[] cancelBtnTips = new String[]{"取消订单", "退票", "等待出发", "退票","已取消,重新预订", "已退票,重新预订", "重新预订","重新预订"};
-        //    private String[] tipText = new String[]{"待支付", "待出发", "已验票", "已重新预订", "已取消", "已退款", "已完成", "其他类型"};
+    public void orderOrNot(String status) {
         switch (status) {
             case "0":
-                // 退票
                 AlertDialogPro.Builder builder2 = new AlertDialogPro.Builder(getContext());
                 builder2.setMessage("Are you sure you want to cancel the order?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        // 退票
                         cancelOrder(preOrderResult.getId());
 
-//                        presentState = "4";
-//                        showState(Integer.parseInt(presentState), takeTime);
                     }
                 }).setNegativeButton("Cancel", null).show();
                 break;
             case "1":
-                // 退票
                 AlertDialogPro.Builder builder3 = new AlertDialogPro.Builder(getContext());
                 builder3.setMessage("Are you sure you want a refund?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 退票
                         cancelOrder(preOrderResult.getId());
-//                        presentState = "5";
-//                        showState(Integer.parseInt(presentState), takeTime);
                     }
                 }).setNegativeButton("Cancel", null).show();
                 break;
@@ -422,14 +337,13 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
     public void payOrder(String orderId, String tripId) {
 
-        // 请求连接
         PaymentInfo paymentInfo = new PaymentInfo(orderId, tripId);
 
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(paymentInfo));
 
-        String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
-        String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
+        String loginId = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_ID);
+        String token = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_TOKEN);
 
         String insidePayUrl = UrlProperties.clientIstioIp + UrlProperties.inside_payment;
         dialog = new CustomDialog(getContext(), R.style.CustomDialog);
@@ -446,6 +360,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
                     @Override
                     public void onError(Throwable e) {
                         unlockClick();
+                        dialog.dismiss();
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
@@ -466,14 +381,13 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
     public void cancelOrder(String orderId) {
 
-        // 请求连接
         final CancelOrderInfo cancelOrderInfo = new CancelOrderInfo(orderId);
 
         MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(cancelOrderInfo));
 
-        String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
-        String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
+        String loginId = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_ID);
+        String token = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_TOKEN);
 
         String cancelOrderUrl = UrlProperties.clientIstioIp + UrlProperties.cancelOrder;
 
@@ -547,7 +461,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             SelectedPsger addPsger = null;
             if (convertView == null) {
                 addPsger = new SelectedPsger();
-                //  获得组件， 实例化组件
                 convertView = layoutInflater.inflate(R.layout.item_selected_passenger, null);
                 addPsger.psName = (TextView) convertView.findViewById(R.id.pas_name_sid);
                 addPsger.psType = (TextView) convertView.findViewById(R.id.pas_type_sid);
@@ -560,31 +473,15 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             } else {
                 addPsger = (SelectedPsger) convertView.getTag();
             }
-            // 绑定数据
-            addPsger.psName.setText(data.get(position).getContactRealName());
-            addPsger.psType.setText(ServerConstValues.EASY_PASSENGER_TYPES[data.get(position).getConatctType()]);
 
-            String tempidcard = "";
-            char[] idcards = data.get(position).getContactRealIcard().toCharArray();
-            for (int j = 0; j < idcards.length; j++) {
-                if (j > 7 && j < 14)
-                    tempidcard = tempidcard + "*";
-                else
-                    tempidcard = tempidcard + idcards[j] + "";
-            }
-            addPsger.psIdcard.setText(tempidcard);
-            addPsger.seatType.setText(ServerConstValues.SEAT_TYPES[Integer.parseInt(seatTypeValue)]);
-            addPsger.seatPrice.setText("¥" + data.get(position).getSeatPrice());
+            addPsger.psName.setText(data.get(position).getName());
+            addPsger.psType.setText(ServerConstValues.EASY_PASSENGER_TYPES[Integer.parseInt(data.get(position).getDocumentType())]);
 
-            String tempidcard2 = "";
-            char[] idcards2 = data.get(position).getOrderId().toCharArray();
-            for (int j = 0; j < idcards2.length; j++) {
-                if (j > 12 && j < 23)
-                    tempidcard2 = tempidcard2 + "";
-                else
-                    tempidcard2 = tempidcard2 + idcards2[j] + "";
-            }
-            addPsger.odt_ordernum.setText(tempidcard2);
+            addPsger.psIdcard.setText(data.get(position).getDocumentNumber());
+            addPsger.seatType.setText(ServerConstValues.SEAT_TYPES[Integer.parseInt(seatTypeValue) - 2]);
+            addPsger.seatPrice.setText("¥" + data.get(position).getPrice());
+
+            addPsger.odt_ordernum.setText(data.get(position).getOrderId());
             return convertView;
         }
 
@@ -599,9 +496,6 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         }
     }
 
-    /**
-     * 获取某路线的停留时间
-     */
     public static String getStayTime(String arriveTime, String startTime) {
         String[] ahm = arriveTime.split(":");
         String[] shm = startTime.split(":");

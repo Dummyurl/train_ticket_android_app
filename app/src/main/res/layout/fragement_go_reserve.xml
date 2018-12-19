@@ -5,7 +5,7 @@
     android:background="#E9EEF3"
     android:orientation="vertical">
 
-    <!--下面是车票详情-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <!--下面三个横向布局-->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
                 android:id="@+id/res_go_startStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="上海虹桥"
+                android:text="Shang Hai"
                 android:textColor="#949494" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:id="@+id/res_go_arriveStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="合肥南"
+                android:text="He Fei"
                 android:textColor="#949494" />
 
             <TextView
@@ -118,9 +118,8 @@
                 android:textSize="25sp" />
         </LinearLayout>
     </LinearLayout>
-    <!--车票表结束-->
 
-    <!--下面显示座位信息和价格    -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -147,7 +146,7 @@
 
     </LinearLayout>
 
-    <!--显示当前用户信息    -->
+    <!-- account info    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -174,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:text="18326102283"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -198,7 +197,7 @@
     </LinearLayout>
 
 
-    <!--添加乘客-->
+    <!--add passenger-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -206,7 +205,7 @@
         android:background="#fff"
         android:orientation="vertical">
 
-        <!--listView 添加乘客的部分-->
+
         <ListView
             android:id="@+id/add_passenger_list"
             android:layout_width="fill_parent"
@@ -257,7 +256,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!--联系手机，用于收到短信提醒-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -278,7 +277,7 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="70dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:padding="1dp"
@@ -293,7 +292,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:ems="13"
-                android:hint="用于接收短信通知"
+                android:hint="@string/phone_num_tip"
                 android:padding="1dp"
                 android:textSize="14sp" />
 
@@ -319,7 +318,6 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <!--底部的-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -331,16 +329,6 @@
             android:layout_marginLeft="12dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/notice" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/notice_reserve"
-                android:textColor="#fd9914" />
         </LinearLayout>
 
 
@@ -369,7 +357,7 @@
                 android:gravity="center"
                 android:text="@string/submit_order"
                 android:textColor="#fff"
-                android:textSize="22sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>

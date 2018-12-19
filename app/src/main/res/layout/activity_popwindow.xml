@@ -42,7 +42,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="指定出发车站"
+                            android:text="start station"
                             android:textColor="#f0f0f0"
                             android:textSize="16sp" />
 
@@ -54,13 +54,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="不限"
+                            android:text="no limit"
                             android:textColor="#fff"
                             android:textSize="16sp" />
                     </LinearLayout>
-
-                    <!--出发车站的-->
-                    <!--下面是下拉刷新和天气详情-->
 
 
                         <LinearLayout
@@ -78,8 +75,6 @@
                         </LinearLayout>
 
 
-                    <!--指定到达站-->
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,7 +88,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="指定到达车站"
+                            android:text="arrive station"
                             android:textColor="#f0f0f0"
                             android:textSize="16sp" />
 
@@ -105,13 +100,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="不限"
+                            android:text="no limit"
                             android:textColor="#fff"
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <!--出发车站的-->
-                    <!--下面是下拉刷新和天气详情-->
 
                         <LinearLayout
                             android:layout_width="match_parent"

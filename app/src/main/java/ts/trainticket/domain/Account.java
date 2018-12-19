@@ -21,7 +21,7 @@ public class Account {
     public Account(){
         gender = Gender.OTHER.getCode();
         password = "defaultPassword";
-        name = "None";
+        name = "Default Name";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
         email = "0123456789";

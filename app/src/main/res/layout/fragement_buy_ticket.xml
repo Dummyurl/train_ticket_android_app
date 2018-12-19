@@ -5,7 +5,6 @@
     android:background="#E9EEF3"
     android:orientation="vertical">
 
-    <!--下面是前一天，后一天-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +60,7 @@
                 style="@style/NormalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1月21日周三" />
+                android:text="1-21 thursday" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +96,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!--下面是车票详情-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,7 +106,7 @@
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <!--下面三个横向布局-->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -119,7 +118,7 @@
                 android:id="@+id/by_startStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="上海虹桥"
+                android:text="Shang Hai"
                 android:textColor="#949494" />
 
             <TextView
@@ -197,7 +196,7 @@
                 android:id="@+id/by_arriveStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="合肥南"
+                android:text="He Fei"
                 android:textColor="#949494" />
 
             <TextView

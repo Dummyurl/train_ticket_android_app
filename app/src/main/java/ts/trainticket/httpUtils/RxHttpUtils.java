@@ -10,14 +10,10 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
-/**
- * Created by liuZOZO on 2018/1/14.
- */
 public class RxHttpUtils {
 
-
-    public static Observable getPostData(final String url, final RequestBody jsonstr , final Context context) {
-        // 创建被观察者
+    // post  without loginid , loginToken
+    public static Observable postWithOutHeader(final String url, final RequestBody jsonstr , final Context context) {
         return Observable.create(new Observable.OnSubscribe<String>() {
 
             @Override
@@ -27,68 +23,19 @@ public class RxHttpUtils {
                     return;
                 }
                 try {
-                    String temp = HttpUtils.postData(url,jsonstr);
+                    String temp = HttpUtils.postDataWithOutHeader(url,jsonstr);
                     subscriber.onNext(temp);
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    // 抛出异常
                     subscriber.onError(new Throwable("likely not connect to server"));
                 }
             }
         }).subscribeOn(Schedulers.io());
     }
 
-    public static Observable getDataPost(final String url, final RequestBody jsonstr , final Context context) {
-        // 创建被观察者
-        return Observable.create(new Observable.OnSubscribe<String>() {
-
-            @Override
-            public void call(Subscriber<? super String > subscriber) {
-                if (null == url || !isNetWorkConnected(context)) {
-                    subscriber.onError(new Throwable("likely not connect to network"));
-                    return;
-                }
-                try {
-                    String temp = HttpUtils.postData(url,jsonstr);
-                    subscriber.onNext(temp);
-                    subscriber.onCompleted();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // 抛出异常
-                    subscriber.onError(new Throwable("likely not connect to server"));
-                }
-            }
-        }).subscribeOn(Schedulers.io());
-    }
-
-
-    public static Observable getDataByUrl(final String url, final Context context) {
-        // 创建被观察者
-        return Observable.create(new Observable.OnSubscribe<String>() {
-
-            @Override
-            public void call(Subscriber<? super String > subscriber) {
-                if (null == url || !isNetWorkConnected(context)) {
-                    subscriber.onError(new Throwable("likely not connect to network"));
-                    return;
-                }
-                try {
-                    String temp = HttpUtils.sendGetRequest(url);
-                    subscriber.onNext(temp);
-                    subscriber.onCompleted();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // 抛出异常
-                    subscriber.onError(new Throwable("likely not connect to server"));
-                }
-            }
-        }).subscribeOn(Schedulers.io());
-    }
-
-    // post   传递 loginId  loginToken 的请求头
+    // post  with loginid , loginToken
     public static Observable postWithHeader(final String url, final String loginId,final String loginToken, final RequestBody jsonstr , final Context context) {
-        // 创建被观察者
         return Observable.create(new Observable.OnSubscribe<String>() {
 
             @Override
@@ -103,17 +50,14 @@ public class RxHttpUtils {
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    // 抛出异常
                     subscriber.onError(new Throwable("likely not connect to server"));
                 }
             }
         }).subscribeOn(Schedulers.io());
     }
 
-
-    // get   传递 loginId  loginToken 的请求头
-    public static Observable getWithHeader(final String url, final String loginId,final String loginToken, final Context context) {
-        // 创建被观察者
+    // get   without loginId  loginToken
+    public static Observable getWithOutHeader(final String url, final Context context) {
         return Observable.create(new Observable.OnSubscribe<String>() {
 
             @Override
@@ -123,12 +67,36 @@ public class RxHttpUtils {
                     return;
                 }
                 try {
-                    String temp = HttpUtils.getContacts(url,loginId, loginToken);
+                    String temp = HttpUtils.sendGetRequestWithOutHeader(url);
                     subscriber.onNext(temp);
                     subscriber.onCompleted();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    // 抛出异常
+                    subscriber.onError(new Throwable("likely not connect to server"));
+                }
+            }
+        }).subscribeOn(Schedulers.io());
+    }
+
+
+
+
+    // get   loginId  loginToken
+    public static Observable getWithHeader(final String url, final String loginId,final String loginToken, final Context context) {
+        return Observable.create(new Observable.OnSubscribe<String>() {
+
+            @Override
+            public void call(Subscriber<? super String > subscriber) {
+                if (null == url || !isNetWorkConnected(context)) {
+                    subscriber.onError(new Throwable("likely not connect to network"));
+                    return;
+                }
+                try {
+                    String temp = HttpUtils.sendGetRequestWithHeader(url,loginId, loginToken);
+                    subscriber.onNext(temp);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    e.printStackTrace();
                     subscriber.onError(new Throwable("likely not connect to server"));
                 }
             }

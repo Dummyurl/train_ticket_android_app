@@ -60,7 +60,7 @@
                 style="@style/NormalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1月21日周三" />
+                android:text="1-21 wednesday" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,7 +129,6 @@
             android:layout_gravity="center"
             android:text="@string/no_trip_line" />
 
-        <!--下面是下拉刷新和contact_path的的container-->
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh_contact_paths"
             android:layout_width="match_parent"
@@ -215,5 +214,5 @@
             </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout> <!--下拉刷新和底部筛选结束-->
+    </LinearLayout>
 </LinearLayout>

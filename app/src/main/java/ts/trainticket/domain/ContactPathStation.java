@@ -1,8 +1,6 @@
-package ts.trainticket.databean;
+package ts.trainticket.domain;
 
-/**
- * Created by liuZOZO on 2018/1/28.
- */
+
 public class ContactPathStation {
     private String stationNumber;
     private String pathName;

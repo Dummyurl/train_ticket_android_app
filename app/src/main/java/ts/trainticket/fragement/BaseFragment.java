@@ -28,7 +28,7 @@ public class BaseFragment extends Fragment{
         }
     }
 
-    // 将数个点击按钮加入到点击管理事件
+
     protected void addToBtnController(View... views) {
         Collections.addAll(this.views, views);
     }

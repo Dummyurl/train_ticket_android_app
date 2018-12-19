@@ -1,39 +1,48 @@
 package ts.trainticket.domain;
 
 
-import java.util.UUID;
-
 public class Contacts {
 
-    private UUID id;
+    private String id;
 
-    private UUID accountId;
+    private String accountId;
 
     private String name;
 
-    private int documentType;
+    private String documentType;
 
     private String documentNumber;
 
     private String phoneNumber;
 
+    private String price;
+    private String orderId;
+
     public Contacts() {
-        //Default Constructor
     }
 
-    public UUID getId() {
+    public Contacts(String id, String accountId, String name, String documentType, String documentNumber, String phoneNumber) {
+        this.id = id;
+        this.accountId = accountId;
+        this.name = name;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public UUID getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(UUID accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
@@ -45,11 +54,11 @@ public class Contacts {
         this.name = name;
     }
 
-    public int getDocumentType() {
+    public String getDocumentType() {
         return documentType;
     }
 
-    public void setDocumentType(int documentType) {
+    public void setDocumentType(String documentType) {
         this.documentType = documentType;
     }
 
@@ -69,22 +78,19 @@ public class Contacts {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Contacts other = (Contacts) obj;
-        return name.equals(other.getName())
-                && accountId .equals( other.getAccountId() )
-                && documentNumber.equals(other.getDocumentNumber())
-                && phoneNumber.equals(other.getPhoneNumber())
-                && documentType == other.getDocumentType();
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

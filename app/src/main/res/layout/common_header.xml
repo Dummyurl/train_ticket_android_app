@@ -49,10 +49,5 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:layout_below="@id/title_L"-->
-    <!--android:background="#D3D3D3" />-->
 
 </RelativeLayout>

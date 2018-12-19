@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ts.trainticket">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--往sdcard中写入数据的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--在sdcard中创建/删除文件的权限 -->
     <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
 
 
 
     <application
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="ticket"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -65,31 +66,11 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".OldOrdersDetailActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".WeatherActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".WeatherDetailActivty"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".FilterPathPopWindowActivity"
             android:theme="@style/MyDialogStyleBottom" />
 
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".MoreActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".messagepush.MQTTService"/>

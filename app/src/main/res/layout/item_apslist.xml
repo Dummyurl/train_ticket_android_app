@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!--下面需要动态加入-->
     <LinearLayout
 
         android:layout_width="match_parent"

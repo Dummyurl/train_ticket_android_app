@@ -15,15 +15,11 @@ import java.util.List;
 
 import ts.trainticket.OrderDetailActivity;
 import ts.trainticket.R;
-import ts.trainticket.databean.Orders;
-import ts.trainticket.databean.Ticket;
+import ts.trainticket.domain.Ticket;
 import ts.trainticket.domain.OrderList;
-import ts.trainticket.domain.PreserveOrderResult;
 import ts.trainticket.utils.CalendarUtil;
 
-/**
- * Created by liuZOZO on 2018/3/14.
- */
+
 public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1ViewHolder> {
 
     private List<OrderList> ordersList;
@@ -56,31 +52,18 @@ public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1V
 
         cpholder.priceTv.setText("¥" + ordersList.get(i).getPrice());
 
-        String seatInfo = ordersList.get(i).getTrainNumber() + " " + Ticket.FULL_SEAT_TYPES[ordersList.get(i).getSeatClass()];
+        String seatInfo = ordersList.get(i).getTrainNumber() + " " + Ticket.FULL_SEAT_TYPES[ordersList.get(i).getSeatClass() - 2];
         cpholder.seatTypeTv.setText(seatInfo);
-        String tempidcard = "";
-        char[] idcards = ordersList.get(i).getId().toCharArray();
-        //
-        for (int j = 0; j < idcards.length; j++) {
-            if (j > 6 && j < 13)
-                tempidcard = tempidcard + "*";
-            else if (j > 12 && j < 23) {
 
-            } else {
-                tempidcard = tempidcard + idcards[j] + "";
-            }
-        }
-        cpholder.idcardTv.setText(tempidcard);
+        cpholder.idcardTv.setText( ordersList.get(i).getId());
 
         final int position = i;
         cpholder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 点击每一个路线进行跳转
-                //   Intent intent = new Intent(context, OldOrdersDetailActivity.class);
+
                 Intent intent = new Intent(context, OrderDetailActivity.class);
                 intent.putExtra("ordersResult", new Gson().toJson(ordersList.get(position)));
-                //  Toast.makeText(context,ordersList.get(position).getOrderId(), Toast.LENGTH_LONG).show();
                 context.startActivity(intent);
             }
         });
@@ -105,7 +88,6 @@ public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1V
         private TextView priceTv = null;
         private TextView seatTypeTv = null;
         private TextView reOrderTv = null;
-        // private TextView delOrderTv = null;
         private TextView idcardTv = null;
 
         public Orders1ViewHolder(View itemView) {
@@ -118,7 +100,6 @@ public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1V
             seatTypeTv = (TextView) itemView.findViewById(R.id.seatType_oid);
             reOrderTv = (TextView) itemView.findViewById(R.id.reOrder_oid);
             idcardTv = (TextView) itemView.findViewById(R.id.idcard_id);
-            //  delOrderTv = (TextView) itemView.findViewById(R.id.delOrder_oid);
         }
     }
 }
