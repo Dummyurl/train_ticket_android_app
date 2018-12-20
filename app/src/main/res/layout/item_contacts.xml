@@ -38,7 +38,7 @@
                     android:id="@+id/add_passenger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="刘德卫"
+                    android:text="xxx"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="学生票"
+                    android:text="adult"
                     android:textColor="#cfcfcf"
                     android:textSize="16sp" />
             </LinearLayout>

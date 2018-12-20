@@ -73,8 +73,8 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             R.drawable.hb_yiquxiao_icon,
     };
 
-    private String[] cancelBtnTips = new String[]{"Cancel", "Refound", "waiting", "To refund", "Cancelled ,To Re-book", "Refund, To Re-book", "To Re-book", "To Re-book"};
-    private String[] tipBottomBtnText = new String[]{"Pay", "Paid", "Paid", "Paid", "Canceled", "Refounded", "Completed", "unkonwn"};
+    private String[] cancelBtnTips = new String[]{"Cancel", "Refunded", "waiting", "To refund", "Cancelled ,To Re-book", "Refunded, To Re-book", "To Re-book", "To Re-book"};
+    private String[] tipBottomBtnText = new String[]{"Pay", "Paid", "Paid", "Paid", "Canceled", "Refunded", "Completed", "unkonwn"};
 
 
     private TextView beginDate = null;
@@ -186,7 +186,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
         contact.setPrice(preOrderResult.getPrice());
         contact.setOrderId(preOrderResult.getId());
         contacts.add(contact);
-        total_Money.setText("¥" + preOrderResult.getPrice());
+        total_Money.setText("$" + preOrderResult.getPrice());
         showPesger(contacts);
     }
 
@@ -202,10 +202,10 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
             show_tips2Tv.setVisibility(View.VISIBLE);
             show_tag_picImg.setVisibility(View.VISIBLE);
         }
-        if (CalendarUtil.compareTimeDate(takeTime) && CalendarUtil.compare_date(takeDate) && status == 1)
-            cancel_order.setText("dispatched");
-        else
-            cancel_order.setText(cancelBtnTips[status]);
+//        if (CalendarUtil.compareTimeDate(takeTime) && CalendarUtil.compare_date(takeDate) && status == 1)
+//            cancel_order.setText("dispatched");
+//        else
+//            cancel_order.setText(cancelBtnTips[status]);
 
         pay_btn.setText(tipBottomBtnText[status]);
     }
@@ -479,7 +479,7 @@ public class OrderDetail_Fragement extends BaseFragment implements View.OnClickL
 
             addPsger.psIdcard.setText(data.get(position).getDocumentNumber());
             addPsger.seatType.setText(ServerConstValues.SEAT_TYPES[Integer.parseInt(seatTypeValue) - 2]);
-            addPsger.seatPrice.setText("¥" + data.get(position).getPrice());
+            addPsger.seatPrice.setText("$" + data.get(position).getPrice());
 
             addPsger.odt_ordernum.setText(data.get(position).getOrderId());
             return convertView;

@@ -125,7 +125,7 @@
                     android:id="@+id/first_money_ct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¥200"
+                    android:text="$200"
                     android:textColor="#f5cd55"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -158,7 +158,7 @@
                     android:id="@+id/first_seattype_ct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2st:"
+                    android:text="2rd:"
                     android:textSize="10sp" />
 
                 <TextView

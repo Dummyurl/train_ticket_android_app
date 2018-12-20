@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import ts.trainticket.fragement.AccountFragement;
-import ts.trainticket.fragement.ReserveFragment;
-import ts.trainticket.fragement.StationFragment;
+import ts.trainticket.fragement.Account_Fragement;
+import ts.trainticket.fragement.Reserve_Fragment;
+import ts.trainticket.fragement.Station_Fragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int SIGN_IN_RESULT = 2;
     private FragmentTabHost mTabHost;
     private LayoutInflater layoutInflater;
-    private Class fragmentArray[] = {ReserveFragment.class, StationFragment.class, AccountFragement.class};
+    private Class fragmentArray[] = {Reserve_Fragment.class, Station_Fragment.class, Account_Fragement.class};
     private int imageViewArray[] = {R.drawable.one_change_icon_image, R.drawable.two_change_icon_image, R.drawable.four_change_icon_image};
     private String textViewArray[] = {"ticket reserve", "station search", "account"};
 

@@ -38,7 +38,7 @@ import ts.trainticket.utils.ApplicationPreferences;
 import ts.trainticket.utils.CalendarUtil;
 
 
-public class PathDetailFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener {
+public class PathInfo_Fragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener {
 
 
     private Button btnDate = null;
@@ -62,15 +62,15 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
 
 
     private static class InterHandler extends Handler {
-        private WeakReference<PathDetailFragment> mActivity;
+        private WeakReference<PathInfo_Fragment> mActivity;
 
-        public InterHandler(PathDetailFragment activity) {
-            mActivity = new WeakReference<PathDetailFragment>(activity);
+        public InterHandler(PathInfo_Fragment activity) {
+            mActivity = new WeakReference<PathInfo_Fragment>(activity);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            PathDetailFragment activity = mActivity.get();
+            PathInfo_Fragment activity = mActivity.get();
             if (activity != null) {
                 switch (msg.what) {
                     case REFRESH_COMPLETE:
@@ -99,7 +99,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
         by_pathName = (TextView) view.findViewById(R.id.by_pathname);
 
         btnDate = (Button) view.findViewById(R.id.btn_byticket_date);
-        btnDate.setOnClickListener(new DateChooseListener());
+        //btnDate.setOnClickListener(new DateChooseListener());
         addToBtnController(btnDate);
 
         if (null == startDate) {
@@ -118,7 +118,6 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
     private void initData(String gsonStr) {
         Gson gson = new Gson();
         path = gson.fromJson(gsonStr, ContactPath.class);
-
         btnDate.setText(path.getPathDate());
         by_pathName.setText(path.getPathName());
         startStation.setText(path.getStartStation());
@@ -189,7 +188,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                 viewHolder = (MeituanViewHolder) view.getTag();
             }
             viewHolder.seatType.setText(list.get(position).getSeatType());
-            viewHolder.seatPrice.setText("¥" + (int) (list.get(position).getSeatPrice()));
+            viewHolder.seatPrice.setText("$" + (int) (list.get(position).getSeatPrice()));
             viewHolder.leftTickets.setText(list.get(position).getLeftTickets() + "p");
             viewHolder.reserveBtn.setText("reserve");
             addToBtnController(viewHolder.reserveBtn);
@@ -205,7 +204,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
                         Gson gson = new Gson();
                         intent.putExtra("ticket_detail", gson.toJson(path));
                         intent.putExtra("seatType", list.get(position).getSeatType());
-                        intent.putExtra("seatPrice", "¥" + (int) (list.get(position).getSeatPrice()));
+                        intent.putExtra("seatPrice", "$" + (int) (list.get(position).getSeatPrice()));
                     } else {
                         Toast.makeText(getContext(), "you need to login first！", Toast.LENGTH_SHORT).show();
                         intent = new Intent(getActivity(), LoginActivity.class);
@@ -323,7 +322,7 @@ public class PathDetailFragment extends BaseFragment implements MeiTuanListView.
 
     // change date
     private void changeShowDate() {
-        SimpleDateFormat tempFromat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat tempFromat = new SimpleDateFormat("yyyy-MM-dd");
         // String dateStr = SimpleDateFormat.getDateInstance().format(startDate.getTime());
         String dateStr = tempFromat.format(startDate.getTime());
         if (dateStr.charAt(0) == '0')

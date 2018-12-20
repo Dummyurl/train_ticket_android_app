@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ts.trainticket.fragement.PathDetailFragment;
+import ts.trainticket.fragement.PathInfo_Fragment;
 
 
 public class BuyTicketActivity extends AppCompatActivity {
 
-    private PathDetailFragment buyTicketFragment;
+    private PathInfo_Fragment buyTicketFragment;
 
     // head
     private Button head_back_btn = null;
@@ -45,7 +45,7 @@ public class BuyTicketActivity extends AppCompatActivity {
     }
 
     private void initFragment(){
-        buyTicketFragment = new PathDetailFragment();
+        buyTicketFragment = new PathInfo_Fragment();
         Bundle bundle = new Bundle();
         bundle.putString("pathInfo",getIntent().getStringExtra("item_contact_path"));
         buyTicketFragment.setArguments(bundle);

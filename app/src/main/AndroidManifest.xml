@@ -66,14 +66,9 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".FilterPathPopWindowActivity"
-            android:theme="@style/MyDialogStyleBottom" />
-
-        <activity
             android:name=".AboutActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".messagepush.MQTTService"/>
     </application>
 
 </manifest>

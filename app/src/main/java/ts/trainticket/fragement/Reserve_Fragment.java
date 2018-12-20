@@ -38,7 +38,7 @@ import ts.trainticket.httpUtils.UrlProperties;
 import ts.trainticket.utils.ApplicationPreferences;
 import ts.trainticket.utils.CalendarUtil;
 
-public class ReserveFragment extends BaseFragment {
+public class Reserve_Fragment extends BaseFragment {
 
     // head
     private Button head_back_btn = null;
@@ -73,6 +73,7 @@ public class ReserveFragment extends BaseFragment {
     public static final String CAR_TYPE_typeZ = "car_typez";
     public static final String CAR_TYPE_typeT = "car_typet";
     public static final String CAR_TYPE_typeK = "car_typek";
+
     // train type
     private CheckBox typeAll = null;
     private CheckBox typeGD = null;
@@ -104,7 +105,7 @@ public class ReserveFragment extends BaseFragment {
         initTimeChooseButton(view);
 
         initTrainTypeButton(view);
-        intiSearchButton(view);
+        initSearchButton(view);
         initCities();
     }
 
@@ -128,40 +129,40 @@ public class ReserveFragment extends BaseFragment {
     }
 
     // init search button
-    private void intiSearchButton(View view) {
+    private void initSearchButton(View view) {
         search_path_id = (Button) view.findViewById(R.id.search_path_id);
         search_path_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(getActivity(), TravelPathActivity.class);
-                intent.putExtra(ReserveFragment.START_CITY, startCity.getText());
-                intent.putExtra(ReserveFragment.END_CITY, arriveCity.getText());
-                intent.putExtra(ReserveFragment.START_DATE, startDateBtn.getText());
+                intent.putExtra(Reserve_Fragment.START_CITY, startCity.getText());
+                intent.putExtra(Reserve_Fragment.END_CITY, arriveCity.getText());
+                intent.putExtra(Reserve_Fragment.START_DATE, CalendarUtil.formatMMddyyyy(startDateBtn.getText().toString()));
 
-                intent.putExtra(ReserveFragment.START_TIME, startTimeBtn.getText());
-                intent.putExtra(ReserveFragment.ARRIVE_TIME, endTimeBtn.getText());
+                intent.putExtra(Reserve_Fragment.START_TIME, startTimeBtn.getText());
+                intent.putExtra(Reserve_Fragment.ARRIVE_TIME, endTimeBtn.getText());
 
 
                 if (typeGD.isChecked())
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeGD, "GD");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeGD, "GD");
                 else
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeGD, "gd");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeGD, "gd");
 
                 if (typeZ.isChecked())
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeZ, "Z");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeZ, "Z");
                 else
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeZ, "z");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeZ, "z");
 
                 if (typeT.isChecked())
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeT, "T");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeT, "T");
                 else
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeT, "t");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeT, "t");
 
                 if (typeK.isChecked())
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeK, "K");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeK, "K");
                 else
-                    intent.putExtra(ReserveFragment.CAR_TYPE_typeK, "k");
+                    intent.putExtra(Reserve_Fragment.CAR_TYPE_typeK, "k");
 
 
                 String newPath2 = startCity.getText().toString() + MEMORY_PATH_SPLITTER + arriveCity.getText().toString();
@@ -228,7 +229,7 @@ public class ReserveFragment extends BaseFragment {
 
         memoryPaths = ApplicationPreferences.getMemoryPaths(getActivity());
         if (memoryPaths.isEmpty()) {
-
+            // default
             String newPath1 = "Nan Jing" + MEMORY_PATH_SPLITTER + "Shang Hai";
             String newPath2 = "Shang Hai" + MEMORY_PATH_SPLITTER + "Nan Jing";
             memoryPaths.add(0, newPath1);
@@ -350,7 +351,8 @@ public class ReserveFragment extends BaseFragment {
     // change date
     private void changeShowDate() {
         String dateStr = SimpleDateFormat.getDateInstance().format(startDate.getTime());
-        startDateBtn.setText(dateStr.replaceAll("年", "-").replaceAll("月", "-").replaceAll("日", ""));
+        // Dec 19, 2018
+        startDateBtn.setText(dateStr);
     }
 
     // change time
@@ -493,6 +495,7 @@ public class ReserveFragment extends BaseFragment {
                     startDate.get(Calendar.MONTH),
                     startDate.get(Calendar.DAY_OF_MONTH)
             );
+
             Calendar lastDay = CalendarUtil.getLastDay();
             datePicker.setMinDate(now);
             datePicker.setMaxDate(lastDay);
@@ -504,6 +507,7 @@ public class ReserveFragment extends BaseFragment {
                     unlockClick();
                 }
             });
+
             datePicker.show(getActivity().getFragmentManager(), "" + startDateBtn.getId());
         }
     }
@@ -555,9 +559,9 @@ public class ReserveFragment extends BaseFragment {
                 return;
             }
             if (R.id.btn_start_city == clickCity) {
-                startCityName = data.getStringExtra(CityChooseFragement.CITY_CHOOSED);
+                startCityName = data.getStringExtra(CityChoose_Fragement.CITY_CHOOSED);
             } else if (R.id.btn_arrive_city == clickCity) {
-                arriveCityName = data.getStringExtra(CityChooseFragement.CITY_CHOOSED);
+                arriveCityName = data.getStringExtra(CityChoose_Fragement.CITY_CHOOSED);
             }
             changeShowCity();
         }

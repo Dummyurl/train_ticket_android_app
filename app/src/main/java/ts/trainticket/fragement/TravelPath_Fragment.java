@@ -44,7 +44,6 @@ import ts.trainticket.BuyTicketActivity;
 import ts.trainticket.R;
 import ts.trainticket.domain.ContactPath;
 import ts.trainticket.domain.ContactPathPageResponse;
-import ts.trainticket.domain.Station;
 import ts.trainticket.domain.Ticket;
 import ts.trainticket.domain.QueryInfo;
 import ts.trainticket.domain.TripResponse;
@@ -91,11 +90,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
     String car_typek = "";
 
 
-    List<Station> tempList1;
-    List<Station> tempList2;
-    int cityTotalNum = 0;
-
-
     private int tagNum = 0;
     private List<ContactPath> travel1List;
     private List<ContactPath> travel2List;
@@ -117,7 +111,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
         end_city = getArguments().getString("end_city");
 
         pathStartDate = getArguments().getString("pathStartDate");
-        pathStartDate = parseTime(pathStartDate);
+        btn_tstart_date.setText(pathStartDate);
 
         start_time = getArguments().getString("start_time");
         arrive_time = getArguments().getString("arrive_time");
@@ -142,18 +136,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
         }
     }
 
-    public String parseTime(String datdString) {
-
-        datdString = datdString.replace("年", "-");
-        datdString = datdString.replace("月", "-");
-        datdString = datdString.replace("日", "");
-        String arr[] = datdString.split("-");
-        if (arr[1].length() == 1)
-            arr[1] = "0" + arr[1];
-        datdString = arr[0] + "-" + arr[1] + "-" + arr[2];
-        btn_tstart_date.setText(datdString);
-        return datdString;
-    }
 
     public void initView(View view) {
         before_dayTv = (TextView) view.findViewById(R.id.before_day_id);
@@ -179,7 +161,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             startDate = Calendar.getInstance();
         }
         changeShowDate();
-        btn_tstart_date.setOnClickListener(new DateChooseListener());
+       // btn_tstart_date.setOnClickListener(new DateChooseListener());
 
         initBottomBtn(view);
     }
@@ -212,14 +194,13 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        // 刷新
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 getPathListFromServer(start_city, end_city, pathStartDate);
                 refreshContactPath.setRefreshing(false);
             }
-        }, 1000);
+        }, 500);
     }
 
     @Override
@@ -231,11 +212,20 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                 break;
             case R.id.next_day_id:
                 tagDay = true;
+                showDayBeforeAfterState();
                 getPathListFromServer(start_city, end_city, getSpecifiedDayBefore(pathStartDate, 1));
                 break;
             default:
                 break;
         }
+    }
+
+    public void showDayBeforeAfterState() {
+        reserve_tips.setVisibility(View.GONE);
+        reserve_tips_img.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        animationDrawable.start();
+        animationIV.setVisibility(View.VISIBLE);
     }
 
 
@@ -309,7 +299,6 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
     }
 
 
-
     private String changeTime(String time) {
         time = time.replace("h", ":");
         time = time.replace("m", "");
@@ -363,13 +352,9 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 
     // change date
     private void changeShowDate() {
-        SimpleDateFormat tempFromat = new SimpleDateFormat("MM月dd日 E ");
-        // String dateStr = SimpleDateFormat.getDateInstance().format(startDate.getTime());
+        SimpleDateFormat tempFromat = new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = tempFromat.format(startDate.getTime());
-        if (dateStr.charAt(0) == '0')
-            btn_tstart_date.setText(dateStr.replaceFirst("0", ""));
-        else
-            btn_tstart_date.setText(dateStr);
+        btn_tstart_date.setText(dateStr);
     }
 
     public void getPathDataFromServer(String getPathUrl, String start_city, String end_city, String pathStartDate) {
@@ -396,55 +381,52 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                     public void onNext(String responseResult) {
                         unlockClick();
                         if (responseResult != null && !responseResult.equals("")) {
-
                             ArrayList<TripResponse> tripResponseArrayList = new ArrayList<>();
-
                             JSONArray jsonArray = JSON.parseArray(responseResult);
                             Iterator it = jsonArray.iterator();
-                            while (it.hasNext()) {
-                                JSONObject tripObj = (JSONObject) it.next();
-                                JSONObject tripIdObj = tripObj.getJSONObject("tripId");
-                                String tripId = tripIdObj.getString("type") + tripIdObj.getString("number");
-
-                                TripResponse tp = new TripResponse(tripId, tripObj.getString("trainTypeId"),
-                                        tripObj.getString("startingStation"), tripObj.getString("terminalStation"),
-                                        tripObj.getString("startingTime"), tripObj.getString("endTime"),
-                                        tripObj.getString("economyClass"), tripObj.getString("confortClass"),
-                                        tripObj.getString("priceForEconomyClass"), tripObj.getString("priceForConfortClass"));
-
-                                tripResponseArrayList.add(tp);
-                            }
-
-                            List<ContactPath> contactPathList = new ArrayList<>();
-                            for (int i = 0; i < tripResponseArrayList.size(); i++) {
-                                ContactPath cp = new ContactPath();
-                                cp.setPathName(tripResponseArrayList.get(i).getTripId());
-                                // todo   the train ticket system's time is a bug,
-                                cp.setPathDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-
-                                cp.setStartTime(CalendarUtil.getHMS(tripResponseArrayList.get(i).getStartingTime()));
-                                cp.setStartStation(tripResponseArrayList.get(i).getStartingStation());
-
-                                cp.setArriveTime(CalendarUtil.getHMS(tripResponseArrayList.get(i).getEndTime()));
-                                cp.setArriveStation(tripResponseArrayList.get(i).getTerminalStation());
-
-                                cp.setTotalTime(CalendarUtil.getDistanceTime(CalendarUtil.getHMS(tripResponseArrayList.get(i).getStartingTime()), CalendarUtil.getHMS(tripResponseArrayList.get(i).getEndTime())));
-
-                                // 2 kind site，2 kind site num
-                                cp.setSeats(new int[]{Integer.parseInt(tripResponseArrayList.get(i).getEconomyClass()), Integer.parseInt(tripResponseArrayList.get(i).getConfortClass())});
-                                cp.setPrices(new double[]{Double.parseDouble(tripResponseArrayList.get(i).getPriceForEconomyClass()), Double.parseDouble(tripResponseArrayList.get(i).getPriceForConfortClass())});
-                                contactPathList.add(cp);
-                            }
-
                             try {
-                                showContactPath(contactPathList);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+                                while (it.hasNext()) {
+                                    JSONObject tripObj = (JSONObject) it.next();
+                                    JSONObject tripIdObj = tripObj.getJSONObject("tripId");
+                                    String tripId = tripIdObj.getString("type") + tripIdObj.getString("number");
 
+                                    TripResponse tp = new TripResponse(tripId, tripObj.getString("trainTypeId"),
+                                            tripObj.getString("startingStation"), tripObj.getString("terminalStation"),
+                                            tripObj.getString("startingTime"), tripObj.getString("endTime"),
+                                            tripObj.getString("economyClass"), tripObj.getString("confortClass"),
+                                            tripObj.getString("priceForEconomyClass"), tripObj.getString("priceForConfortClass"));
+
+                                    tripResponseArrayList.add(tp);
+                                }
+
+                                List<ContactPath> contactPathList = new ArrayList<>();
+                                for (int i = 0; i < tripResponseArrayList.size(); i++) {
+                                    ContactPath cp = new ContactPath();
+                                    cp.setPathName(tripResponseArrayList.get(i).getTripId());
+                                    // todo   the train ticket system's time is a bug,
+                                    cp.setPathDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+                                    cp.setStartTime(CalendarUtil.getHMS(tripResponseArrayList.get(i).getStartingTime()));
+                                    cp.setStartStation(tripResponseArrayList.get(i).getStartingStation());
+
+                                    cp.setArriveTime(CalendarUtil.getHMS(tripResponseArrayList.get(i).getEndTime()));
+                                    cp.setArriveStation(tripResponseArrayList.get(i).getTerminalStation());
+
+                                    cp.setTotalTime(CalendarUtil.getDistanceTime(CalendarUtil.getHMS(tripResponseArrayList.get(i).getStartingTime()), CalendarUtil.getHMS(tripResponseArrayList.get(i).getEndTime())));
+
+                                    // 2 kind site，2 kind site num
+                                    cp.setSeats(new int[]{Integer.parseInt(tripResponseArrayList.get(i).getEconomyClass()), Integer.parseInt(tripResponseArrayList.get(i).getConfortClass())});
+                                    cp.setPrices(new double[]{Double.parseDouble(tripResponseArrayList.get(i).getPriceForEconomyClass()), Double.parseDouble(tripResponseArrayList.get(i).getPriceForConfortClass())});
+                                    contactPathList.add(cp);
+                                }
+                                showContactPath(contactPathList);
+                            } catch (Exception e) {
+                                showState(false);
+                                e.printStackTrace();// no  trip
+                            }
                         } else {
                             showState(false);
-                            Toast.makeText(getActivity(), "service unavailable", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getActivity(), "service unavailable", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -464,7 +446,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             recyclerView.setVisibility(View.GONE);
             animationDrawable.stop();
             animationIV.setVisibility(View.GONE);
-            reserve_tips.setText("no that trip line！");
+            reserve_tips.setText("no trip！");
         }
     }
 
@@ -600,7 +582,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
             }
 
             String showPrice = String.valueOf((int) (list.get(i).getPrices()[Integer.parseInt(seatIndex[0])]));
-            cpholder.first_money_ct.setText("¥" + showPrice);
+            cpholder.first_money_ct.setText("$" + showPrice);
 
             for (int k = 0; k < Ticket.EASY_SEAT_TYPES.length; k++) {
                 if (Integer.parseInt(seatValues[k]) < 50) {
@@ -619,7 +601,11 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
 
                     Intent intent = new Intent(getActivity(), BuyTicketActivity.class);
                     Gson gson = new Gson();
-                    intent.putExtra("item_contact_path", gson.toJson(list.get(position)));
+                    ContactPath contactPath = list.get(position);
+                    // todo
+                    // for the reason of the train ticket server side date bug is year 2013
+                    contactPath.setPathDate(btn_tstart_date.getText().toString());
+                    intent.putExtra("item_contact_path", gson.toJson(contactPath));
                     startActivity(intent);
                 }
             });

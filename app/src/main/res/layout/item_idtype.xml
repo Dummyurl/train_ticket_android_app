@@ -22,17 +22,5 @@
             android:layout_height="wrap_content"
             android:padding="13dp"
             android:text="Passport"/>
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb3_asid"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="13dp"-->
-            <!--android:text="回乡证"/>-->
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb4_asid"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="13dp"-->
-            <!--android:text="台胞证"/>-->
     </RadioGroup>
 </LinearLayout>

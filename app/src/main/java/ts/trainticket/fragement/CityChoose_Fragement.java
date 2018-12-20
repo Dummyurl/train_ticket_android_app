@@ -26,7 +26,7 @@ import ts.trainticket.R;
 import ts.trainticket.utils.ApplicationPreferences;
 
 
-public class CityChooseFragement extends BaseFragment {
+public class CityChoose_Fragement extends BaseFragment {
 
     public static final String CITY_CHOOSED = "choosed_city";
     //searchView
@@ -83,7 +83,7 @@ public class CityChooseFragement extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String map = (String) city_listView.getItemAtPosition(position);
                 Intent intent = new Intent();
-                intent.putExtra(CityChooseFragement.CITY_CHOOSED, map);
+                intent.putExtra(CityChoose_Fragement.CITY_CHOOSED, map);
                if(!memoryCities.contains(map)) // 没有才加进去
                 memoryCities.add(map);
                 if(memoryCities.size()>4)
@@ -169,7 +169,7 @@ public class CityChooseFragement extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.putExtra(CityChooseFragement.CITY_CHOOSED, memoryBtn.getText());
+                        intent.putExtra(CityChoose_Fragement.CITY_CHOOSED, memoryBtn.getText());
                         getActivity().setResult(MainActivity.CITY_CHOOSE_RESULT, intent);
                         getActivity().finish();
                     }
@@ -210,7 +210,7 @@ public class CityChooseFragement extends BaseFragment {
                     public void onClick(View v) {
                         lockClick();
                         Intent intent = new Intent();
-                        intent.putExtra(CityChooseFragement.CITY_CHOOSED, hotCityBtn.getText());
+                        intent.putExtra(CityChoose_Fragement.CITY_CHOOSED, hotCityBtn.getText());
                         getActivity().setResult(MainActivity.CITY_CHOOSE_RESULT, intent);
                         getActivity().finish();
                         unlockClick();

@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import ts.trainticket.fragement.TicketReserve_Fragement;
+import ts.trainticket.fragement.TicketInfo_Fragement;
 
 
 public class TicketReserveActivity extends AppCompatActivity {
 
-    private TicketReserve_Fragement goReserve_fragement;
+    private TicketInfo_Fragement goReserve_fragement;
     // head
     private Button head_back_btn = null;
     @Override
@@ -35,7 +35,7 @@ public class TicketReserveActivity extends AppCompatActivity {
         });
     }
     private void initFragment(){
-        goReserve_fragement = new TicketReserve_Fragement();
+        goReserve_fragement = new TicketInfo_Fragement();
 
         Bundle bundle = new Bundle();
         bundle.putString("ticket_detail",getIntent().getStringExtra("ticket_detail"));

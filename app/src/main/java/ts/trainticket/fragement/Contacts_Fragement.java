@@ -92,7 +92,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
         RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(deleteContactsInfo));
 
         String listStationUri = UrlProperties.clientIstioIp + UrlProperties.deleteContacts;
-        System.out.println(new Gson().toJson(deleteContactsInfo) + "------=--=0-0");
 
         subscription = RxHttpUtils.postWithOutHeader(listStationUri, requestBody, getContext())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,7 +109,6 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                     @Override
                     public void onNext(String responseResult) {
                         unlockClick();
-                        System.out.println(responseResult + "-=--==-=0-");
                         if (responseResult != null && !responseResult.equals("")) {
                             Gson gson = new Gson();
                             DeleteContactsResult deleteContactsResult = gson.fromJson(responseResult, DeleteContactsResult.class);

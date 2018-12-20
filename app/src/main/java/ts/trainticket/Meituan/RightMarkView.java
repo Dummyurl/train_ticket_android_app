@@ -18,9 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-/**
- * Created by liuZOZO on 2018/1/26.
- */
+
 public class RightMarkView extends View {
     private static final String TAG = RightMarkView.class.getSimpleName();
     private Paint mPaint;

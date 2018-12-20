@@ -19,7 +19,7 @@ import ts.trainticket.OrdersActivity;
 import ts.trainticket.R;
 import ts.trainticket.utils.ApplicationPreferences;
 
-public class AccountFragement extends BaseFragment implements View.OnClickListener {
+public class Account_Fragement extends BaseFragment implements View.OnClickListener {
 
 
     private TextView title_personinfo_tv;

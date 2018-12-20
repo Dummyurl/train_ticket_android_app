@@ -53,7 +53,7 @@
                 android:layout_marginStart="5dp"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="阜阳" />
+                android:text="Nan Jing" />
 
             <View
                 android:layout_width="0dp"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#b1b1b1"
                 android:textSize="14sp"
-                android:text="￥64.5" />
+                android:text="$64.5" />
 
         </LinearLayout>
 
@@ -127,7 +127,7 @@
                 android:textColor="#b1b1b1"
                 android:layout_marginStart="10dp"
                 android:textSize="14sp"
-                android:text="k8482 09 车厢无座" />
+                android:text="k8482 09" />
         </LinearLayout>
 
         <View

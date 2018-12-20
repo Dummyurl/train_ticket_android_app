@@ -133,16 +133,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
-            android:text="二等座"
+            android:text="2rd- class"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/res_go_chooPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥151.5"
+            android:text="$151.5"
             android:textColor="#b7b7b7"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/res_path_date_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textColor="#b7b7b7"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
@@ -345,7 +353,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="¥0"
+                android:text="$0"
                 android:textSize="22sp" />
 
             <TextView

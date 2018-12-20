@@ -50,7 +50,7 @@ public class Orders1Adapter extends RecyclerView.Adapter<Orders1Adapter.Orders1V
         String time = pathStartDate + " - " + takeTime.substring(0, 5);
         cpholder.beginTimeTv.setText(time);
 
-        cpholder.priceTv.setText("¥" + ordersList.get(i).getPrice());
+        cpholder.priceTv.setText("$" + ordersList.get(i).getPrice());
 
         String seatInfo = ordersList.get(i).getTrainNumber() + " " + Ticket.FULL_SEAT_TYPES[ordersList.get(i).getSeatClass() - 2];
         cpholder.seatTypeTv.setText(seatInfo);

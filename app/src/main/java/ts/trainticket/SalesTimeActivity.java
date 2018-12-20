@@ -45,18 +45,18 @@ public class SalesTimeActivity extends AppCompatActivity {
         sale_time_begin = (TextView) findViewById(R.id.sale_time_begin);
         getSale_time_end = (TextView) findViewById(R.id.sale_time_end);
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-        String beginDate = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String beginDate = df.format(new Date());
         sale_time_begin.setText(beginDate);
         getSale_time_end.setText(getDate(30));
     }
 
     private String getDate(int num) {
-        Date date = new Date();//取时间
+        Date date = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-        calendar.add(calendar.DATE, num);//把日期往后增加一天.整数往后推,负数往前移动
-        date = calendar.getTime(); //这个时间就是日期往后推一天的结果
+        calendar.add(calendar.DATE, num);
+        date = calendar.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
     }

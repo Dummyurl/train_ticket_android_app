@@ -20,9 +20,7 @@ import java.text.SimpleDateFormat;
 
 import ts.trainticket.R;
 
-/**
- * Created by zhangqi on 15/10/18.
- */
+
 public class MeiTuanListView extends ListView implements AbsListView.OnScrollListener{
 	private static final int DONE = 0;
 	private static final int PULL_TO_REFRESH = 1;

@@ -63,7 +63,7 @@ import ts.trainticket.utils.ApplicationPreferences;
 import ts.trainticket.utils.ClearEditTextTools;
 import ts.trainticket.utils.ServerConstValues;
 
-public class TicketReserve_Fragement extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class TicketInfo_Fragement extends BaseFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout swiper = null;
     private RecyclerView recyclerView = null;
@@ -82,6 +82,8 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
 
     private TextView res_go_seat;
     private TextView res_go_value;
+
+    private TextView res_path_date;
 
     TextView presentAccountTv = null;
 
@@ -157,6 +159,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
         res_go_et.setText(path.getArriveTime().substring(0, 5));
         res_go_seat.setText(seatType + "   ");
         res_go_value.setText(seatPrice);
+        res_path_date.setText(path.getPathDate());
         String accountId = ApplicationPreferences.getOneInfo(getContext(), ApplicationPreferences.ACCOUNT_ID);
         if (accountId != null || accountId != "")
             presentAccountTv.setText(accountId);
@@ -232,7 +235,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
 
         delPesger = (TextView) view.findViewById(R.id.add_del_passenger);
         ticket_money = (TextView) view.findViewById(R.id.ticket_money_id);
-
+        res_path_date = (TextView)view.findViewById(R.id.res_path_date_id);
 
     }
 
@@ -275,7 +278,8 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
             String contactsId = selectedContacts.get(0).getId();
             String pathName = res_go_p.getText().toString();
             int seatType = ServerConstValues.getSeatType(res_go_seat.getText().toString());
-            String buyDate = getNowTime();
+            String buyDate = res_path_date.getText().toString();
+
             String startStation = res_go_s.getText().toString();
             String endStation = res_go_e.getText().toString();
             int assurance = 0;
@@ -320,6 +324,9 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                                     intent.putExtra("reserve_result", responseResult);
                                     startActivity(intent);
                                     customDialog.dismiss();
+                                } else {
+                                    customDialog.dismiss();
+                                    Toast.makeText(getActivity(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(getActivity(), "The order has been submitted unsuccessfully", Toast.LENGTH_SHORT).show();
@@ -441,7 +448,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
             }
 
             Double D1 = new Double(sumMoney);
-            ticket_money.setText("¥" + (D1.intValue()));
+            ticket_money.setText("$" + (D1.intValue()));
             showPesger();
         }
 
@@ -571,7 +578,7 @@ public class TicketReserve_Fragement extends BaseFragment implements View.OnClic
                         int ticketPrice = Integer.parseInt(res_go_value.getText().toString().substring(1, res_go_value.getText().toString().length()));
                         int sumMoney = Integer.parseInt(ticket_money.getText().toString().substring(1, ticket_money.getText().toString().length()));
                         sumMoney = sumMoney - ticketPrice;
-                        ticket_money.setText("¥" + sumMoney);
+                        ticket_money.setText("$" + sumMoney);
                         showPesger();
                     }
                 });

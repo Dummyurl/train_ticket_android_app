@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ts.trainticket.fragement.CityChooseFragement;
+import ts.trainticket.fragement.CityChoose_Fragement;
 
 
 public class CityChooseActivity extends AppCompatActivity {
     public static final int CITY_CHOOSE_REQUEST_CODE = 1;
 
-    private CityChooseFragement cityChooseFragement;
+    private CityChoose_Fragement cityChooseFragement;
 
     // head
     private Button head_back_btn = null;
@@ -48,7 +48,7 @@ public class CityChooseActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        cityChooseFragement = new CityChooseFragement();
+        cityChooseFragement = new CityChoose_Fragement();
     }
 
     private void showFragment() {

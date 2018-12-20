@@ -53,7 +53,7 @@ import ts.trainticket.utils.CalendarUtil;
  * station search page
  *
  */
-public class StationFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class Station_Fragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout swiper = null;
     private Button common_head_back_btn;
@@ -165,7 +165,7 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CityChooseActivity.CITY_CHOOSE_REQUEST_CODE &&
                 resultCode == MainActivity.CITY_CHOOSE_RESULT && null != data) {
-            st_btn_city.setText(data.getStringExtra(CityChooseFragement.CITY_CHOOSED));
+            st_btn_city.setText(data.getStringExtra(CityChoose_Fragement.CITY_CHOOSED));
             getTimeTableFromServer(st_btn_city.getText().toString());
         }
     }
@@ -179,21 +179,6 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
 
     public void getTimeTableFromServer(String stationName) {
         recyclerView.setAdapter(null);
-
-        try {
-            stationName = URLEncoder.encode(stationName, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        QueryInfo queryInfo = new QueryInfo( "Nan Jing","Shang Hai", "2018-10-30" );
-        MediaType mediaType = MediaType.parse("application/json;charset=UTF-8");
-        RequestBody requestBody = RequestBody.create(mediaType, new Gson().toJson(queryInfo));
-
-
-        String loginId = ApplicationPreferences.getOneInfo(getContext(), "realIcard");
-        String token = ApplicationPreferences.getOneInfo(getContext(), "accountPassword");
-
 
         String listCityUri = UrlProperties.clientIstioIp + UrlProperties.getTravelAll ;
         subscription = RxHttpUtils.getWithOutHeader(listCityUri, getContext())
@@ -263,7 +248,7 @@ public class StationFragment extends BaseFragment implements SwipeRefreshLayout.
         }else{
             animationDrawable.stop();
             animationIV.setVisibility(View.GONE);
-            st_search_tips.setText("has no data to show...");
+            st_search_tips.setText("no trip start or end with this station.");
             st_search_tips.setVisibility(View.VISIBLE);
         }
     }

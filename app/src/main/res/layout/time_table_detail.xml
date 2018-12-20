@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="K5551时刻表"
+            android:text="K5551 time table"
             android:textSize="18sp" />
 
         <LinearLayout

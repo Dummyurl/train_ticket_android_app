@@ -37,7 +37,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         head_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 跳转
                 //  Intent cityIntent = new Intent(getApplication(), TicketReserveActivity.class);
                 //   startActivity(cityIntent);
                 finish();

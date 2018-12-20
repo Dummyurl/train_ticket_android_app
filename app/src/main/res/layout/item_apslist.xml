@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID"
+                    android:text="Document Name: "
                     android:textColor="#cfcfcf"
                     android:textSize="12sp" />
 

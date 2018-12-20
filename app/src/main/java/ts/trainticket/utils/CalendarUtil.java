@@ -14,22 +14,34 @@ public class CalendarUtil {
     }
 
 
+    public static String formatMMddyyyy(String mmddyyyy) {
+        SimpleDateFormat fromat1 = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
+        Date date2 = null;
+        try {
+            date2 = fromat1.parse(mmddyyyy);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat fromat2 = new SimpleDateFormat("yyyy-MM-dd");
+        return fromat2.format(date2);
+    }
+
     public static Calendar getLastDay() {
         Calendar lastDay = getToday();
         lastDay.add(Calendar.DAY_OF_MONTH, 30 - 1);
         return lastDay;
     }
 
-    // 比较时间时分秒的大小
+
     public static boolean compareTimeDate(String beginTime) {
-        DateFormat df = new SimpleDateFormat("HH:mm:ss");//创建日期转换对象HH:mm:ss为时分秒，年月日为yyyy-MM-dd
+        DateFormat df = new SimpleDateFormat("HH:mm:ss");
         try {
             Date d = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
             String dateNowStr = sdf.format(d);
-            Date dt1 = df.parse(dateNowStr);//将字符串转换为date类型
+            Date dt1 = df.parse(dateNowStr);
             Date dt2 = df.parse(beginTime);
-            if (dt1.getTime() > dt2.getTime())//比较时间大小,如果dt1大于dt2
+            if (dt1.getTime() > dt2.getTime())
                 return true;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -39,10 +51,10 @@ public class CalendarUtil {
 
     public static boolean compare_date(String DATE2) {
         Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         String DATE1 = sdf.format(d);
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         try {
             Date dt1 = df.parse(DATE1);
             Date dt2 = df.parse(DATE2);
@@ -57,30 +69,8 @@ public class CalendarUtil {
         return false;
     }
 
-    /**
-     * 比较两个日期在年月日上的大小
-     *
-     * @return 1 表示 参数1 比 参数2 日期大, 0 表示相等
-     */
-    public static int compareCalendar(Calendar minuend, Calendar subtrahend) {
-        int fy = minuend.get(Calendar.YEAR);
-        int fm = minuend.get(Calendar.DAY_OF_YEAR);
-        int sy = subtrahend.get(Calendar.YEAR);
-        int sm = subtrahend.get(Calendar.DAY_OF_YEAR);
-
-        if (fy > sy || fy == sy && fm > sm) {
-            return 1;
-        } else if (fy == sy && fm == sm) {
-            return 0;
-        } else {
-            return -1;
-        }
-    }
 
 
-    /**
-     * 比较两个时间在小时分钟上的大小，1为前一个大于后一个，-1为前一个小于后一个
-     */
     public static int compareDate(Calendar minuend, Calendar subtrahend) {
         int fh = minuend.get(Calendar.HOUR_OF_DAY);
         int fm = minuend.get(Calendar.MINUTE);
@@ -97,50 +87,18 @@ public class CalendarUtil {
     }
 
 
-    /**
-     * 获得一个时间是否超出范围
-     *
-     * @return true 表示没有超出范围
-     */
     public static boolean isDateInRange(Calendar date, Calendar min, Calendar max) {
         return compareDate(date, min) * compareDate(max, date) >= 0;
     }
 
 
-    /**
-     * 获得天单位的Format
-     */
+
     public static String getDayFormatStr(Calendar calendar) {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
         return format.format(calendar.getTime());
     }
 
 
-    /**
-     * 获得一个0点的日历
-     */
-    public static Calendar get0clock() {
-        Calendar calendar0 = Calendar.getInstance();
-        calendar0.set(Calendar.HOUR_OF_DAY, 0);
-        calendar0.set(Calendar.MINUTE, 0);
-        return calendar0;
-    }
-
-
-    /**
-     * 获得一个23:59的日历
-     */
-    public static Calendar get2359clock() {
-        Calendar calendar2359 = Calendar.getInstance();
-        calendar2359.set(Calendar.HOUR_OF_DAY, 23);
-        calendar2359.set(Calendar.MINUTE, 59);
-        return calendar2359;
-    }
-
-
-    /**
-     * 通过 HH:mm 获得一个 Calendar
-     */
     public static Calendar getCalendarByStr(String time) {
         String[] split = time.trim().split(":");
         Calendar calendar = Calendar.getInstance();
@@ -150,44 +108,7 @@ public class CalendarUtil {
     }
 
 
-    /**
-     * 通过 yyyy-MM-dd 获得一个 Calendar
-     */
-    public static Calendar getYearCalendarByStr(String time) {
-        String[] split = time.trim().split("-");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, Integer.parseInt(split[0]));
-        calendar.set(Calendar.MONTH, Integer.parseInt(split[1]) - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(split[2]));
-        return calendar;
-    }
 
-
-    /**
-     * 复制后一个 Calendar 的 小时、分钟 到前一个中，
-     */
-    public static void copyTimeToFirst(Calendar first, Calendar second) {
-        first.set(Calendar.HOUR_OF_DAY, second.get(Calendar.HOUR_OF_DAY));
-        first.set(Calendar.MINUTE, second.get(Calendar.MINUTE));
-    }
-
-
-    /**
-     * 通过yyyy-MM-dd HH:mm:SS 获得Calendar
-     */
-    public static Calendar getCalendarByDateTime(String dateTime) {
-        Calendar calendar = Calendar.getInstance();
-        String[] split = dateTime.split("[- :.]");
-        calendar.set(Calendar.YEAR, Integer.parseInt(split[0]));
-        calendar.set(Calendar.MONTH, Integer.parseInt(split[1]) - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(split[2]));
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(split[3]));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(split[4]));
-        calendar.set(Calendar.SECOND, Integer.parseInt(split[5]));
-        return calendar;
-    }
-
-    // 通过timeStamp 获得时分秒
     public static String getHMS(String timeStamp) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -270,8 +191,8 @@ public class CalendarUtil {
 
     public static String dateToWeek(String datetime) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-        String[] weekDays = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-        Calendar cal = Calendar.getInstance(); // 获得一个日历
+        String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        Calendar cal = Calendar.getInstance();
         Date datet = null;
         try {
             datet = f.parse(datetime);
@@ -279,15 +200,15 @@ public class CalendarUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String tempTime = datetime.substring(5,10);
-        if('0' == tempTime.charAt(0))
-            tempTime = tempTime.substring(1,4);
-        tempTime = tempTime.replaceAll("-","-");
+        String tempTime = datetime.substring(5, 10);
+        if ('0' == tempTime.charAt(0))
+            tempTime = tempTime.substring(1, 4);
+        tempTime = tempTime.replaceAll("-", "-");
 
-        int w = cal.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
         if (w < 0)
             w = 0;
-        return tempTime +" "+ weekDays[w];
+        return tempTime + " " + weekDays[w];
     }
 
 
