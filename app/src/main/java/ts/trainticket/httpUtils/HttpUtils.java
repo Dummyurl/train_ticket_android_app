@@ -24,8 +24,8 @@ public class HttpUtils {
 
     public static String postDataWithOutHeader(String url_post, RequestBody requestBody ) throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
-        // addHeader("Cookie","YsbCaptcha=B5D850BB397A4725B1C985955B2738F0")
-        Request request = new Request.Builder().url(url_post).post(requestBody).build();
+        //
+        Request request = new Request.Builder().addHeader("Cookie","YsbCaptcha=B5D850BB397A4725B1C985955B2738F0").url(url_post).post(requestBody).build();
         Response response = okHttpClient.newCall(request).execute();
         if(response.isSuccessful()){
             return response.body().string();
