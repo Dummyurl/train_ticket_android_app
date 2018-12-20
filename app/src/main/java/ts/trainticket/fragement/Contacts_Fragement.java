@@ -140,6 +140,7 @@ public class Contacts_Fragement extends BaseFragment implements SwipeRefreshLayo
                     @Override
                     public void onError(Throwable e) {
                         unlockClick();
+                        changeState(false);
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 

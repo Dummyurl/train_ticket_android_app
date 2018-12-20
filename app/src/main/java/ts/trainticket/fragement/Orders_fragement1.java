@@ -129,6 +129,7 @@ public class Orders_fragement1 extends BaseFragment implements SwipeRefreshLayou
                     @Override
                     public void onError(Throwable e) {
                         unlockClick();
+                        showStates();
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 

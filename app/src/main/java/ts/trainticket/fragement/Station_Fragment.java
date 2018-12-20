@@ -191,6 +191,10 @@ public class Station_Fragment extends BaseFragment implements SwipeRefreshLayout
                     @Override
                     public void onError(Throwable e) {
                         unlockClick();
+                        animationDrawable.stop();
+                        animationIV.setVisibility(View.GONE);
+                        st_search_tips.setText("no trip start or end with this station.");
+                        st_search_tips.setVisibility(View.VISIBLE);
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 

@@ -374,6 +374,7 @@ public class TravelPath_Fragment extends BaseFragment implements SwipeRefreshLay
                     @Override
                     public void onError(Throwable e) {
                         unlockClick();
+                        showState(false);
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
